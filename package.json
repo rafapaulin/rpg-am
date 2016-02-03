@@ -15,12 +15,20 @@
     "Character",
     "Sheet",
     "Manager",
-    "DnD5" 
+    "DnD5"
   ],
   "author": "Rafael Eduardo Paulin",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/rafapaulin/rpg-am/issues"
   },
-  "homepage": "https://github.com/rafapaulin/rpg-am#readme"
+  "homepage": "https://github.com/rafapaulin/rpg-am#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongodb": "^2.1.4",
+    "mongoose": "^4.4.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
 }
