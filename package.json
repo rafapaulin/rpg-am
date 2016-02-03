@@ -1,0 +1,26 @@
+{
+  "name": "rpg-am",
+  "version": "0.0.1",
+  "description": "A character sheet generator and manager, among other stuff.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rafapaulin/rpg-am"
+  },
+  "keywords": [
+    "RPG",
+    "Character",
+    "Sheet",
+    "Manager",
+    "DnD5"
+  ],
+  "author": "Rafael Eduardo Paulin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafapaulin/rpg-am/issues"
+  },
+  "homepage": "https://github.com/rafapaulin/rpg-am#readme"
+}
