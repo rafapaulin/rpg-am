@@ -24,12 +24,9 @@
   },
   "homepage": "https://github.com/rafapaulin/rpg-am#readme",
   "dependencies": {
-    "bower": "^1.7.7",
     "express": "^4.13.4",
-    "mongodb": "^2.1.4",
-    "mongoose": "^4.4.0"
+    "mongodb": "^2.1.5",
+    "mongoose": "^4.4.1"
   },
-  "devDependencies": {
-    "gulp": "^3.9.0"
-  }
+  "devDependencies": {}
 }
