@@ -1,8 +1,9 @@
 'use strict';
 // == Requirements ================================================================= //
-	var   express = require('express'),
-			 body = require('body-parser'),
-		 mongoose = require('mongoose').connect('mongodb://192.168.1.66/test');
+	var bodyParser = require('body-parser'),
+		  mongoose = require('mongoose').connect('mongodb://192.168.1.66/test'),
+		   express = require('express');
+		 
 // ================================================================= Requirements == //
 
 // == Global Variables ============================================================= //
@@ -10,38 +11,23 @@
 		 db = mongoose.connection;
 // ============================================================= Global Variables == //
 
+app.use(bodyParser.json());
+
 // == DB Connection check ========================================================== //
 	db.on('error', console.error.bind(console, 'connection error:'));
 	db.once('open', function() {console.log('Yay! Mongo!')});
 // ========================================================== DB Connection check == //
 
-skills = require('./routes/skills');
-app.use('/skills', skills)
+// == Routes ======================================================================= //
+	var skillsR = require('./routes/skills'),
+		 featsR = require('./routes/feats'),
+		 skillSchema = require('./schemas/skillSchema')
 
+	app.use(express.static('public'));
+	app.use('/skills', skillsR);	
+	app.use('/feats', featsR);
+// ======================================================================= Routes == //
 
-var skillShchema = require('./schemas/skillSchema');
-
-var Skill = mongoose.model('Skill', skillShchema);
-
-var acrobatics = new Skill(
-		{
-			name: 'Stealth',
-			ability: 'Dexterity',
-			prof: true,
-			desc: 'Bla! Bla bla',
-		}
-	);
-
-acrobatics.save(function (err, acrobatics) {
-  if (err) {
-  	return console.error(err);
-  } else {
-  	console.log('saving of ' + acrobatics.name + ' on the database was successfull!')
-  }
-});
-
-
-console.log();
 
 // == Server Start ================================================================= //
 	app.listen(4000, function(){
