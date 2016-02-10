@@ -4,10 +4,11 @@ var mongoose = require('mongoose'),
 	
 	skillSchema = new Schema(
 		{
-			'name': {type:String, required: true, minlength: 3},
-			'ability': {type:String, required: true, minlength: 3},
-			'prof': {type:Boolean, required: true, minlength: 3},
-			'desc': {type:String, required: true, minlength: 3},
+			'name': {'type':String, 'required': true, 'minlength': 3},
+			'ability': {'type':String, 'required': true, 'minlength': 3},
+			'prof': {'type':Boolean, 'required': true, 'default': false},
+			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
+			'desc': {'type':String, 'required': true, 'minlength': 3},
 		},
 		{
 			'collection': 'skills'

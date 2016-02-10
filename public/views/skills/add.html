@@ -3,13 +3,14 @@
 		<div class="col-xs-10 col-xs-offset-1">
 			<h1>Hey, this the form to add new skills!</h1>
 			<h3>here is the form</h3>
-			<form ng-submit="addSkill.save(newSkill)">
-				<input type="text"   class="form-control" name="skillName" id="skillName" placeholder="Name" ng-model="addSkill.newSkill.name">
-				<input type="text"   class="form-control" name="skillAbility" id="skillAbility" placeholder="Ability" ng-model="addSkill.newSkill.ability">
+			<form ng-submit="save(newSkill)">
+				<input type="text"   class="form-control" name="skillName" id="skillName" placeholder="Name" ng-model="newSkill.name">
+				<input type="text"   class="form-control" name="skillAbility" id="skillAbility" placeholder="Ability" ng-model="newSkill.ability">
+				<input type="text"   class="form-control" name="skillShortDesc" id="skillShortDesc" placeholder="Short Description" ng-model="newSkill.shortDesc">
 				<div class="form-group form-inline">
-					<input type="checkbox" class="form-control" name="skillProf" id="skillProf" ng-model="addSkill.newSkill.prof"> Prof?
+					<input type="checkbox" class="form-control" name="skillProf" id="skillProf" ng-model="newSkill.prof"> Prof?<!-- Ver forma de passar false quando desmarcado -->
 				</div>
-				<textarea name="skillDesc"cols="30" rows="10" class="form-control" placeholder="Description" ng-model="addSkill.newSkill.desc"></textarea>
+				<textarea name="skillDesc"cols="30" rows="10" class="form-control" placeholder="Description" ng-model="newSkill.desc"></textarea>
 				<input type="submit" class="btn btn-primary">
 			</form>
 		</div>

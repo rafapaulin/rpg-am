@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 	spellSchema = new Schema(
 		{
 			'name': {'type': String, 'required': true, 'minlength': 3},
-			'shortDesc': {'type':String, 'required': true, 'minlength': 3},
+			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
 			'level': {'type': Number, 'required': true},
 			'ritual': {'type': Boolean, 'required': true},
 			'school': {'type': String, 'required': true, 'minlength': 3},

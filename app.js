@@ -1,7 +1,7 @@
 'use strict';
 // == Requirements ================================================================= //
 	var bodyParser = require('body-parser'),
-		  mongoose = require('mongoose').connect('mongodb://192.168.1.66/test'),
+		  mongoose = require('mongoose').connect('mongodb://10.20.20.95/test'),
 		   express = require('express');
 		 
 // ================================================================= Requirements == //

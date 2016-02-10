@@ -8,11 +8,9 @@ angular.module('rpg').config(function($routeProvider){
 		.when('/skills', {
 			templateUrl: '/views/skills/list.html',
 			controller: 'skillListController',
-			controllerAs: 'skillList'
 		})
 		.when('/skills/new', {
 			templateUrl: '/views/skills/add.html',
 			controller: 'addSkillController',
-			controllerAs: 'addSkill'
 		})
 });

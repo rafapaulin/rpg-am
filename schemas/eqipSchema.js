@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
 
 	equipSchema = new Schema(
 		{
-
+			
 		},
 		{
 			'collection': 'equips'
