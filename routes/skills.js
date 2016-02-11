@@ -13,20 +13,23 @@ router.get('/', function(req, res){
 		}
 		res.json(skills);
 	});
-	console.log('GET request recieved for "/skills"');
+	console.log('GET request recieved for "/skills"'); // Debub
 })
 .post('/', function(req, res){
-	var newSkill = new Skill(req.body); // set a variable the form data
+	var newSkill = new Skill(req.body); // set a variable with the form data
 
 	newSkill.save(function(err){
 		if(err) {
 			console.log(err)
 		} else {
-			console.log('new skill saved!')
+			console.log('new skill saved!'); // Debug
 		}
 	});
 
 	newSkill = null; // clean the data variable after save on DB
+})
+.delete('/:id', function(req, res){
+	console.log('Delete Request recieved for'); // Debug
 });
 
 module.exports = router;

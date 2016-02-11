@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 	raceSchema = new Schema(
 		{
 			'name': {type: String, required: true, minlength: 3},
+			'slug': {'type': String, 'required': true, 'minlength': 3},
 			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
 			'desc': {type: String, required: true, minlength: 3},
 			'age': String,

@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 	featSchema = new Schema(
 		{
 			'name': {type:String, required: true, minlength: 3},
+			'slug': {'type': String, 'required': true, 'minlength': 3},
 			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
 			'prereq': {
 				'minStr': Number,

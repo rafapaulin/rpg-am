@@ -4,9 +4,12 @@
 			<h1>Hey, this the form to add new skills!</h1>
 			<h3>here is the form</h3>
 			<form ng-submit="save(newSkill)">
-				<input type="text"   class="form-control" name="skillName" id="skillName" placeholder="Name" ng-model="newSkill.name">
-				<input type="text"   class="form-control" name="skillAbility" id="skillAbility" placeholder="Ability" ng-model="newSkill.ability">
-				<input type="text"   class="form-control" name="skillShortDesc" id="skillShortDesc" placeholder="Short Description" ng-model="newSkill.shortDesc">
+
+				<input type="text" class="form-control" name="skillName" id="skillName" placeholder="Name" ng-model="newSkill.name" ng-change="id='skillSlug'">
+				<input type="text" class="form-control" name="skillSlug" id="skillSlug" ng-model="newSkill.slug" value="{{newSkill.name}}">
+
+				<input type="text" class="form-control" name="skillAbility" id="skillAbility" placeholder="Ability" ng-model="newSkill.ability">
+				<input type="text" class="form-control" name="skillShortDesc" id="skillShortDesc" placeholder="Short Description" ng-model="newSkill.shortDesc">
 				<div class="form-group form-inline">
 					<input type="checkbox" class="form-control" name="skillProf" id="skillProf" ng-model="newSkill.prof"> Prof?<!-- Ver forma de passar false quando desmarcado -->
 				</div>
