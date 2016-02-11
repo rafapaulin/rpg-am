@@ -3,19 +3,7 @@
 		<div class="col-xs-10 col-xs-offset-1">
 			<h1>Hey, this the skill list!</h1>
 			<h3>here some skills</h3>
-			<div ng-repeat="skill in skills">
-				<blockquote>
-					<p>{{skill.name}}</p>
-					<p>{{skill.ability}}</p>
-					<p>{{skill.prof}}</p>
-					<p>{{skill.desc}}</p>
-					<footer>
-						<cite>
-							<remove-item collection="skills" name="{{skill.name}}"></remove-item>
-						</cite>
-					</footer>
-				</blockquote>
-			</div>
+			<skill-list-item ng-repeat="skill in skills"></skill-list-item>
 		</div>
 	</div>
 </div>
