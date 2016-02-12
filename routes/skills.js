@@ -7,17 +7,22 @@
 			slug = require('slug');
 // ================================================================= Requirements == //
 
-router.get('/', function(req, res){
-	Skill.find(function(err, skills){
-		if (err) {
-			console.log(err);
-		}
-		res.json(skills);
-	});
-	console.log('GET request recieved for "/skills"'); // Debub
-})
+// == Get Items ==================================================================== //
+	router.get('/', function(req, res){
+		Skill.find(function(err, skills){
+			if (err) {
+				console.log(err);
+			}
+			res.json(skills);
+		});
+		console.log('GET request recieved for "/skills"'); // Debub
+	})
+
+// == Get items ==================================================================== //
+
+// == Create new items ============================================================= //
 .post('/', function(req, res){
-	req.body.slug = slug(req.body.name, {
+	req.body.slug = slug(req.body.name, { // Automatic generate slugs based on name
 		replacement: '-',      // replace spaces with replacement 
 		symbols: true,         // replace unicode symbols or not 
 		remove: null,          // (optional) regex to remove characters 
@@ -38,8 +43,19 @@ router.get('/', function(req, res){
 
 	newSkill = null; // clean the data variable after save on DB
 })
-.delete('/:id', function(req, res){
-	console.log('Delete Request recieved for'); // Debug
-});
+// ============================================================= Create new items == //
 
+// == Delete items ================================================================= //
+.delete('/:slug', function(req, res){
+	Skill.remove({'slug': req.params.slug}, function(err, doc){
+		if(err) {
+			console.log(err);
+		} else {
+			console.log('doc:' + doc);
+		}
+	});
+	console.log('Delete Request recieved for ' + req.params.slug); // Debug
+	res.status(200).send('deletado com sucesso');
+});
+// ================================================================= Delete items == //
 module.exports = router;

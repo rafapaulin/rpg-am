@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('rpg', ['ngRoute']);
+angular.module('rpg', ['ngRoute', 'ngSanitize', 'textAngular']);

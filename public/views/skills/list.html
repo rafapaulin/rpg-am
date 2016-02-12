@@ -3,7 +3,16 @@
 		<div class="col-xs-10 col-xs-offset-1">
 			<h1>Hey, this the skill list!</h1>
 			<h3>here some skills</h3>
-			<skill-list-item ng-repeat="skill in skills"></skill-list-item>
+			<div class="col-xs-12" ng-repeat="skill in skills">
+				<skill-list-item 
+					name="skill.name" 
+					short="skill.shortDesc" 
+					ability="skill.ability" 
+					prof="skill.prof" 
+					desc="skill.desc" 
+					slug="skill.slug">
+				</skill-list-item>
+			</div>
 		</div>
 	</div>
-</div>
+</div><!-- ng-repeat="skill in skills" -->

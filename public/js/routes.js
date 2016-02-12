@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('rpg').config(function($routeProvider){
+angular.module('rpg').config(['$routeProvider', function($routeProvider){
 	$routeProvider
 		.when('/', {
 			templateUrl: '/views/index.html'
@@ -12,5 +12,5 @@ angular.module('rpg').config(function($routeProvider){
 		.when('/skills/new', {
 			templateUrl: '/views/skills/add.html',
 			controller: 'addSkillController',
-		})
-});
+		});
+}]);

@@ -27,6 +27,6 @@
     "bootstrap": "^3.3.6",
     "angular-route": "^1.5.0",
     "font-awesome": "^4.5.0",
-    "angular-wysiwyg": "^1.2.4"
+    "textAngular": "^1.5.0"
   }
 }

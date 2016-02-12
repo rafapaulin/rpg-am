@@ -8,8 +8,9 @@ angular.module('rpg')
 			templateUrl: "/templates/remove-item.html",
 			controller: ['$scope', '$element', '$attrs', function(scope, element, attrs){
 				scope.remove = function(){
-					console.log(attrs.collection + ' ' + attrs.name)	
+					console.log(attrs.collection + ' ' + attrs.slug)
+					Crud.remove(attrs.collection, attrs.slug)
 				};
-				//Crud.remove(attrs.collection)
+				
 			}]};
 	}]);
