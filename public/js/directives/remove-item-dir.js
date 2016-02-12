@@ -6,11 +6,12 @@ angular.module('rpg')
 			restrict: "E",
 			scope: false,
 			templateUrl: "/templates/remove-item.html",
-			controller: ['$scope', '$element', '$attrs', function(scope, element, attrs){
+			link: function(scope, element, attrs){
 				scope.remove = function(){
-					console.log(attrs.collection + ' ' + attrs.slug)
-					Crud.remove(attrs.collection, attrs.slug)
+					console.log(); // Debug
+					if(confirm('Tem certeza que deseja remover o ' + attrs.type + ' ' + attrs.name + '?')){
+						Crud.remove(attrs.collection, attrs.slug);
+					}
 				};
-				
-			}]};
+			}};
 	}]);

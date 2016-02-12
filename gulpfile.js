@@ -1,9 +1,8 @@
 'use strict';
 var gulp = require('gulp'),
 	inject = require('gulp-inject'),
-	debug = require('gulp-debug'),
 	series = require('stream-series'),
-	replace = require('gulp-regex-replace'),
+	watch = require('gulp-watch'),
 
 	paths = {
 		src: {
@@ -15,6 +14,7 @@ var gulp = require('gulp'),
 			textAngular:	'./public/bower-components/textAngular/dist/',
 			faCss:			'./public/bower-components/font-awesome/css/',
 			faFonts:		'./public/bower-components/font-awesome/fonts/',
+			jquery:			'./public/bower-components/jquery/dist/'
 		},
 		public: {
 			root:			'./public/',
@@ -29,7 +29,9 @@ var gulp = require('gulp'),
 		paths.src.angularRoute + 'angular-route.min.js',
 		paths.src.textAngular + 'textAngular-rangy.min.js',
 		paths.src.textAngular + 'textAngular-sanitize.min.js',
-		paths.src.textAngular + 'textAngular.min.js'
+		paths.src.textAngular + 'textAngular.min.js',
+		paths.src.jquery + 'jquery.min.js',
+		paths.src.bootstrapJs + 'bootstrap.min.js'
 	],
 	cssSrc = [
 		paths.src.bootstrapCss + 'bootstrap.min.css',
