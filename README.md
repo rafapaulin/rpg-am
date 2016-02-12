@@ -1,2 +1,17 @@
 # rpg-am
 A character sheet manager, among other stuff
+
+Changelog:
+
+0.0.1 - Schema for Skills
+0.0.2 - Schema for Spells
+0.0.3 - Schema for Feats
+0.0.4 - Schema for Races
+0.0.5 - Routes for Skills
+0.1.0 - Controller GET for Skills
+		Route for index.html
+		Route for skill list
+0.1.1 - Controller POST for Skills
+		Route to add new skill
+0.1.2 - Generic DELETE directive
+0.1.3 - 

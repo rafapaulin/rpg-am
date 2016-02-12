@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 			'name': {type:String, required: true, minlength: 3},
 			'slug': {'type': String, 'required': true, 'minlength': 3},
 			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
+			'createdBy': String,
 			'prereq': {
 				'minStr': Number,
 				'minDex': Number,

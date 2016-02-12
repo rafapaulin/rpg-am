@@ -1,6 +1,6 @@
 {
   "name": "rpg-am",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "description": "A character sheet generator and manager, among other stuff.",
   "main": "app.js",
   "scripts": {
@@ -31,5 +31,10 @@
     "normalize.css": "^3.0.3",
     "slug": "^0.9.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-inject": "^3.0.0",
+    "gulp-watch": "^4.3.5",
+    "stream-series": "^0.1.1"
+  }
 }

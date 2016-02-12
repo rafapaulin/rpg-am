@@ -1,7 +1,7 @@
 'use strict';
 // == Requirements ================================================================= //
 	var bodyParser = require('body-parser'),
-		  mongoose = require('mongoose').connect('mongodb://192.168.1.66/test'),
+		  mongoose = require('mongoose').connect('mongodb://127.0.0.1/test'),
 		   express = require('express');
 		 
 // ================================================================= Requirements == //
@@ -25,7 +25,6 @@ app.use(bodyParser.json());
 
 	app.use(express.static('public'));
 	app.use('/skills', skillsR);	
-	app.use('/feats', featsR);
 // ======================================================================= Routes == //
 
 

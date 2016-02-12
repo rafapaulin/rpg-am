@@ -1,34 +1,40 @@
 <!doctype html>
 <html ng-app="rpg">
-<head>
-	<title>RPG A. M.</title>
-	<link rel="stylesheet" type="text/css" href="/css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
-	<link rel='stylesheet' type="text/css" href='/css/textAngular.css'>
-	<link rel="stylesheet" type="text/css" href="/css/main.css">
-</head>
-<body>
-	<h1>Weee, RPG app</h1>
-	<div ng-view></div>
-	<!-- Vendor -->
-	<script type="text/javascript" src="/js/vendor/angular.min.js"></script>
-	<script type="text/javascript" src="/js/vendor/angular-route.min.js"></script>
-	<script type="text/javascript" src='/js/vendor/textAngular-rangy.min.js'></script>
-	<script type="text/javascript" src='/js/vendor/textAngular-sanitize.min.js'></script>
-	<script type="text/javascript" src='/js/vendor/textAngular.min.js'></script>
+	<head>
+		<title>RPG A. M.</title>
+		<link rel="stylesheet" href="/css/normalize.css">
+		<!-- vendor:css -->
+		<link rel="stylesheet" href="/bower-components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/bower-components/bootstrap/dist/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="/bower-components/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/bower-components/textAngular/dist/textAngular.css">
+		<!-- endinject -->
+		
+		<!-- build:css -->
+		<link rel="stylesheet" href="/css/main.css">
+		<!-- endinject -->
+	</head>
+	<body>
+		<h1>Weee, RPG app</h1>
+		<div ng-view></div>
+		
+		<!-- vendor:js -->
+		<script src="/bower-components/angular/angular.min.js"></script>
+		<script src="/bower-components/angular-route/angular-route.min.js"></script>
+		<script src="/bower-components/textAngular/dist/textAngular-rangy.min.js"></script>
+		<script src="/bower-components/textAngular/dist/textAngular-sanitize.min.js"></script>
+		<script src="/bower-components/textAngular/dist/textAngular.min.js"></script>
+		<!-- endinject -->
 
-	<!-- App -->
-	<script type="text/javascript" src="/js/app.js"></script>
-	<!-- Routes -->
-	<script type="text/javascript" src="/js/routes.js"></script>
-	<!-- Controllers -->
-	<script type="text/javascript" src="/js/controllers/skill/list-skill-ctrl.js"></script>
-	<script type="text/javascript" src="/js/controllers/skill/add-skill-ctrl.js"></script>
-	<!-- Directives -->
-	<script type="text/javascript" src="/js/directives/remove-item-dir.js"></script>
-	<script type="text/javascript" src="/js/directives/list-item-dir.js"></script>
-	<!-- Services -->
-	<script type="text/javascript" src="/js/services/crud.js"></script>
-</body>
+		<!-- build:js -->
+		<script src="/js/app.js"></script>
+		<script src="/js/routes.js"></script>
+		<script src="/js/services/crud.js"></script>
+		<script src="/js/controllers/skill/add-skill-ctrl.js"></script>
+		<script src="/js/controllers/skill/list-skill-ctrl.js"></script>
+		<script src="/js/directives/list-item-dir.js"></script>
+		<script src="/js/directives/remove-item-dir.js"></script>
+		<script src="/js/main.js"></script>
+		<!-- endinject -->
+	</body>
 </html>

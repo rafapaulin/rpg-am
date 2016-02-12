@@ -7,6 +7,7 @@ var	mongoose = require('mongoose'),
 		{
 			'name': {'type':String, 'required': true, 'minlength': 3, 'unique': true, 'uniqueCaseInsensitive': true},
 			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, 'uniqueCaseInsensitive': true},
+			'createdBy': String,
 			'ability': {'type':String, 'required': true, 'minlength': 3},
 			'prof': {'type':Boolean, 'required': true, 'default': false},
 			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
