@@ -17,3 +17,5 @@ Changelog:
 0.1.2 - Generic DELETE method
 0.1.3 - Generic single item page
 		Generic single item controller
+0.1.4 - Generic PUT item page
+		Generic PUT item controller
