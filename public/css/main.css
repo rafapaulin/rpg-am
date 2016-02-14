@@ -8,3 +8,6 @@ h2 {
 h3 {
 	color: #00F;
 }
+a[ng-click] {
+    cursor: pointer;
+}

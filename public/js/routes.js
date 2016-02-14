@@ -5,12 +5,17 @@ angular.module('rpg').config(['$routeProvider', function($routeProvider){
 		.when('/', {
 			templateUrl: '/views/index.html'
 		})
-		.when('/skills', {
-			templateUrl: '/views/skills/list.html',
-			controller: 'skillListController',
+		.when('/:collection', {
+			templateUrl: function(params){return '/views/' + params.collection + '/list.html'}, // Return Generic "List" Route based on the URL
+			controller: 'listController',
 		})
-		.when('/skills/new', {
-			templateUrl: '/views/skills/add.html',
-			controller: 'addSkillController',
+		.when('/:collection/new', {
+			templateUrl: function(params){return '/views/' + params.collection + '/add.html'}, // Return Generic "New" Route based on the URL
+			controller: 'addController'
+		})
+		.when('/:collection/:slug', {
+			templateUrl: function(params){return '/views/' + params.collection + '/single.html'}, // Return Generic "New" Route based on the URL
+			controller: 'singleController'
 		});
 }]);
+

@@ -1,6 +1,6 @@
 {
   "name": "rpg-am",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A character sheet generator and manager, among other stuff.",
   "main": "app.js",
   "scripts": {

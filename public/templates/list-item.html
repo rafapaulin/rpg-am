@@ -1,12 +1,11 @@
 <blockquote>
-	<p>{{name}}</p>
+	<p><a ng-href="#/{{collect}}/{{slug}}">{{name}}</a></p>
 	<p>{{short}}</p>
-	<p>{{prof}}</p>
 	<p>{{slug}}</p>
 	<p ng-bind-html="desc"></p>
 	<footer>
 		<cite>
-			<remove-item collection="skills" type="skill" slug="{{slug}}" name="{{name}}"></remove-item>
+			<a ng-click="remove()">delete</a>
 		</cite>
 	</footer>
 </blockquote>

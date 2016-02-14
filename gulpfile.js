@@ -30,8 +30,8 @@ var gulp = require('gulp'),
 		paths.src.textAngular + 'textAngular-rangy.min.js',
 		paths.src.textAngular + 'textAngular-sanitize.min.js',
 		paths.src.textAngular + 'textAngular.min.js',
-		paths.src.jquery + 'jquery.min.js',
-		paths.src.bootstrapJs + 'bootstrap.min.js'
+		// paths.src.jquery + 'jquery.min.js',
+		// paths.src.bootstrapJs + 'bootstrap.min.js'
 	],
 	cssSrc = [
 		paths.src.bootstrapCss + 'bootstrap.min.css',

@@ -3,18 +3,9 @@
 		<div class="col-xs-10 col-xs-offset-1">
 			<h1>Hey, this the skill list!</h1>
 			<h3>here some skills</h3>
-			<div class="col-xs-12" ng-repeat="skill in skills">
-				<skill-list-item 
-					slug="skill.slug"
-					name="skill.name" 
-					short="skill.shortDesc" 
-					ability="skill.ability" 
-					prof="skill.prof" 
-					desc="skill.desc" 
-					>
-				</skill-list-item>
-			</div>
+			<a ng-href="#/skills/new">Skill add form</a>
+			<list-item class="col-xs-12" ng-repeat="item in collection" name="item.name" slug="item.slug" short="item.shortDesc">
+			</list-item>
 		</div>
 	</div>
-	<a ng-href="#/skills/new">Skill add form</a>
-</div><!-- ng-repeat="skill in skills" -->
+</div>

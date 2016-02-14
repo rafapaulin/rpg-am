@@ -7,7 +7,7 @@
 			slug = require('slug');
 // ================================================================= Requirements == //
 
-// == Get Items ==================================================================== //
+// == Get Item List ================================================================ //
 	router.get('/', function(req, res){
 		Skill.find(function(err, skills){
 			if (err) {
@@ -17,7 +17,19 @@
 		});
 		console.log('GET request recieved for "/skills"'); // Debug
 	})
+// == Get item List ================================================================ //
 
+// == Get Item ===================================================================== //
+	router.get('/:slug', function(req, res){
+		Skill.findOne({'slug': req.params.slug}, function(err, skill){
+			if (err) {
+				console.log(err);
+			}
+			res.json(skill);
+			console.log(skill);
+			console.log('GET request recieved for "/skill/"' + req.params.slug); // Debug
+		});
+	})
 // == Get items ==================================================================== //
 
 // == Create new items ============================================================= //
