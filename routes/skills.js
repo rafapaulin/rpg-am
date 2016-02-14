@@ -17,20 +17,42 @@
 		});
 		console.log('GET request recieved for "/skills"'); // Debug
 	})
-// == Get item List ================================================================ //
+// ================================================================ Get item List == //
 
 // == Get Item ===================================================================== //
-	router.get('/:slug', function(req, res){
+	.get('/:slug', function(req, res){
 		Skill.findOne({'slug': req.params.slug}, function(err, skill){
 			if (err) {
 				console.log(err);
 			}
 			res.json(skill);
-			console.log(skill);
 			console.log('GET request recieved for "/skill/"' + req.params.slug); // Debug
 		});
 	})
-// == Get items ==================================================================== //
+// ==================================================================== Get items == //
+
+// == Update Item ================================================================== //
+	.put('/:slug', function(req, res){
+		req.body.slug = slug(req.body.name, { // Automatic generate slugs based on name
+			replacement: '-',				  // replace spaces with replacement 
+			symbols: true,					  // replace unicode symbols or not 
+			remove: null,					  // (optional) regex to remove characters 
+			lower: true,					  // result in lower case 
+			charmap: slug.charmap,			  // replace special characters 
+			multicharmap: slug.multicharmap	  // replace multi-characters 
+		});
+
+		Skill.findOneAndUpdate({'slug': req.params.slug}, req.body, function(err, doc){
+			if(err) {
+				res.sendStatus(500, err);
+				console.log(err);
+			} else {
+				res.status(200).send('ok');
+				console.log(req.body.name + ' updated!'); // Debug
+			}
+		});
+	})
+// ================================================================== Update Item == //
 
 // == Create new items ============================================================= //
 	.post('/', function(req, res){
