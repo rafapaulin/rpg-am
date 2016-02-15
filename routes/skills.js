@@ -44,10 +44,11 @@
 
 		Skill.findOneAndUpdate({'slug': req.params.slug}, req.body, function(err, doc){
 			if(err) {
-				res.sendStatus(500, err);
+
+				res.status(500).json(err);
 				console.log(err);
 			} else {
-				res.status(200).send('ok');
+				res.status(202).send(req.body.name + ' updated!');
 				console.log(req.body.name + ' updated!'); // Debug
 			}
 		});

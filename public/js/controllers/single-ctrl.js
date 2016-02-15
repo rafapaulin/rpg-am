@@ -10,17 +10,14 @@ angular.module('rpg').controller('singleController', ['$scope', 'Crud', '$routeP
 
 	controller.update = function(data){
 		controller.errors = null;
-
-		console.log(collection);
-		console.log(slug);
 		console.log(data);
+		data.desc = $sce.getTrustedHtml(data.desc); // Translate the desc wysiwyg text as trusted html string
 
 		Crud.put(collection , slug, data)
 			.catch(function(data){
 				controller.errors = data.error;
 			});
 		controller.showForm = null;
-		console.log(data);
 		$location.path(collection);
 	};
 
