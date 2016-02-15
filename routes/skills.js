@@ -44,10 +44,20 @@
 
 		Skill.findOneAndUpdate({'slug': req.params.slug}, req.body, function(err, doc){
 			if(err) {
-				res.sendStatus(500, err);
+
+
+
+app.use(function(err, req, res, next) {
+  // Do logging and user-friendly error message display
+  console.error(err);
+  res.status(500).send({status:500, message: 'internal error', type:'internal'}); 
+})
+
+
+				res.status(500).json(err);
 				console.log(err);
 			} else {
-				res.status(200).send('ok');
+				res.status(202).send(req.body.name + ' updated!');
 				console.log(req.body.name + ' updated!'); // Debug
 			}
 		});
