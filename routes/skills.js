@@ -44,7 +44,6 @@
 
 		Skill.findOneAndUpdate({'slug': req.params.slug}, req.body, function(err, doc){
 			if(err) {
-
 				res.status(500).json(err);
 				console.log(err);
 			} else {
