@@ -5,7 +5,7 @@ var	mongoose = require('mongoose'),
 	
 	skillSchema = new Schema(
 		{
-			'name': {'type':String, 'required': true, 'minlength': 3, 'unique': true, 'uniqueCaseInsensitive': true},
+			'name': {'type':String, 'required': true, 'minlength': 3, 'unique': true,  'uniqueCaseInsensitive': true},
 			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, 'uniqueCaseInsensitive': true},
 			'createdBy': String,
 			'ability': {'type':String, 'required': true, 'minlength': 3},
@@ -17,7 +17,7 @@ var	mongoose = require('mongoose'),
 			'collection': 'skills'
 		}
 	);
-
+	
 skillSchema.plugin(uniqueV); // validate unique values
 
 module.exports = mongoose.model('Skill', skillSchema); // Export for further use

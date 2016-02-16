@@ -11,7 +11,9 @@
 		 db = mongoose.connection;
 // ============================================================= Global Variables == //
 
-app.use(bodyParser.json());
+// == Middlewares ================================================================== //
+	app.use(bodyParser.json());
+// ================================================================== Middlewares == //
 
 // == DB Connection check ========================================================== //
 	db.on('error', console.error.bind(console, 'connection error:'));
@@ -19,14 +21,12 @@ app.use(bodyParser.json());
 // ========================================================== DB Connection check == //
 
 // == Routes ======================================================================= //
-	var skillsR = require('./routes/skills'),
-		 featsR = require('./routes/feats'),
-		 skillSchema = require('./schemas/skillSchema')
+	var skillsR = require('./routes/skills');
 
+	
 	app.use(express.static('public'));
 	app.use('/skills', skillsR);	
 // ======================================================================= Routes == //
-
 
 // == Server Start ================================================================= //
 	app.listen(4000, function(){

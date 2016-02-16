@@ -8,8 +8,19 @@ angular.module('rpg').controller('addController', ['$scope', 'Crud', '$routePara
 		controller.errors = null;
 
 		Crud.post(collection , data)
+
+			.then(function(res){
+				controller.success = res.data.message
+				console.log('gravou!')
+			})
+
 			.catch(function(data){
-				controller.errors = data.data.error;
+				var errors = [];
+
+				for(var key in data.data) {
+					errors.push(data.data[key].message);
+				};
+				controller.errors = errors;
 			});
 
 		console.log(data); // Debug

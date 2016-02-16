@@ -47,7 +47,7 @@
 				res.status(500).json(err);
 				console.log(err);
 			} else {
-				res.status(202).send(req.body.name + ' updated!');
+				res.status(201).send(req.body.name + ' updated!');
 				console.log(req.body.name + ' updated!'); // Debug
 			}
 		});
@@ -56,27 +56,35 @@
 
 // == Create new items ============================================================= //
 	.post('/', function(req, res){
-		req.body.slug = slug(req.body.name, { // Automatic generate slugs based on name
-			replacement: '-',				  // replace spaces with replacement 
-			symbols: true,					  // replace unicode symbols or not 
-			remove: null,					  // (optional) regex to remove characters 
-			lower: true,					  // result in lower case 
-			charmap: slug.charmap,			  // replace special characters 
-			multicharmap: slug.multicharmap	  // replace multi-characters 
-		});
+		
+		if(req.body.name) {
+			req.body.slug = slug(req.body.name, { // Automatic generate slugs based on name
+				replacement: '-',				  // replace spaces with replacement 
+				symbols: true,					  // replace unicode symbols or not 
+				remove: null,					  // (optional) regex to remove characters 
+				lower: true,					  // result in lower case 
+				charmap: slug.charmap,			  // replace special characters 
+				multicharmap: slug.multicharmap	  // replace multi-characters 
+			});
+		};
 
 		var newSkill = new Skill(req.body); // set a variable with the form data
 
 		newSkill.save(function(err){
+
 			if(err) {
-				console.log(err)
+				console.log(err.errors);
+				res.status(500).json(err.errors);
+
 			} else {
+				res.status(201).json({'message': req.body.name + ' successfully created'});
 				console.log('new skill saved!'); // Debug
 			}
 		});
 
 		newSkill = null; // clean the data variable after save on DB
 	})
+
 // ============================================================= Create new items == //
 
 // == Delete items ================================================================= //
