@@ -9,6 +9,16 @@
 // == Global Variables ============================================================= //
 	var app = express(),
 		 db = mongoose.connection;
+
+var logger = require("./services/logger");
+
+logger.error("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
+logger.warn("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
+logger.info("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
+logger.verbose("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
+logger.debug("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
+logger.silly("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
+
 // ============================================================= Global Variables == //
 
 // == Middlewares ================================================================== //

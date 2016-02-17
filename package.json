@@ -30,7 +30,8 @@
     "mongoose": "^4.4.2",
     "mongoose-unique-validator": "^1.0.0",
     "normalize.css": "^3.0.3",
-    "slug": "^0.9.1"
+    "slug": "^0.9.1",
+    "winston": "^2.1.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
