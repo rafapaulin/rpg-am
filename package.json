@@ -27,6 +27,7 @@
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
     "log": "^1.4.0",
+    "mkdirp": "^0.5.1",
     "mongoose": "^4.4.2",
     "mongoose-unique-validator": "^1.0.0",
     "normalize.css": "^3.0.3",
