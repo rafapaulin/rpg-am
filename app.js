@@ -12,12 +12,7 @@
 
 var logger = require("./services/logger");
 
-logger.error("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
-logger.warn("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
-logger.info("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
-logger.verbose("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
-logger.debug("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
-logger.silly("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca é brinquedo'});
+logger().debug('mensagem custom', {meta:'someMeta', desgraca: {msg:'pouca é brinquedo', pqp: 'pqp', porra: {'1': 'caralho', '2': {'bleh': 'vai tomar no cu', 'bleh2': 'vai tomar no cu'}}}});
 
 // ============================================================= Global Variables == //
 
@@ -38,8 +33,10 @@ logger.silly("Overriding 'Express' logger", {meta:'someMeta', desgraca: 'pouca �
 	app.use('/skills', skillsR);	
 // ======================================================================= Routes == //
 
+
+
 // == Server Start ================================================================= //
 	app.listen(4000, function(){
-		console.log('listening on port 4000')
+		console.log('listening on port 4000');
 	});
 // ================================================================= Server Start == //
