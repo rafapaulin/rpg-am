@@ -1,72 +1,28 @@
 'use strict';
 
-// == Requirements ================================================================= //
+// == Requirements =================================================================================== //
 	var winston = require('winston'),
 		 config = require('winston/lib/winston/config'),
 		 colors = require('colors'),
 		 mkdirp = require('mkdirp'),
 			 fs = require('fs'),
-			  _ = require('underscore'),
-// ================================================================= Requirements == //
+// =================================================================================== Requirements == //
 
-// == Global Variables ============================================================= //
+// == Global Variables =============================================================================== //
 	weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
 	  month = ['January','February','March','April','May','June','July','August','September','October','November','December'],
 	custom	= { 
-		levels: {error: 	0, one:		   1, two:		   2, three:	  3, four:		 4, debug:		5}, 
-		colors: {error: ['red', 'bold'], one: ['yellow', 'bold'], two: ['magenta', 'bold'], three: ['cyan', 'bold'], four: ['green', 'bold'], debug: ['blue', 'bold']}
+		levels: {error: 	0, warning:		   1, info:		   2, user:	  3, debug:		4}, 
+		colors: {error: 'red', warning: 'yellow', info: 'magenta', user: 'cyan', debug: ['blue', 'bold']}
 	 };
 
-var jasao = {
-	"desgraca": {
-		"msg": "pouca é brinquedo",
-		"pqp": "pqp",
-		"porra": {
-			"1": "caralho",
-			"2": {
-				"bleh": "vai tomar no cu",
-				"bleh2": "vai tomar no cu"
-			}
-		}
-	},
-	"level": "debug",
-	"message": "mensagem custom",
-	"timestamp":"2016-02-18T22:45:32.051Z"
-}
-// console.log(_.each(value, function(val, prop){ return '\n' + prop + ': ' + val;}))
-_.each(jasao, function(value, key){
-	if(typeof value == 'object'){
-		console.log(key.yellow + ': ' + value);
-	}
-	else {
-		console.log(key.yellow + ': ' + value.green);
- 	}
-});
-
-// function lookdeep(object){
-//     var collection= [], index= 0, next, item;
-//     for(item in object){
-//         if(object.hasOwnProperty(item)){
-//             next = object[item];
-//             if(typeof next == 'object' && next != null){
-//             	console.log(index)
-//                 collection[index++] = item + ': {\n' + lookdeep(next).join(',\n') + '\n}';
-//             }
-//             else collection[index++] = ['    ' + item + ':' + String(next)];
-//         }
-//     }
-//     return collection;
-// }
-// console.log( '{\n'+ lookdeep(jasao).join('\n') +'\n}');
-
-
-// ============================================================= Global Variables == //
+// =============================================================================== Global Variables == //
 
 winston.emitErrs = true;
 
 
 var logger = function(){
-
+// :: Object Crawler ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
 	var dateNow = new Date(),										// get the date/time ATM of the logger call
 		   year = dateNow.getFullYear(),							// take isolated year
 	   monthNum = dateNow.getMonth(),								// take isolated month name
@@ -85,7 +41,7 @@ var logger = function(){
 			});
 		}
 	});
-
+// :: Object Crawler ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
 	return new winston.Logger({
 		prettyPrint: true,
 		transports: [
@@ -115,36 +71,48 @@ var logger = function(){
 					return year + ' ' + month[monthNum] + ' ' + day + ' '  + time
 				},
 				formatter: function(options) {
-					return '\n meh'
-	 				// return	config.colorize(options.level, '    ****** ' + options.level.toUpperCase() + ' ******') +
-	 				// 		config.colorize(options.level, '\n    * ') + options.timestamp().grey.bold +
-						// 	(undefined !== options.message ? config.colorize(options.level, '\n    * ')  + options.message.white.bold : '') +
-						// 	config.colorize(options.level, '\n    * ') 
+			// == Object Crawler ==================================================================== //
+					var objCrawl = function(obj, level){
+						var string = '',
+							 space = '',
+								 i = 1;
 
+						level = level == undefined || null ? 0 : level;
 
-							//(options.meta && Object.keys(options.meta).length ? '\n\t'+ JSON.stringify(options.meta) : '' )
+						for (var i = 0; i <= level; i++ ) {
+							space += '  ';
+						}
 
+						for (var key in obj) {
+							if(typeof obj[key] == 'object' && obj[key] != null) {
+								level++;
+								string += config.colorize(options.level, '    * ');
+								string += space.grey;
+								string += key.green + ': {\n' +
+										  objCrawl(obj[key], level) + 
+										  config.colorize(options.level, '    * ') + space.grey + '}';
+								level--;
+							} else {
+								string += config.colorize(options.level, '    * ');
+								string += space.grey;
+								string += key.green + ': ' + obj[key].white.bold;
+							}
+							string += (i++ == Object.keys(obj).length ? '' : ',') + '\n';
+						}
+						return string;
+					};
+			// ==================================================================== Object Crawler == //
 
-	 		// + ' stringTest'.blue
-	 		// + ' stringTest'.blue.bold
-	 		// + ' stringTest'.green
-	 		// + ' stringTest'.green.bold
-	 		// + ' stringTest'.cyan
-	 		// + ' stringTest'.cyan.bold
-	 		// + ' stringTest'.magenta
-	 		// + ' stringTest'.magenta.bold
-	 		// + ' stringTest'.yellow
-	 		// + ' stringTest'.yellow.bold
-	 		// + ' stringTest'.red
-	 		// + ' stringTest'.red.bold
-	 		// + ' stringTest'.white
-	 		// + ' stringTest'.white.bold
-	 		// + ' stringTest'.grey
-
-	 		// + config.colorize(options.level, '\n    ****** ') + config.colorize(options.level, options.level.toUpperCase()) + config.colorize(options.level, ' ******\n')
-	 	// + (options.meta && Object.keys(options.meta).length ? '\n\t'+ JSON.stringify(options.meta) : '' );
-			}
-		})
+	 				return	config.colorize(options.level, '    ************************ ' + options.level.toUpperCase() + ' ************************') +
+	 						config.colorize(options.level, '\n    * ') + options.timestamp().grey.bold + '\n' + config.colorize(options.level, '    * ') +
+							(options.message !== undefined ? config.colorize(options.level, '\n    * ') + options.message.white.bold : '') +
+							'\n' + config.colorize(options.level, '    * ') +
+							'\n' + config.colorize(options.level, '    * ') + '{' +
+							'\n' + objCrawl(options.meta) +
+							config.colorize(options.level, '    * ') + '}\n' +
+							config.colorize(options.level, '    ************************ ') + config.colorize(options.level, options.level.toUpperCase()) + config.colorize(options.level, ' ************************\n')	 		
+				}
+			})
 		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: Log to console constructor :: //
 		],
 		levels: custom.levels,
