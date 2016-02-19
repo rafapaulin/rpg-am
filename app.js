@@ -8,16 +8,8 @@
 
 // == Global Variables ============================================================= //
 	var app = express(),
-		 db = mongoose.connection;
-
-var logger = require("./services/logger");
-
-logger().debug('mensagem custom', {desgraca: {msg:'pouca é brinquedo', pqp: 'pqp', porra: {'1': 'caralho', '2': {'bleh': 'vai tomar no cu', 'bleh2': 'vai tomar no cu'}}}, 'uuhuu': 'weee'});
-logger().user('mensagem custom', {desgraca: {msg:'pouca é brinquedo', pqp: 'pqp', porra: {'1': 'caralho', '2': {'bleh': 'vai tomar no cu', 'bleh2': 'vai tomar no cu'}}}, 'uuhuu': 'weee'});
-logger().info('mensagem custom', {desgraca: {msg:'pouca é brinquedo', pqp: 'pqp', porra: {'1': 'caralho', '2': {'bleh': 'vai tomar no cu', 'bleh2': 'vai tomar no cu'}}}, 'uuhuu': 'weee'});
-logger().warning('mensagem custom', {desgraca: {msg:'pouca é brinquedo', pqp: 'pqp', porra: {'1': 'caralho', '2': {'bleh': 'vai tomar no cu', 'bleh2': 'vai tomar no cu'}}}, 'uuhuu': 'weee'});
-logger().error('mensagem custom', {desgraca: {msg:'pouca é brinquedo', pqp: 'pqp', porra: {'1': 'caralho', '2': {'bleh': 'vai tomar no cu', 'bleh2': 'vai tomar no cu'}}}, 'uuhuu': 'weee'});
-
+		 db = mongoose.connection,
+	 logger = require("./services/logger");
 // ============================================================= Global Variables == //
 
 // == Middlewares ================================================================== //
@@ -41,6 +33,6 @@ logger().error('mensagem custom', {desgraca: {msg:'pouca é brinquedo', pqp: 'pq
 
 // == Server Start ================================================================= //
 	app.listen(4000, function(){
-		console.log('listening on port 4000');
+		logger().info('Listening on port %s', 4000);
 	});
 // ================================================================= Server Start == //

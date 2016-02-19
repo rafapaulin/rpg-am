@@ -2,6 +2,8 @@
 // == Requirements ================================================================= //
 	var mongoose = require('mongoose'),
 		 express = require('express'),
+		  colors = require('colors'),
+		  logger = require("../services/logger"),
 		  router = express.Router(),
 		   Skill = require('../schemas/skillSchema'),
 			slug = require('slug');
@@ -73,7 +75,7 @@
 		newSkill.save(function(err){
 
 			if(err) {
-				console.log(err.errors);
+				logger().user('Erro de validção - Mongoose', err);
 				res.status(500).json(err.errors);
 
 			} else {

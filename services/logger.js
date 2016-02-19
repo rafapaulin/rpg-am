@@ -15,14 +15,13 @@
 		levels: {error: 	0, warning:		   1, info:		   2, user:	  3, debug:		4}, 
 		colors: {error: 'red', warning: 'yellow', info: 'magenta', user: 'cyan', debug: ['blue', 'bold']}
 	 };
-
 // =============================================================================== Global Variables == //
 
 winston.emitErrs = true;
 
 
 var logger = function(){
-// :: Object Crawler ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
+// :: Date Builder :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
 	var dateNow = new Date(),										// get the date/time ATM of the logger call
 		   year = dateNow.getFullYear(),							// take isolated year
 	   monthNum = dateNow.getMonth(),								// take isolated month name
@@ -31,7 +30,9 @@ var logger = function(){
 		   time = ('0' + dateNow.getHours()).slice(-2) + ':' +		// take isolated hour
 				  ('0' + dateNow.getMinutes()).slice(-2) + ':' +	// take isolated minutes
 				  ('0' + dateNow.getSeconds()).slice(-2);			// take isolated seconds
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: Date Builder :: //
 
+// :: Log folder creator ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
 	fs.stat('./logs/' + year + '/' + month[monthNum], function(err, status){	// Check status of a specific logs folder
 		if(err && err.code == 'ENOENT') {										// Check if the specific logs folder already exists
 			mkdirp('./logs/' + year + '/' + month[monthNum], function (err) {	// If specific folder does not exist, create it
@@ -41,7 +42,7 @@ var logger = function(){
 			});
 		}
 	});
-// :: Object Crawler ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: //
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: Log folder creator :: //
 	return new winston.Logger({
 		prettyPrint: true,
 		transports: [
@@ -75,7 +76,7 @@ var logger = function(){
 					var objCrawl = function(obj, level){
 						var string = '',
 							 space = '',
-								 i = 1;
+							 index = 1;
 
 						level = level == undefined || null ? 0 : level;
 
@@ -88,28 +89,31 @@ var logger = function(){
 								level++;
 								string += config.colorize(options.level, '    * ');
 								string += space.grey;
-								string += key.green + ': {\n' +
-										  objCrawl(obj[key], level) + 
+								string += key.green + 'o.k.: '.red + Object.keys(obj).length.toString().red + ': {\n' +
+										  objCrawl(obj[key], level) +
 										  config.colorize(options.level, '    * ') + space.grey + '}';
 								level--;
 							} else {
 								string += config.colorize(options.level, '    * ');
 								string += space.grey;
-								string += key.green + ': ' + obj[key].white.bold;
+								string += key.green + ': ' + (typeof obj[key] == 'function' ? '*function*' : (obj[key] == undefined || null ? 'undefined' : '"' + obj[key] + '"')).white.bold + 'i: '.red +index.toString().red;
 							}
-							string += (i++ == Object.keys(obj).length ? '' : ',') + '\n';
+							string += (index++ == Object.keys(obj).length ? '' : ',') + '\n';
 						}
 						return string;
 					};
 			// ==================================================================== Object Crawler == //
 
 	 				return	config.colorize(options.level, '    ************************ ' + options.level.toUpperCase() + ' ************************') +
-	 						config.colorize(options.level, '\n    * ') + options.timestamp().grey.bold + '\n' + config.colorize(options.level, '    * ') +
-							(options.message !== undefined ? config.colorize(options.level, '\n    * ') + options.message.white.bold : '') +
-							'\n' + config.colorize(options.level, '    * ') +
-							'\n' + config.colorize(options.level, '    * ') + '{' +
-							'\n' + objCrawl(options.meta) +
-							config.colorize(options.level, '    * ') + '}\n' +
+	 						'\n' + config.colorize(options.level, '    * ') +																						// Skip line
+	 						config.colorize(options.level, '\n    * ') + options.timestamp().grey.bold +															// Print date
+	 						'\n' + config.colorize(options.level, '    * ') +																						// Skip line
+							(options.message !== '' ? config.colorize(options.level, '\n    * ') + options.message.white.bold : '') +								// print message
+							(options.message !== '' ? config.colorize(options.level, '\n    * ') : '') +															// Skip line if there is options.message
+							(objCrawl(options.meta) !== '' ? config.colorize(options.level, '\n    * ') : '') +														// Close "}" and skip line if there is options.meta
+							(objCrawl(options.meta, 0) !== '' ? '{' : '') +																							// Open "{" if there is options.meta
+							'\n' + objCrawl(options.meta) +																											// Print options.meta
+							(objCrawl(options.meta) !== '' ? config.colorize(options.level, '    * ') + '}\n' + config.colorize(options.level, '    * \n') : '') +	// Close "}" and skip line if there is options.meta
 							config.colorize(options.level, '    ************************ ') + config.colorize(options.level, options.level.toUpperCase()) + config.colorize(options.level, ' ************************\n')	 		
 				}
 			})
