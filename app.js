@@ -12,7 +12,7 @@
 
 var logger = require("./services/logger");
 
-logger().debug('mensagem custom', {meta:'someMeta', desgraca: {msg:'pouca é brinquedo', pqp: 'pqp', porra: {'1': 'caralho', '2': {'bleh': 'vai tomar no cu', 'bleh2': 'vai tomar no cu'}}}});
+logger().debug('mensagem custom', {desgraca: {msg:'pouca é brinquedo', pqp: 'pqp', porra: {'1': 'caralho', '2': {'bleh': 'vai tomar no cu', 'bleh2': 'vai tomar no cu'}}}});
 
 // ============================================================= Global Variables == //
 
