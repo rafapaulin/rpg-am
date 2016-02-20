@@ -89,14 +89,14 @@ var logger = function(){
 								level++;
 								string += config.colorize(options.level, '    * ');
 								string += space.grey;
-								string += key.green + 'o.k.: '.red + Object.keys(obj).length.toString().red + ': {\n' +
+								string += key.green + ': {\n' +
 										  objCrawl(obj[key], level) +
 										  config.colorize(options.level, '    * ') + space.grey + '}';
 								level--;
 							} else {
 								string += config.colorize(options.level, '    * ');
 								string += space.grey;
-								string += key.green + ': ' + (typeof obj[key] == 'function' ? '*function*' : (obj[key] == undefined || null ? 'undefined' : '"' + obj[key] + '"')).white.bold + 'i: '.red +index.toString().red;
+								string += key.green + ': ' + (typeof obj[key] == 'function' ? '*function*' : (obj[key] == undefined || null ? 'undefined' : '"' + obj[key] + '"')).white.bold;
 							}
 							string += (index++ == Object.keys(obj).length ? '' : ',') + '\n';
 						}
@@ -114,7 +114,7 @@ var logger = function(){
 							(objCrawl(options.meta, 0) !== '' ? '{' : '') +																							// Open "{" if there is options.meta
 							'\n' + objCrawl(options.meta) +																											// Print options.meta
 							(objCrawl(options.meta) !== '' ? config.colorize(options.level, '    * ') + '}\n' + config.colorize(options.level, '    * \n') : '') +	// Close "}" and skip line if there is options.meta
-							config.colorize(options.level, '    ************************ ') + config.colorize(options.level, options.level.toUpperCase()) + config.colorize(options.level, ' ************************\n')	 		
+							config.colorize(options.level, '    ************************ ' + options.level.toUpperCase() + ' ************************\n')	
 				}
 			})
 		// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: Log to console constructor :: //

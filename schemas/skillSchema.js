@@ -4,9 +4,9 @@ var	mongoose = require('mongoose'),
 	  Schema = mongoose.Schema,
 	
 	skillSchema = new Schema(
-		{
-			'name': {'type':String, 'required': true, 'minlength': 3, 'unique': true,  'uniqueCaseInsensitive': true},
-			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, 'uniqueCaseInsensitive': true},
+		{ 
+			'name': {'type':String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},
+			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},
 			'createdBy': String,
 			'ability': {'type':String, 'required': true, 'minlength': 3},
 			'prof': {'type':Boolean, 'required': true, 'default': false},

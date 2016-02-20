@@ -9,27 +9,20 @@
 // == Global Variables ============================================================= //
 	var app = express(),
 		 db = mongoose.connection,
-	 logger = require("./services/logger");
+	 logger = require("./services/logger"),
+	general = require('./routes/general');
 // ============================================================= Global Variables == //
 
 // == Middlewares ================================================================== //
 	app.use(bodyParser.json());
+	app.use(express.static('public'));
+	app.use('/', general);
 // ================================================================== Middlewares == //
 
 // == DB Connection check ========================================================== //
 	db.on('error', console.error.bind(console, 'connection error:'));
 	db.once('open', function() {console.log('Yay! Mongo!')});
 // ========================================================== DB Connection check == //
-
-// == Routes ======================================================================= //
-	var skillsR = require('./routes/skills');
-
-	
-	app.use(express.static('public'));
-	app.use('/skills', skillsR);	
-// ======================================================================= Routes == //
-
-
 
 // == Server Start ================================================================= //
 	app.listen(4000, function(){

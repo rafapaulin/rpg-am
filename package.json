@@ -27,7 +27,7 @@
     "body-parser": "^1.14.2",
     "express": "^4.13.4",
     "mkdirp": "^0.5.1",
-    "mongoose": "^4.4.2",
+    "mongoose": "^4.4.4",
     "mongoose-unique-validator": "^1.0.0",
     "normalize.css": "^3.0.3",
     "slug": "^0.9.1",
@@ -36,7 +36,6 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-inject": "^3.0.0",
-    "gulp-watch": "^4.3.5",
     "stream-series": "^0.1.1"
   }
 }

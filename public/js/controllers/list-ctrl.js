@@ -4,7 +4,9 @@ angular.module('rpg').controller('listController', ['$scope', 'Crud', '$routePar
 	var controller = $scope,
 		collection = $routeParams.collection;
 
-	Crud.get(collection).success(function(data){
-		controller.collection = data;
+	controller.collection = collection;				// Define property to use on HTML
+
+	Crud.get(collection).success(function(data){	// Front end GET request
+		controller.list = data;						// Set list property to html use
 	});
 }]);

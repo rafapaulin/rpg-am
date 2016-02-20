@@ -2,7 +2,6 @@
 var gulp = require('gulp'),
 	inject = require('gulp-inject'),
 	series = require('stream-series'),
-	watch = require('gulp-watch'),
 
 	paths = {
 		src: {

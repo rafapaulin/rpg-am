@@ -4,26 +4,24 @@ angular.module('rpg').controller('addController', ['$scope', 'Crud', '$routePara
 	var controller = $scope,
 		collection = $routeParams.collection;
 
-	controller.save = function(data){
+	controller.collection = collection;						// Define property to use on HTML
+
+	controller.save = function(data){						// Save function
 		controller.errors = null;
 
-		Crud.post(collection , data)
-
-			.then(function(res){
+		Crud.post(collection , data)						// Front end POST request
+			.then(function(res){							// Success response to user
 				controller.success = res.data.message
 				console.log('gravou!')
 			})
-
-			.catch(function(data){
+			.catch(function(res){							// Error response to user
 				var errors = [];
-
-				for(var key in data.data) {
-					errors.push(data.data[key].message);
+				for(var key in res.data) {
+					errors.push(res.data[key].message);
 				};
 				controller.errors = errors;
 			});
 
-		console.log(data); // Debug
-		controller.newData = {};
+		controller.newData = null;							// Variable clean up
 	}
 }]);

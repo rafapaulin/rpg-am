@@ -47,7 +47,7 @@ var mongoose = require('mongoose'),
 					{
 						'rpgClass': String,
 						'feature': {
-							'name': String;
+							'name': String,
 							'desc': String,
 						}
 					}
@@ -59,7 +59,7 @@ var mongoose = require('mongoose'),
 					'value': Number // Shield Master talent - adiciona o do escudo
 				},
 				'diceMod': {
-					'name': String
+					'name': String,
 					'numberOfDices': Number,
 					'diceType': Number
 				},

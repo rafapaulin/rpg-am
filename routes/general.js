@@ -5,36 +5,42 @@
 		  colors = require('colors'),
 		  logger = require("../services/logger"),
 		  router = express.Router(),
-		   Skill = require('../schemas/skillSchema'),
 			slug = require('slug');
 // ================================================================= Requirements == //
 
+// == Global Variables ============================================================= //
+	var modelNamer = function(collection){ 
+		return require('../schemas/' + collection.slice(0, -1) + 'Schema') 
+	};
+// == Global Variables ============================================================= //
+
 // == Get Item List ================================================================ //
-	router.get('/', function(req, res){
-		Skill.find(function(err, skills){
-			if (err) {
-				console.log(err);
-			}
-			res.json(skills);
-		});
-		console.log('GET request recieved for "/skills"'); // Debug
+	router.get('/:collection', function(req, res){
+		modelNamer(req.params.collection)
+			.find(function(err, docs){
+				if (err) {
+					logger().debug(err.errors);
+				}
+				res.json(docs);
+			});
+		logger().info('GET request recieved for "/' + req.params.collection + '"'); // Debug
 	})
 // ================================================================ Get item List == //
 
 // == Get Item ===================================================================== //
-	.get('/:slug', function(req, res){
-		Skill.findOne({'slug': req.params.slug}, function(err, skill){
-			if (err) {
-				console.log(err);
-			}
-			res.json(skill);
-			console.log('GET request recieved for "/skill/"' + req.params.slug); // Debug
-		});
+	.get('/:collection/:slug', function(req, res){
+		modelNamer(req.params.collection)
+			.findOne({'slug': req.params.slug}, function(err, doc){
+				if (err) {
+					logger().debug(err.errors);
+				}
+				res.json(doc);
+			});
 	})
 // ==================================================================== Get items == //
 
 // == Update Item ================================================================== //
-	.put('/:slug', function(req, res){
+	.put('/:collection/:slug', function(req, res){
 		req.body.slug = slug(req.body.name, { // Automatic generate slugs based on name
 			replacement: '-',				  // replace spaces with replacement 
 			symbols: true,					  // replace unicode symbols or not 
@@ -44,21 +50,21 @@
 			multicharmap: slug.multicharmap	  // replace multi-characters 
 		});
 
-		Skill.findOneAndUpdate({'slug': req.params.slug}, req.body, function(err, doc){
-			if(err) {
-				res.status(500).json(err);
-				console.log(err);
-			} else {
-				res.status(201).send(req.body.name + ' updated!');
-				console.log(req.body.name + ' updated!'); // Debug
-			}
-		});
+		modelNamer(req.params.collection)
+			.findOneAndUpdate({'slug': req.params.slug}, req.body, {runValidators: true, context: 'query'}, function(err, doc){
+				if(err) {
+					res.status(409).json(err.errors);
+					logger().debug(err.errors);
+				} else {
+					res.status(201).json({message: req.body.name + ' updated!', 'slug': req.body.slug});
+					logger().info(req.body.name + ' updated!', req.body);
+				}
+			});
 	})
 // ================================================================== Update Item == //
 
 // == Create new items ============================================================= //
-	.post('/', function(req, res){
-		
+	.post('/:collection', function(req, res){
 		if(req.body.name) {
 			req.body.slug = slug(req.body.name, { // Automatic generate slugs based on name
 				replacement: '-',				  // replace spaces with replacement 
@@ -70,36 +76,31 @@
 			});
 		};
 
-		var newSkill = new Skill(req.body); // set a variable with the form data
+		new modelNamer(req.params.collection)(req.body)
+			.save(function(err){
+				if(err) {
+					logger().debug(err);
+					res.status(500).json(err.errors);
 
-		newSkill.save(function(err){
-
-			if(err) {
-				logger().user('Erro de validção - Mongoose', err);
-				res.status(500).json(err.errors);
-
-			} else {
-				res.status(201).json({'message': req.body.name + ' successfully created'});
-				console.log('new skill saved!'); // Debug
-			}
-		});
-
-		newSkill = null; // clean the data variable after save on DB
+				} else {
+					res.status(201).json({'message': req.body.name + ' successfully created'});
+					logger().info(req.body.name + '  saved!', req.body);
+				}
+			});
 	})
-
 // ============================================================= Create new items == //
 
 // == Delete items ================================================================= //
-	.delete('/:slug', function(req, res){
-		Skill.remove({'slug': req.params.slug}, function(err, doc){
-			if(err) {
-				console.log(err);
-			} else {
-				console.log('doc:' + doc);
-			}
-		});
-		console.log('Delete Request recieved for ' + req.params.slug); // Debug
-		res.status(200).send('deletado com sucesso');
+	.delete('/:collection/:slug', function(req, res){
+		modelNamer(req.params.collection)
+			.remove({'slug': req.params.slug}, function(err, doc){
+				if(err) {
+					logger().debug(err.errors);
+				} else {
+					logger().info('Deletado com sucesso');
+					res.status(200).json({'message': 'Deletado com sucesso'});
+				}
+			});
 	});
 // ================================================================= Delete items == //
 
