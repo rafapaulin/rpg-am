@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
 			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
 			'createdBy': String,
 			'level': {'type': Number, 'required': true},
-			'ritual': {'type': Boolean, 'required': true},
+			'ritual': {'type': Boolean, 'required': true, 'default': false},
 			'school': {'type': String, 'required': true, 'minlength': 3},
 			'castTime': {
 				'time': {'type': Number, 'required': true},
@@ -39,7 +39,7 @@ var mongoose = require('mongoose'),
 				]
 			},
 			'damage': {
-				'harmful': {'type': Boolean, 'required': true},
+				'harmful': {'type': Boolean, 'required': true, 'default': false},
 				'staticDmg': Number,
 				'numberOfDices': {'type': Number, 'required': true},
 				'diceType': {'type': Number, 'required': true},
@@ -47,7 +47,7 @@ var mongoose = require('mongoose'),
 					{'type': String, 'required': true, 'minlength': 3}
 				]
 			},
-			'save': {'type': String, 'required': true, 'minlength': 3},
+			'save': {'type': String, 'minlength': 3},
 			'atHigherLevels': {
 				'staticDmg': Number
 				'numberOfDices': Number,

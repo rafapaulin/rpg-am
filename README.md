@@ -1,5 +1,5 @@
-# rpg-am
-A character sheet manager, among other stuff
+# RPG Adventure Manager
+A character sheet manager, among other stuff for DnD 5.0
 
 Changelog:
 
@@ -19,3 +19,5 @@ Changelog:
 		Generic single item controller
 0.1.4 - Generic PUT item page
 		Generic PUT item controller
+0.1.5 - Generic routing on back end
+		Better error handling, saving log to file (json) and to console in a legible way

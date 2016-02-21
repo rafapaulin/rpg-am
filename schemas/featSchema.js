@@ -15,8 +15,8 @@ var mongoose = require('mongoose'),
 				'minInt': Number,
 				'minWis': Number,
 				'minCha': Number,
-				'spellCaster': Boolean,
-				'proficiency': String
+				'spellCaster': {Boolean, default: false},
+				'proficiency': [String]
 			},
 			'desc': {type:String, required: true, minlength: 3},
 			'bonus': {

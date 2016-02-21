@@ -22,6 +22,7 @@
 					logger().debug(err.errors);
 				}
 				res.json(docs);
+				console.log(docs);
 			});
 		logger().info('GET request recieved for "/' + req.params.collection + '"'); // Debug
 	})

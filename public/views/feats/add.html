@@ -4,11 +4,35 @@
 			<h1>Hey, this the form to add new feats!</h1>
 			<h3>here is the form</h3>
 			<form ng-submit="save(newData)">
-				<div ng-show="errors" ng-repeat="error in errors">{{error}}</div>
-				<div ng-show="success">{{success}}</div>
-				<input type="text" class="form-control" name="skillName" id="skillName" placeholder="Name" ng-model="newData.name">
-				<input type="text" class="form-control" name="skillShortDesc" id="skillShortDesc" placeholder="Short Description" ng-model="newData.shortDesc">
-				<text-angular ng-model="newData.desc" ta-toolbar="[['p'],['bold', 'italics', 'underline', 'strikeThrough'],['ul', 'ol'],['clear']]"></text-angular>
+				<div class="bleh" ng-show="errors" ng-repeat="error in errors">{{error}}</div>
+				<div class="blah" ng-show="success">{{success}}</div>
+
+				<input type="text" id="featName" class="form-control" name="featName" placeholder="Name" ng-model="newData.name">
+				<input type="text" id="featShortDesc" class="form-control" name="featShortDesc" placeholder="Short Description" ng-model="newData.shortDesc">
+				<div class="form-group form-inline">
+					<label for="minStr">Min. Str: </label>
+					<input type="number" id="minStr" class="form-control" ng-model="newData.prereq.minStr">
+					<label for="minDex">Min. Dex: </label>
+					<input type="number" id="minDex" class="form-control" ng-model="newData.prereq.minDex">
+					<label for="minCon">Min. Con: </label>
+					<input type="number" id="minCon" class="form-control" ng-model="newData.prereq.minCon">
+					<label for="minInt">Min. Int: </label>
+					<input type="number" id="minInt" class="form-control" ng-model="newData.prereq.minInt">
+					<label for="minWis">Min. Wis: </label>
+					<input type="number" id="minWis" class="form-control" ng-model="newData.prereq.minWis">
+					<label for="minCha">Min. Cha: </label>
+					<input type="number" id="minCha" class="form-control" ng-model="newData.prereq.minCha">
+				</div>
+				<div class="form-group form-inline">
+					<label for="spellcaster">Spellcaster </label>
+					<input type="checkbox" id="spellCaster" name="spellCaster" ng-model="newData.prereq.spellCaster">
+				</div>
+				
+
+				'proficiency': [String]
+
+
+				<text-angular id="featDesc" name="featDesc" ta-toolbar="{{tbOpt}}"ng-model="newData.desc" ></text-angular>
 				<input type="submit" class="btn btn-primary">
 			</form>
 		</div>
