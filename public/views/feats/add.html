@@ -27,11 +27,13 @@
 					<label for="spellcaster">Spellcaster </label>
 					<input type="checkbox" id="spellCaster" name="spellCaster" ng-model="newData.prereq.spellCaster">
 				</div>
-				
-
-				'proficiency': [String]
-
-
+				<ul class="list-inline">
+					<li class="bleh" ng-repeat="proficiency in proficiencies track by $index">{{proficiency}} [<a ng-click="removeProf($index)">X</a>]</li>
+				</ul>
+				<div class="form-group form-inline">
+					<input type="text" class="form-control" ng-model="prof">
+					<a ng-click="addProf()">Add</a>
+				</div>
 				<text-angular id="featDesc" name="featDesc" ta-toolbar="{{tbOpt}}"ng-model="newData.desc" ></text-angular>
 				<input type="submit" class="btn btn-primary">
 			</form>
