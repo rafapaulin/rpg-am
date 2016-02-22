@@ -9,63 +9,62 @@ var mongoose = require('mongoose'),
 			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
 			'createdBy': String,
 			'prereq': {
-				'minStr': Number,
-				'minDex': Number,
-				'minCon': Number,
-				'minInt': Number,
-				'minWis': Number,
-				'minCha': Number,
-				'spellCaster': {Boolean, default: false},
-				'proficiencies': [String]
+				'minStr': {'type': Number, 'default': 0},
+				'minDex': {'type': Number, 'default': 0},
+				'minCon': {'type': Number, 'default': 0},
+				'minInt': {'type': Number, 'default': 0},
+				'minWis': {'type': Number, 'default': 0},
+				'minCha': {'type': Number, 'default': 0},
+				'spellCaster': {'type': Boolean, 'default': false},
+				'proficiencies': {'type': [String], 'default': []}
 			},
-			'desc': {type:String, required: true, minlength: 3},
+			'desc': {'type':String, 'required': true, 'minlength': 3},
 			'bonus': {
-				'initiative': Number,
-				'str': Number,
-				'dex': Number,
-				'con': Number,
-				'int': Number,
-				'wis': Number,
-				'cha': Number,
+				'initiative': {'type': Number, 'default': 0},
+				'str': {'type': Number, 'default': 0},
+				'dex': {'type': Number, 'default': 0},
+				'con': {'type': Number, 'default': 0},
+				'int': {'type': Number, 'default': 0},
+				'wis': {'type': Number, 'default': 0},
+				'cha': {'type': Number, 'default': 0},
 				'ac': {
-					'value': Number,
-					'dualWield': Boolean,
-					'minDex': Number
+					'value': {'type': Number, 'default': 0},
+					'dualWield': {'type': Boolean, 'default': false},
+					'minDex': {'type': Number, 'default': 0}
 				},
-				'equipProf': [String],
-				'language': [String],
+				'equipProf': [{'type': String, 'default': ""}],
+				'language': [{'type': String, 'default': ""}],
 				'spells': {
-					'rpgClass': [String],
+					'rpgClass': [{'type': String, 'default': ""}],
 					'spellLevel': [
 						{
-							'qty': Number,
-							'lvl': Number
+							'qty': {'type': Number, 'default': 0},
+							'lvl': {'type': Number, 'default': 0}
 						}
 					]
 				},
 				'classFeature': [ // checar esse parâmetro depois de montar as classes
 					{
-						'rpgClass': String,
+						'rpgClass': {'type': String, 'default': ""},
 						'feature': {
-							'name': String,
-							'desc': String,
+							'name': {'type': String, 'default': ""},
+							'desc': {'type': String, 'default': ""},
 						}
 					}
 				],
-				'speed': Number,
-				'skillProf': [String],
+				'speed': {'type': Number, 'default': 0},
+				'skillProf': [{'type': String, 'default': ""}],
 				'savingThrow': {
-					'name': String,
-					'value': Number // Shield Master talent - adiciona o do escudo
+					'name': {'type': String, 'default': ""},
+					'value': {'type': Number, 'default': 0} // Shield Master talent - adiciona o do escudo
 				},
 				'diceMod': {
-					'name': String,
-					'numberOfDices': Number,
-					'diceType': Number
+					'name': {'type': String, 'default': ""},
+					'numberOfDices': {'type': Number, 'default': 0},
+					'diceType': {'type': Number, 'default': 0}
 				},
 				'hp': {
-					'oneTime': Number,
-					'perLevel': Number
+					'perLevel': {'type': Number, 'default': 0}
 				}
 			}
 		},

@@ -6,35 +6,12 @@
 			<form ng-submit="save(newData)">
 				<div class="bleh" ng-show="errors" ng-repeat="error in errors">{{error}}</div>
 				<div class="blah" ng-show="success">{{success}}</div>
-
 				<input type="text" id="featName" class="form-control" name="featName" placeholder="Name" ng-model="newData.name">
 				<input type="text" id="featShortDesc" class="form-control" name="featShortDesc" placeholder="Short Description" ng-model="newData.shortDesc">
-				<div class="form-group form-inline">
-					<label for="minStr">Min. Str: </label>
-					<input type="number" id="minStr" class="form-control" ng-model="newData.prereq.minStr">
-					<label for="minDex">Min. Dex: </label>
-					<input type="number" id="minDex" class="form-control" ng-model="newData.prereq.minDex">
-					<label for="minCon">Min. Con: </label>
-					<input type="number" id="minCon" class="form-control" ng-model="newData.prereq.minCon">
-					<label for="minInt">Min. Int: </label>
-					<input type="number" id="minInt" class="form-control" ng-model="newData.prereq.minInt">
-					<label for="minWis">Min. Wis: </label>
-					<input type="number" id="minWis" class="form-control" ng-model="newData.prereq.minWis">
-					<label for="minCha">Min. Cha: </label>
-					<input type="number" id="minCha" class="form-control" ng-model="newData.prereq.minCha">
-				</div>
-				<div class="form-group form-inline">
-					<label for="spellcaster">Spellcaster </label>
-					<input type="checkbox" id="spellCaster" name="spellCaster" ng-model="newData.prereq.spellCaster">
-				</div>
-				<ul class="list-inline">
-					<li class="bleh" ng-repeat="proficiency in proficiencies track by $index">{{proficiency}} [<a ng-click="removeProf($index)">X</a>]</li>
-				</ul>
-				<div class="form-group form-inline">
-					<input type="text" class="form-control" ng-model="prof">
-					<a ng-click="addProf()">Add</a>
-				</div>
 				<text-angular id="featDesc" name="featDesc" ta-toolbar="{{tbOpt}}"ng-model="newData.desc" ></text-angular>
+
+				<talent-pre-req></talent-pre-req>
+				
 				<input type="submit" class="btn btn-primary">
 			</form>
 		</div>
