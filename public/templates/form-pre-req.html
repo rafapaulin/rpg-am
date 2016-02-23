@@ -2,8 +2,15 @@
 	<legend>Prerequisites:</legend>
 	<select ng-model="obj" ng-options="prereq.name group by prereq.cat for prereq in prereqList"></select>
 	<a ng-click="add(obj)">add</a>
-	
-	<div ng-repeat="prereq in prerequisites">
-		<input type="{{prereq.type}}" id="{{prereq.ngModel}}" class="" name="{{prereq.ngModel}}" ng-model="newData.prereq[prereq.ngModel]"></input>	<a ng-show="prereq.cat == 'Proficiences'" ng-click="addprof()">Add</a>
-	</div>
+	<ul class="list-inline">
+		<li ng-show="newData.prereq.proficiencies.length > 0"><span><strong>Proficiencies:</strong></span></li>
+		<li ng-repeat="proficiency in newData.prereq.proficiencies"><span>{{proficiency}}</span></li>
+	</ul>
+	<input type="{{prereq.type}}" id="{{prereq.ngModel}}" class="" name="{{prereq.ngModel}}" ng-model="newData.prereq[prereq.ngModel]" ng-repeat="prereq in prerequisites"></input>
 </fieldset>
+
+<style>
+	ul.list-inline li span:after {content: ",";}
+	ul.list-inline li:first-child span:after,
+	ul.list-inline li:last-child span:after {content: "";}
+</style>

@@ -14,6 +14,8 @@ angular.module('rpg')
 
 //== Save to DB block ================================================================================================== //
 		controller.save = function(data){										// Save function
+			//controllere.newData.prereq.proficiencies = [];
+
 			Crud.post(collection , data)										// Front end POST request
 				.then(function(res){											// Success response to user
 					controller.success = res.data.message;
