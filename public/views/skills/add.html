@@ -6,7 +6,7 @@
 			<form ng-submit="save(newData)">
 				<div class="bleh" ng-show="errors" ng-repeat="error in errors">{{error}}</div>
 				<div class="blah" ng-show="success">{{success}}</div>
-				<input type="text" id="skillName" class="form-control" name="skillName" placeholder="Name" ng-model="newData.name">
+				<general-inputs></general-inputs>
 				<select name="skillAbility" id="skillAbility" class="form-control" ng-model="newData.ability">
 					<option value="" selected hidden disabled>Select</option>
 					<option value="Strength">Strength</option>
@@ -16,8 +16,6 @@
 					<option value="Wisdom">Wisdom</option>
 					<option value="Charisma">Charisma</option>
 				</select>
-				<input type="text" id="skillShortDesc"  class="form-control" name="skillShortDesc"placeholder="Short Description" ng-model="newData.shortDesc">
-				<text-angular id="skillDesc" ta-toolbar="{{tbOpt}}" ng-model="newData.desc"></text-angular>
 				<input type="submit" class="btn btn-primary">
 			</form>
 		</div>

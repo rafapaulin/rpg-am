@@ -1,14 +1,17 @@
 'use strict';
 angular.module('rpg')
-	.directive('talentPreReq', ['Crud', '$routeParams', function(Crud, $routeParams){
+	.directive('preReq', ['$routeParams', function($routeParams){
 		var collection = $routeParams.collection; 				// Get the collection name from URL
 
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/talent-pre-req.html',
+			templateUrl: '/templates/form-pre-req.html',
 			scope: false,
 			link: function(scope, element){
-					console.log(scope.newData)
+				scope.showMinStr = false;
+
+				scope.add = function(obj){					
+				};
 			}
 		};
 	}]);

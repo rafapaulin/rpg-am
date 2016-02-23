@@ -4,13 +4,13 @@
 			<h1>Hey, this the form to add new feats!</h1>
 			<h3>here is the form</h3>
 			<form ng-submit="save(newData)">
+			
 				<div class="bleh" ng-show="errors" ng-repeat="error in errors">{{error}}</div>
 				<div class="blah" ng-show="success">{{success}}</div>
-				<input type="text" id="featName" class="form-control" name="featName" placeholder="Name" ng-model="newData.name">
-				<input type="text" id="featShortDesc" class="form-control" name="featShortDesc" placeholder="Short Description" ng-model="newData.shortDesc">
-				<text-angular id="featDesc" name="featDesc" ta-toolbar="{{tbOpt}}"ng-model="newData.desc" ></text-angular>
 
-				<talent-pre-req></talent-pre-req>
+				<general-inputs></general-inputs>
+
+				<pre-req></pre-req>
 				
 				<input type="submit" class="btn btn-primary">
 			</form>
