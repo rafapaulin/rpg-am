@@ -9,6 +9,7 @@ angular.module('rpg')
 		controller.success = null;												// Define property to use on HTML
 		controller.errors = null;
 		controller.newData = {};
+		controller.prerequisites = [];											// variable for the [form-pre-req.js]
 //================================================================================================= Properties preset == //
 
 //== Save to DB block ================================================================================================== //
@@ -17,8 +18,9 @@ angular.module('rpg')
 				.then(function(res){											// Success response to user
 					controller.success = res.data.message;
 
-					$timeout(function(){controller.success = null}, 3000);		// Variable clean up on success
-					controller.newData = {};									// Variable clean up on success
+					$timeout(function(){controller.success = null}, 3000);		// Variable clean up on success (General success message)
+					controller.newData = {};									// Variable clean up on success (General data submited to database)
+					controller.prerequisites = [];								// Variable clean up on success (Data from [form-pre-req.js])
 				})
 				.catch(function(res){											// Error response to user
 					var errors = [];
@@ -26,7 +28,7 @@ angular.module('rpg')
 						errors.push(res.data[key].message);
 					};
 					controller.errors = errors;									// Define property to use on HTML
-					$timeout(function(){controller.errors = null}, 3000);		// Variable clean up
+					$timeout(function(){controller.errors = null}, 3000);		// Variable clean up (General error message)
 				});
 //================================================================================================== Save to DB block == //
 		}

@@ -22,7 +22,6 @@
 					logger().debug(err.errors);
 				}
 				res.json(docs);
-				console.log(docs);
 			});
 		logger().info('GET request recieved for "/' + req.params.collection + '"'); // Debug
 	})
@@ -52,10 +51,11 @@
 		});
 
 		modelNamer(req.params.collection)
-			.findOneAndUpdate({'slug': req.params.slug}, req.body, {runValidators: true, context: 'query'}, function(err, doc){
+			.findOneAndUpdate({'slug': req.params.slug}, req.body, function(err){
+				console.log(req.body);
 				if(err) {
-					res.status(409).json(err.errors);
-					logger().debug(err.errors);
+					res.status(500).json(err);
+					console.log(err);
 				} else {
 					res.status(201).json({message: req.body.name + ' updated!', 'slug': req.body.slug});
 					logger().info(req.body.name + ' updated!', req.body);

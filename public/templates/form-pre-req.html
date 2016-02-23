@@ -1,11 +1,9 @@
-<div class="form-inline" ng-show="showMinStr">
-	<label for="minStr">Min. Str.:</label>
-	<input type="number" id="minStr" class="form-control" name="minStr" ng-model="newData.prereq.minStr">	
-</div>
-
-
-<select ng-model="asd">
-	<option value="showMinStr">Minimum Strength</option>
-	<option value="minDex">Minimum Dexterity</option>
-</select>
-<a ng-click="add(asd)">add</a>
+<fieldset>
+	<legend>Prerequisites:</legend>
+	<select ng-model="obj" ng-options="prereq.name group by prereq.cat for prereq in prereqList"></select>
+	<a ng-click="add(obj)">add</a>
+	
+	<div ng-repeat="prereq in prerequisites">
+		<input type="{{prereq.type}}" id="{{prereq.ngModel}}" class="" name="{{prereq.ngModel}}" ng-model="newData.prereq[prereq.ngModel]"></input>	<a ng-show="prereq.cat == 'Proficiences'" ng-click="addprof()">Add</a>
+	</div>
+</fieldset>

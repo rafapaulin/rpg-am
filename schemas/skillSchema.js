@@ -17,6 +17,6 @@ var	mongoose = require('mongoose'),
 		}
 	);
 	
-skillSchema.plugin(uniqueV); // validate unique values
+skillSchema.plugin(uniqueV);								// validate unique values
 
-module.exports = mongoose.model('Skill', skillSchema); // Export for further use
+module.exports = mongoose.model('Skill', skillSchema);		// Export for further use

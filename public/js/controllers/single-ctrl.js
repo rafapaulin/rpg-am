@@ -12,6 +12,7 @@ angular.module('rpg').controller('singleController', ['$scope', 'Crud', '$routeP
 	controller.update = function(data){									// Update function
 		controller.errors = null;
 		data.desc = $sce.getTrustedHtml(data.desc);						// Translate the desc wysiwyg text as trusted html string
+		delete data._id;												// Deletes the unupdatable parameter (_id) from the object being sent on update
 
 		Crud.put(collection , slug, data)								// Front end PUT request
 			.then(function(res){										// Success response to user
@@ -22,7 +23,7 @@ angular.module('rpg').controller('singleController', ['$scope', 'Crud', '$routeP
 				var errors = [];
 
 				for(var key in res.data) {
-					errors.push(res.data[key].message);
+					errors.push(res.data[key].message); 
 				};
 				controller.errors = errors;
 			});
