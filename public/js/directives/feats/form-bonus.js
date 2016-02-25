@@ -1,7 +1,6 @@
 'use strict';
 angular.module('rpg')
-	.directive('bonus', function($routeParams){
-		var collection = $routeParams.collection; 				// Get the collection name from URL
+	.directive('bonus', function(){
 
 		return {
 			restrict: 'E',

@@ -5,14 +5,14 @@ var mongoose = require('mongoose'),
 
 	spellSchema = new Schema(
 		{
-			'name': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},
-			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},
-			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
-			'createdBy': String,
+			'name': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok
+			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok - Automatic
+			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},							// ok
+			'createdBy': String,																						// ok - Automatic (to-do)
 
 			'level': {'type': Number, 'required': true},
 			'ritual': {'type': Boolean, 'required': true, 'default': false},
-			'school': [{'type': String, 'required': true, 'minlength': 3}],
+			'school': [{'type': String, 'required': true}],
 			'save': {'type': String, 'minlength': 3, 'default': ''},
 			'components': [
 				{
@@ -42,6 +42,7 @@ var mongoose = require('mongoose'),
 					}
 				]
 			},
+
 			'damage': {
 				'harmful': {'type': Boolean, 'required': true, 'default': false},
 				'staticDmg': {'type': Number, default: 0},

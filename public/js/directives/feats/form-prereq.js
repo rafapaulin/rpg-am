@@ -1,7 +1,6 @@
 'use strict';
 angular.module('rpg')
-	.directive('preReq', function($routeParams){
-		var collection = $routeParams.collection; 				// Get the collection name from URL
+	.directive('preReq', function(){
 
 		return {
 			restrict: 'E',

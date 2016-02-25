@@ -1,0 +1,34 @@
+<fieldset>
+	<legend>Spell basic info</legend>
+
+	<select ng-model="newSchool" ng-options="school for school in schoolList">
+		<option value="" hidden>-- Select --</option>
+	</select>
+
+	<a ng-click="addSchool(newSchool)">add</a>
+
+	<ul class="list-inline">
+		<li ng-show="newData.schools.length > 0">
+			<ng-pluralize count="newData.schools.length" when="{'0': '','one': 'School: ','other': 'Schools: '}"></ng-pluralize>
+		</li>
+		<li ng-repeat="school in newData.schools"><span>{{school}}</span></li>
+	</ul>
+
+
+	<input type="number" id="level" class="form-control" name="level" ng-model="newData.level">
+	<label class="checkbox-inline">
+		<input type="checkbox" id="ritual" class="form-control" name="ritual" ng-model="newData.ritual"> Mark if ritual.
+	</label>
+
+
+</fieldset>
+
+
+<!-- 			'school': [{'type': String, 'required': true, 'minlength': 3}],
+			'save': {'type': String, 'minlength': 3, 'default': ''},
+			'components': [
+				{
+					'name': String,	// Verbal, Somatic, Material
+					'desc': String
+				}
+			], -->
