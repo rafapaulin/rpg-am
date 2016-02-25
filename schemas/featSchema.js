@@ -1,39 +1,44 @@
 'use strict';
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema,
+	 uniqueV = require('mongoose-unique-validator'),
+	  Schema = mongoose.Schema,
 
 	featSchema = new Schema(
 		{
-			'name': {type:String, required: true, minlength: 3},
-			'slug': {'type': String, 'required': true, 'minlength': 3},
-			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
-			'createdBy': String,
-			'prereq': {
-				'minStr': {'type': Number, 'default': 0},
-				'minDex': {'type': Number, 'default': 0},
-				'minCon': {'type': Number, 'default': 0},
-				'minInt': {'type': Number, 'default': 0},
-				'minWis': {'type': Number, 'default': 0},
-				'minCha': {'type': Number, 'default': 0},
-				'spellCaster': {'type': Boolean, 'default': false},
-				'proficiencies': {'type': [String], 'default': []}
+			'name': {type:String, required: true, minlength: 3, 'unique': true, uniqueCaseInsensitive: true},			// ok
+			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok - Automatic
+			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},							// ok
+			'createdBy': String,																						// ok - Automatic (to-do)
+			'prereq': {																									// ok
+				'minStr': {'type': Number, 'default': 0},																// ok
+				'minDex': {'type': Number, 'default': 0},																// ok
+				'minCon': {'type': Number, 'default': 0},																// ok
+				'minInt': {'type': Number, 'default': 0},																// ok
+				'minWis': {'type': Number, 'default': 0},																// ok
+				'minCha': {'type': Number, 'default': 0},																// ok
+				'spellCaster': {'type': Boolean, 'default': false},														// ok
+				'proficiencies': {'type': [String], 'default': []}														// ok
 			},
-			'desc': {'type':String, 'required': true, 'minlength': 3},
+			'desc': {'type':String, 'required': true, 'minlength': 3},													// ok
 			'bonus': {
-				'initiative': {'type': Number, 'default': 0},
-				'str': {'type': Number, 'default': 0},
-				'dex': {'type': Number, 'default': 0},
-				'con': {'type': Number, 'default': 0},
-				'int': {'type': Number, 'default': 0},
-				'wis': {'type': Number, 'default': 0},
-				'cha': {'type': Number, 'default': 0},
-				'ac': {
+				'initiative': {'type': Number, 'default': 0},															// ok
+				'str': {'type': Number, 'default': 0},																	// ok
+				'dex': {'type': Number, 'default': 0},																	// ok
+				'con': {'type': Number, 'default': 0},																	// ok
+				'int': {'type': Number, 'default': 0},																	// ok
+				'wis': {'type': Number, 'default': 0},																	// ok
+				'cha': {'type': Number, 'default': 0},																	// ok
+				'hp': {'type': Number, 'default': 0},																	// ok
+				'speed': {'type': Number, 'default': 0},																// ok
+				'languageSlots': {'type': Number, 'default': 0},														// ok
+				'ac': {																									// Medium armor master
 					'value': {'type': Number, 'default': 0},
 					'dualWield': {'type': Boolean, 'default': false},
 					'minDex': {'type': Number, 'default': 0}
 				},
+				'svThrowProf': [{'type': String, 'default': ""}],
 				'equipProf': [{'type': String, 'default': ""}],
-				'language': [{'type': String, 'default': ""}],
+				'skillProf': [{'type': String, 'default': ""}],
 				'spells': {
 					'rpgClass': [{'type': String, 'default': ""}],
 					'spellLevel': [
@@ -43,7 +48,7 @@ var mongoose = require('mongoose'),
 						}
 					]
 				},
-				'classFeature': [ // checar esse parâmetro depois de montar as classes
+				'classFeature': [																						// checar esse parâmetro depois de montar as classes
 					{
 						'rpgClass': {'type': String, 'default': ""},
 						'feature': {
@@ -52,25 +57,18 @@ var mongoose = require('mongoose'),
 						}
 					}
 				],
-				'speed': {'type': Number, 'default': 0},
-				'skillProf': [{'type': String, 'default': ""}],
-				'savingThrow': {
-					'name': {'type': String, 'default': ""},
-					'value': {'type': Number, 'default': 0} // Shield Master talent - adiciona o do escudo
-				},
 				'diceMod': {
 					'name': {'type': String, 'default': ""},
 					'numberOfDices': {'type': Number, 'default': 0},
 					'diceType': {'type': Number, 'default': 0}
 				},
-				'hp': {
-					'perLevel': {'type': Number, 'default': 0}
-				}
 			}
 		},
 		{
 			'collection': 'feats'
 		}
 	);
+
+featSchema.plugin(uniqueV);								// validate unique values
 
 module.exports = mongoose.model('Feat', featSchema);

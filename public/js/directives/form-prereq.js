@@ -1,6 +1,6 @@
 'use strict';
 angular.module('rpg')
-	.directive('preReq', ['$routeParams', function($routeParams){
+	.directive('preReq', function($routeParams){
 		var collection = $routeParams.collection; 				// Get the collection name from URL
 
 		return {
@@ -24,16 +24,16 @@ angular.module('rpg')
 					{'type':'',			'ngModel':'',				'cat':'Proficiences',	'name':'Heavy Armor'},
 					{'type':'checkbox',	'ngModel':'spellCaster',	'cat':'Other',			'name':'Is Spellcaster?'}
 				];
-				scope.add = function(obj){
+				scope.addPrereq = function(obj){
 					if(obj.cat == 'Proficiences'){
 						scope.newData.prereq.proficiencies.push(obj.name);
-						console.log(scope.newData.prereq.proficiencies);
 					} else {
 						scope.prerequisites.push(obj);
-						console.log(scope.prerequisites);
 					}
-
+					scope.prereqList = scope.prereqList.filter(function(list){
+						return list.name !== obj.name;
+					});
 				};
 			}
 		};
-	}]);
+	});

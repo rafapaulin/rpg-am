@@ -1,16 +1,17 @@
 <fieldset>
 	<legend>Prerequisites:</legend>
-	<select ng-model="obj" ng-options="prereq.name group by prereq.cat for prereq in prereqList"></select>
-	<a ng-click="add(obj)">add</a>
+	<select ng-model="newPrereq" ng-options="prereq.name group by prereq.cat for prereq in prereqList">
+		<option value="" hidden>-- Select --</option>
+	</select>
+	<a ng-click="addPrereq(newPrereq)">add</a>
 	<ul class="list-inline">
 		<li ng-show="newData.prereq.proficiencies.length > 0"><span><strong>Proficiencies:</strong></span></li>
 		<li ng-repeat="proficiency in newData.prereq.proficiencies"><span>{{proficiency}}</span></li>
 	</ul>
-	<input type="{{prereq.type}}" id="{{prereq.ngModel}}" class="" name="{{prereq.ngModel}}" ng-model="newData.prereq[prereq.ngModel]" ng-repeat="prereq in prerequisites"></input>
+	<div class="form-group form-inline">
+		<div ng-repeat="prereq in prerequisites">
+			<label for="{{prereq.ngModel}}">{{prereq.name}}: </label>
+			<input type="{{prereq.type}}" id="{{prereq.ngModel}}" class="" name="{{prereq.ngModel}}" ng-model="newData.prereq[prereq.ngModel]">
+		</div>
+	</div>
 </fieldset>
-
-<style>
-	ul.list-inline li span:after {content: ",";}
-	ul.list-inline li:first-child span:after,
-	ul.list-inline li:last-child span:after {content: "";}
-</style>

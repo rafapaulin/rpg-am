@@ -10,6 +10,7 @@ angular.module('rpg')
 		controller.errors = null;
 		controller.newData = {};
 		controller.prerequisites = [];											// variable for the [form-pre-req.js]
+		controller.bonuses = [];												// variable for the [form-bonus.js]
 //================================================================================================= Properties preset == //
 
 //== Save to DB block ================================================================================================== //
@@ -23,6 +24,7 @@ angular.module('rpg')
 					$timeout(function(){controller.success = null}, 3000);		// Variable clean up on success (General success message)
 					controller.newData = {};									// Variable clean up on success (General data submited to database)
 					controller.prerequisites = [];								// Variable clean up on success (Data from [form-pre-req.js])
+					controller.bonuses = [];									// Variable clean up on success (Data from [form-pre-req.js])
 				})
 				.catch(function(res){											// Error response to user
 					var errors = [];

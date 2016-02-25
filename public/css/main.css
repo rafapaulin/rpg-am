@@ -10,7 +10,11 @@ h3 {
 }
 a[ng-click] {
     cursor: pointer;
-} 
+}
+ul.list-inline li span:after {content: ",";}
+ul.list-inline li:first-child span:after,
+ul.list-inline li:last-child span:after {content: "";}
+
 .blah.ng-hide-add, .blah.ng-hide-remove {
   -webkit-transition:all ease-in-out .3s;
   -moz-transition:all ease-in-out .3s;

@@ -1,8 +1,8 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1">
-			<h1>Hey, this the single feat page!</h1>
-			<h3>here is your feat details</h3>
+			<h1>Hey, this the single spell page!</h1>
+			<h3>here is your spell details</h3>
 			<p>{{data.name}}</p>
 			<p>{{data.shortDesc}}</p>
 			<p>{{data.ability}}</p>
@@ -11,10 +11,10 @@
 			<div ng-show="errors" ng-repeat="error in errors">{{error}}</div>
 			<div ng-show="success">{{success}}</div>
 			<p>
-				<a ng-href="#/{{collection}}/new">Feat add form</a>
+				<a ng-href="#/{{collection}}/new">spell add form</a>
 			</p>
 			<p>
-				<a ng-href="#/{{collection}}">Feat list</a>
+				<a ng-href="#/{{collection}}">spell list</a>
 			</p>
 		</div>
 	</div>
@@ -23,11 +23,11 @@
 			<a ng-click="showForm = true">update</a>
 			<div ng-show="showForm">
 				<form ng-submit="update(data)">
-					<input type="text" class="form-control" name="featName" id="featName" placeholder="Name" ng-model="data.name">
-					<input type="text" class="form-control" name="featAbility" id="featAbility" placeholder="Ability" ng-model="data.ability">
-					<input type="text" class="form-control" name="featShortDesc" id="featShortDesc" placeholder="Short Description" ng-model="data.shortDesc">
+					<input type="text" class="form-control" name="spellName" id="spellName" placeholder="Name" ng-model="data.name">
+					<input type="text" class="form-control" name="spellAbility" id="spellAbility" placeholder="Ability" ng-model="data.ability">
+					<input type="text" class="form-control" name="spellShortDesc" id="spellShortDesc" placeholder="Short Description" ng-model="data.shortDesc">
 					<div class="form-group form-inline">
-						<input type="checkbox" class="form-control" name="featProf" id="featProf" ng-model="data.prof"> Prof?
+						<input type="checkbox" class="form-control" name="spellProf" id="spellProf" ng-model="data.prof"> Prof?
 					</div>
 					<text-angular ng-model="data.desc" ta-toolbar="[['p'],['bold', 'italics', 'underline', 'strikeThrough'],['ul', 'ol'],['clear']]"></text-angular>
 					<input type="submit" class="btn btn-primary">
