@@ -13,7 +13,7 @@ var mongoose = require('mongoose'),
 			'level': {'type': Number, 'required': true},
 			'ritual': {'type': Boolean, 'required': true, 'default': false},
 			'school': [{'type': String, 'required': true}],
-			'save': {'type': String, 'minlength': 3, 'default': ''},
+			'saving': {'type': String, 'minlength': 3, 'default': ''},
 			'components': [
 				{
 					'name': String,	// Verbal, Somatic, Material
@@ -54,8 +54,8 @@ var mongoose = require('mongoose'),
 			},
 			'atHigherLevels': {
 				'staticDmg': {'type': Number, default: 0},
-				'numberOfDices': {'type': Number, default: 0},,
-				'diceType': {'type': Number, default: 0},,
+				'numberOfDices': {'type': Number, default: 0},
+				'diceType': {'type': Number, default: 0},
 				'desc': {'type': String, 'default': ''}
 			}
 		},
