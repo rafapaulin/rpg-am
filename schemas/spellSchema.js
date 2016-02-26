@@ -16,7 +16,7 @@ var mongoose = require('mongoose'),
 			'saving': {'type': String, 'minlength': 3, 'default': ''},
 			'components': [
 				{
-					'name': String,	// Verbal, Somatic, Material
+					'name': {'type':String, 'required': true},	// Verbal, Somatic, Material
 					'desc': String
 				}
 			],
