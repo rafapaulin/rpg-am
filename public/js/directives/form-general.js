@@ -4,7 +4,7 @@ angular.module('rpg')
 
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/form-general.html',
+			templateUrl: '/templates/form/general.html',
 			scope: false,
 		};
 	});

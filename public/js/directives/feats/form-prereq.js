@@ -4,7 +4,7 @@ angular.module('rpg')
 
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/form-pre-req.html',
+			templateUrl: '/templates/form/feats/prereq.html',
 			scope: false,
 			link: function(scope, element){
 				

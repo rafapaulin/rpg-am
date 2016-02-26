@@ -1,54 +1,38 @@
 'use strict';
 angular.module('rpg')
-	.directive('spellBasic', function(){
-
+	.directive('spellBasic', ['Lists', function(Lists){
+	
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/form-basic.html',
+			templateUrl: '/templates/form/spells/basic.html',
 			scope: false,
 			link: function(scope, element){
-				scope.newData.schools = [];
+			// == Properties set up =============================================================================================== //
+				scope.newData.schools = [];								// Sets up the data-to-be-postes variable
+				scope.newData.components = [];							// Sets up the data-to-be-postes variable
+				scope.newData.savings = [];								// Sets up the data-to-be-postes variable
 
-				scope.schoolsList = [
-					'Abjuration',
-					'Conjuration',
-					'Divination',
-					'Enchantment',
-					'Evocation',
-					'Illusion',
-					'Necromancy',
-					'Transmutation'
-				];
+				scope.schools = Lists.schools;							// Define property to use on HTML
+				scope.components = Lists.components;					// Define property to use on HTML
+				scope.savings = Lists.savings;							// Define property to use on HTML
 
-				scope.newData.components = [];
-				scope.componentsList = [
-					'Material',
-					'Verbal',
-					'Somatic'
-				];
+				scope.$on('post', function(event, data){				// Listen to POST success on controller [add-ctrl.js]
+					scope.schools = Lists.schools;						// Reset List
+					scope.components = Lists.components;				// Reset List
+					scope.savings = Lists.savings;						// Reset List
+				});
+			// =============================================================================================== Properties set up == //
 
 				scope.addItem = function(obj, array, group){
-					array.push(obj);
-
-					group = group.filter(function(list){
+					array.push(obj);									// Add item to array-to-be-posted
+					scope[group] = scope[group].filter(function(list){	// Remove added item from the <select>
 						return list !== obj;
 					});
-
 				};
-				scope.removeItem  = function($index, group){
-					group.push(scope.newData.schools[$index]);
-					scope.newData.schools.splice($index,1);
-					console.log(scope.newData.schools);
+				scope.removeItem  = function($index, group){			// Remove item to array-to-be-posted
+					scope[group].push(scope.newData[group][$index]);	// Add removed item back to the <select>
+					scope.newData[group].splice($index,1);
 				}
 			}
 		};
-	});
-
-
-			// 'save': {'type': String, 'minlength': 3, 'default': ''},
-			// 'components': [
-			// 	{
-			// 		'name': String,	// Verbal, Somatic, Material
-			// 		'desc': String
-			// 	}
-			// ],
+	}]);
