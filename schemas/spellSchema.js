@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
 			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok - Automatic
 			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},							// ok
 			'createdBy': String,																						// ok - Automatic (to-do)
+			'desc': {'type':String, 'required': true, 'minlength': 3},
 // =============================================================================================================================== General == //
 
 // == Basic ================================================================================================================================= //
@@ -27,23 +28,23 @@ var mongoose = require('mongoose'),
 					'name': {'type': String, 'required': true},	// Verbal, Somatic, Material							// *
 					'desc': String																						// *
 				}																										// *
-			]																											// *
+			],																											// *
 // ================================================================================================================================= Basic == //
 
 // == Effect ================================================================================================================================ //
-			// 'castTime': {
-			// 	'time': {'type': Number, /*'required': true*/}, // In seconds. 0 for instant
-			// 	'desc': {'type': String, default: ''}
-			// },
-			// 'range': {'type':Number, /*'required': true*/},
-			// 'duration': [
-			// 	{
-			// 		'concentration': {'type': Boolean, /*'required': true*/},
-			// 		'max': {'type': Number, 'required': true} // In seconds. 0 for instant
-			// 	}
-			// ],
+			'castTime': {
+				'time': {'type': Number, 'required': true}, // In seconds. 0 for instant, reaction or bonus action. 1 action = 6s
+				'details': {'type': String, default: ''}
+			},
+			'range': {'type':Number, 'required': true},
+			'duration': [
+			 	{
+			 		'concentration': {'type': Boolean, /*'required': true*/},
+			 		'max': {'type': Number, 'required': true}, // In seconds. 0 for instant
+			 		'details': String
+			 	}
+			]/*,*/
 			// 'effect': {
-			// 	'desc': {'type':String, /*'required': true, 'minlength': 3*/},
 			// 	'aoe': {'type': String, default: ''},
 			// 	'size': [
 			// 		{

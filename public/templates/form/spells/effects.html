@@ -1,0 +1,33 @@
+<fieldset>
+	<legend>Effects Info</legend>
+	
+	<div class="form-group form-inline">
+		<label for="castTime">Cast Time: </label>
+		<input type="number" id="castTime" class="form-control" name="castTime" ng-model="newData.castTime.time">
+		<label for="castTimeDetails"></label>
+		<input type="text" id="castTimeDetails" class="form-control" name="castTimeDetails" placeholder="Details" ng-model="newData.castTime.details">
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="range">Range: </label>
+		<input type="number" id="range" class="form-control" name="range" ng-model="newData.range">
+		<select id="metric" class="form-control" name="metric"></select>
+	</div>	
+</fieldset>
+
+
+<!-- 		'duration': [
+				{
+					'concentration': {'type': Boolean, /*'required': true*/},
+					'max': {'type': Number, 'required': true} // In seconds. 0 for instant
+				}
+			],
+			'effect': {
+				'aoe': {'type': String, default: ''},
+				'size': [
+					{
+						'size': Number,
+						'desc': {'type': String, default: ''}
+					}
+				]
+			} -->

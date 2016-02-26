@@ -24,6 +24,15 @@ angular.module('rpg')
 				{'name':'Intelligence',	'desc':''},
 				{'name':'Wisdom',		'desc':''},
 				{'name':'Charisma',		'desc':''}
+			],
+			'lengthUnits': [
+				{'name':'Inches',		'system': 'Imperial',	'toMetter':},
+				{'name':'Feets',		'system': 'Imperial',	'toMetter':},
+				{'name':'Miles',		'system': 'Imperial',	'toMetter':0.3048},
+				{'name':'Centimeters',	'system': 'Metric',		'toMetter':0.01},
+				{'name':'Meters',		'system': 'Metric',		'toMetter':1},
+				{'name':'Kilometers',	'system': 'Metric',		'toMetter':1000},
+				{'name':'Touch', 		'system': 'Special',	'toMetter':0},
 			]
 		};
 	});

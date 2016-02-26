@@ -4,13 +4,16 @@ var	mongoose = require('mongoose'),
 	  Schema = mongoose.Schema,
 	
 	skillSchema = new Schema(
-		{ 
-			'name': {'type':String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},
-			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},
-			'createdBy': String,
-			'ability': {'type':String, 'required': true},
-			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
+		{
+// == General =============================================================================================================================== //
+			'name': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok
+			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok - Automatic
+			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},							// ok
+			'createdBy': String,																						// ok - Automatic (to-do)
 			'desc': {'type':String, 'required': true, 'minlength': 3},
+// =============================================================================================================================== General == //
+
+			'ability': {'type':String, 'required': true}
 		},
 		{
 			'collection': 'skills'

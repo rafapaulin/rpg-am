@@ -1,10 +1,10 @@
 'use strict';
 angular.module('rpg')
-	.directive('spellBasic', ['Lists', function(Lists){
+	.directive('spellBasicInfo', ['Lists', function(Lists){
 	
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/form/spells/basic.html',
+			templateUrl: '/templates/form/spells/basic-info.html',
 			scope: false,
 			link: function(scope, element){
 			// == Properties set up =============================================================================================== //
