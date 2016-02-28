@@ -6,5 +6,7 @@ angular.module('rpg')
 			restrict: 'E',
 			templateUrl: '/templates/form/general.html',
 			scope: false,
+			link: function(scope, element){
+			}
 		};
 	});

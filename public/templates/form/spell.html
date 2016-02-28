@@ -1,0 +1,183 @@
+<!-- == Spell basic info ============================================================================ -->
+	<fieldset>
+		<legend>Spell basic info</legend>
+
+		<div class="form-group form-inline">
+			<label for="newSchool">Add School: </label>
+			<select id="newSchool" class="form-control" name="newSchool" ng-model="newSchool" ng-options="school for school in schools | orderBy:school">
+				<option value="" hidden>-- Select --</option>
+			</select>
+			<a ng-click="addItem(newSchool, newData.schools, 'schools')" ng-show="newSchool !== undefined">add</a>
+			<ul class="list-inline">
+				<li ng-show="newData.schools.length > 0">
+					<ng-pluralize count="newData.schools.length" when="{'0': '','one': 'School: ','other': 'Schools: '}"></ng-pluralize>
+				</li>
+				<li ng-repeat="school in newData.schools"><span>{{school}} </span> <a ng-click="removeItem($index, newData.schools, 'schools')">[X]</a></li>
+			</ul>
+		</div>
+
+		<div class="form-group form-inline">
+			<label for="level">Level: </label>
+			<input type="number" id="level" class="form-control" name="level" min="0" max="9" ng-model="newData.level">
+		</div>
+
+		<div class="form-group form-inline">
+			<label for="newComponent">Add Component: </label>
+			<select id="newComponent" class="form-control" name="newComponent" ng-model="newComponent" ng-options="component.name for component in components |  orderBy:component.name">
+				<option value="" hidden>-- Select --</option>
+			</select>
+			<a ng-click="addItem(newComponent, newData.components, 'components')"ng-show="newComponent.name !== undefined">add</a>
+			<ul class="list-inline">
+				<li ng-show="newData.components.length > 0">
+					<ng-pluralize count="newData.components.length" when="{'0': '','one': 'Component: ','other': 'Components: '}"></ng-pluralize>
+				</li>
+				<li ng-repeat="component in newData.components">{{component.name}}<input type="text" ng-model="component.desc" class="form-control" ng-show="component.hasOwnProperty('desc')"> <a ng-click="removeItem($index, newData.components, 'components')">[X]</a></li>
+			</ul>
+		</div>
+
+		<div class="form-group form-inline">
+			<label for="newSaving">Add Saving Throw: </label>
+
+			<select id="newSaving" class="form-control" name="newSaving" ng-model="newSaving" ng-options="saving.name for saving in savings |  orderBy:saving.name">
+				<option value="" hidden>-- Select --</option>
+			</select>
+
+			<a ng-click="addItem(newSaving, newData.savings, 'savings')" ng-show="newSaving.name !== undefined">add</a>
+			<ul class="list-inline">
+				<li ng-show="newData.savings.length > 0">
+					<ng-pluralize count="newData.savings.length" when="{'0': '','one': 'Saving: ','other': 'Savings: '}"></ng-pluralize>
+				</li>
+				<li ng-repeat="saving in newData.savings">{{saving.name}}<input type="text" class="form-control" ng-model="saving.desc" ng-show="saving.hasOwnProperty('desc')"> <a ng-click="removeItem($index, newData.savings, 'savings')">[X]</a></li>
+			</ul>
+		</div>
+	</fieldset>
+<!-- ============================================================================ Spell basic info == -->
+
+<!-- == Effects info ================================================================================ -->
+	<fieldset>
+		<legend>Effects Info</legend>
+		
+		<div class="form-group form-inline">
+			<label for="castTime">Cast Time: </label>
+			<input type="number" id="castTime" class="form-control" name="castTime" min="1" ng-model="castTime">
+			<select id="ctTimeUnit" class="form-control" name="ctTimeUnit" required ng-model="ctTimeUnit" ng-options="unit.name group by unit.system for unit in timeUnits | orderBy: unit.toSeconds">
+				<option value="" hidden>-- Select unit --</option>
+			</select>
+			<label for="castTimeDetails"></label>
+			<input type="text" id="castTimeDetails" class="form-control" name="castTimeDetails" placeholder="Details" ng-model="newData.castTime.details">
+			<label>
+				<input type="checkbox" id="ritual" class="" name="ritual" ng-model="newData.ritual">
+				Mark if ritual.
+			</label>
+		</div>
+
+		<div class="form-group form-inline">
+			<label for="duration">Max. duration: </label>
+			<input type="number" id="duration" class="form-control" name="duration" min="1" ng-model="duration">
+			<select id="durTimeUnit" class="form-control" name="durTimeUnit" required ng-model="durTimeUnit" ng-options="unit.name group by unit.system for unit in timeUnits | orderBy: unit.toSeconds">
+				<option value="" hidden>-- Select unit --</option>
+			</select>
+			<label for="durationDetails"></label>
+			<label>
+				<input type="checkbox" id="ritual" class="" name="ritual" ng-model="newData.duration.concentration">
+				Mark if Concentration can be used.
+			</label>
+			<input type="text" id="durationDetails" class="form-control" name="durationDetails" placeholder="Details" ng-model="newData.duration.details">
+		</div>
+
+		<div class="form-group form-inline">
+			<label for="range">Range: </label>
+			<input type="number" id="range" class="form-control" name="range" min="1" ng-model="range">
+			<select id="rLengthUnit" class="form-control" name="rLengthUnit" required ng-model="rLengthUnit" ng-options="unit.name group by unit.system for unit in lengthUnits | orderBy: unit.toMeter">
+				<option value="" hidden>-- Select unit --</option>
+			</select>
+		</div>
+
+		<div class="form-group form-inline">
+			<label for="aoe">Area of Effect: </label>
+			<select id="aoeType" class="form-control" name="aoeType" required ng-model="aoeType" ng-options="aoe.name for aoe in areasOfEffect | orderBy: aoe.name">
+				<option value="" hidden>-- Select AoE --</option>
+			</select>
+			<i class="fa fa-2x fa-info-circle" uib-popover="{{aoeType.desc}}" popover-trigger="mouseenter outsideClick" ng-show="aoeType.name !== undefined"></i>
+
+			<span ng-show="aoeType.name !== undefined">{{aoeType.a}}</span>
+			<input type="number" id="size" class="form-control" name="size" min="1" ng-show="aoeType.name !== undefined" ng-model="size">
+
+			<span ng-show="aoeType.name == 'Cylinder'">{{aoeType.b}}</span>
+			<input type="number" id="size2" class="form-control" name="size2" min="1" ng-show="aoeType.name == 'Cylinder'" ng-model="size2">
+
+			<select id="aoeLengthUnit" class="form-control" name="aoeLengthUnit" required ng-show="aoeType.name !== undefined" ng-model="aoeLengthUnit" ng-options="unit.name group by unit.system disable when unit.system=='Special' for unit in lengthUnits | orderBy: unit.toMeter">
+				<option value="" hidden>-- Select unit --</option>
+			</select>
+		</div>
+		<div class="form-group form-inline">
+			<label for="efxDetails">Effects details: </label>
+			<input type="text" id="efxDetails" class="form-control" name="efxDetails" ng-model="newData.effect.details">
+		</div>
+	</fieldset>
+<!-- ================================================================================ Effects info == -->
+
+<!-- == Damage info ================================================================================= -->
+	<fieldset>
+		<legend>Damage info</legend>
+		<div class="form-group form-inline">
+			<label>
+				<input type="checkbox" id="harmful" class="form-control" name="harmful" ng-model="newData.damage.harmful">
+				Mark if harmful.
+			</label>
+		</div>
+
+		<div class="form-group form-inline">
+			<label for="staticDmg">Static damage: </label>
+			<input type="number" id="staticDmg" class="form-control" name="staticDmg" min="0" ng-model="newData.damage.staticDmg">
+		</div>
+
+		<div class="form-group form-inline">
+			<label for="numberOfDices">Number of dices: </label>
+			<input type="number" id="numberOfDices" class="form-control" name="numberOfDices" min="0" ng-model="newData.damage.numberOfDices">
+
+			<select id="diceType" class="form-control" name="diceType" required ng-model="newData.damage.diceType" ng-options="dice.value as dice.name for dice in diceTypes | orderBy: dice.value">
+				<option value="" hidden>-- Dice type --</option>
+			</select>
+		</div>
+
+		<div class="form-group form-inline">
+			<label for="newDmgType">Add damage type: </label>
+
+			<select id="newDmgType" class="form-control" name="newDmgType" ng-model="newDmgType" ng-options="dmgType.name group by dmgType.cat for dmgType in dmgTypes |  orderBy: dmgType.name">
+				<option value="" hidden>-- Damage type --</option>
+			</select>
+
+			<a ng-click="addItem(newDmgType, newData.damage.dmgTypes, 'dmgTypes')" ng-show="newDmgType.name !== undefined">add</a>
+
+			<ul class="list-inline">
+				<li ng-show="newData.damage.dmgTypes.length > 0">
+					<ng-pluralize count="newData.damage.dmgTypes.length" when="{'0': '','one': 'Damage type: ','other': 'Damage types: '}"></ng-pluralize>
+				</li>
+				<li ng-repeat="dmgType in newData.damage.dmgTypes">{{dmgType.name}} <a ng-click="removeItem($index, newData.damage.dmgTypes, 'dmgTypes')">[X]</a></li>
+			</ul>
+
+		</div>
+	</fieldset>
+<!-- ================================================================================= Damage info == -->
+
+<!-- == At higher levels info ======================================================================= -->
+	<fieldset>
+		<legend>At higher levels <small>spell stats increase per level above the base slot level</small></legend>
+		<div class="form-group form-inline">
+			<label for="staticDmgAHL">Static damage: </label>
+				<input type="number" id="staticDmgAHL" class="form-control" name="staticDmgAHL" ng-model="newData.atHigherLevels.staticDmg">
+			</div>
+		<div class="form-group form-inline">
+			<label for="numOfDicesAHL">Number of dices: </label>
+				<input type="number" id="numOfDicesAHL" class="form-control" name="numOfDicesAHL" ng-model="newData.atHigherLevels.numberOfDices">
+			<select id="diceTypeAHL" class="form-control" name="diceTypeAHL" required ng-model="newData.atHigherLevels.diceType" ng-options="dice.value as dice.name for dice in diceTypes | orderBy: dice.value">
+				<option value="" hidden>-- Dice type --</option>
+			</select>
+		</div>
+		<div class="form-group form-inline">
+			<label for="detailsAHL">Other info/details: </label>
+			<input type="text" id="detailsAHL" class="form-control" name="detailsAHL" ng-model="newData.atHigherLevels.details">
+		</div>
+	</fieldset>
+<!-- ======================================================================= At higher levels info == -->

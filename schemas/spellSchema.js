@@ -42,31 +42,29 @@ var mongoose = require('mongoose'),
 			 	'max': {'type': Number, 'required': true}, 																// *
 			 	'details': String																						// *
 			},																											// *
-			 'effect': {																								//
-			 	'aoe': {'type': String, default: ''},
-				'size': {'type': Number, 'default': 0},
-			 	'cilinderHeight': {'type': Number, 'default': 0},
-			 	'details': {'type': String, default: ''}
-			}//,
+			 'effect': {																								// *
+			 	'aoe': {'type': String, default: ''},																	// ok
+				'size': {'type': Number, 'default': 0},																	// *
+			 	'cilinderHeight': {'type': Number, 'default': 0},														// *
+			 	'details': {'type': String, default: ''}																// *
+			},																											// *
 // ================================================================================================================================ Effect == //
 
 // == Damage ================================================================================================================================ //
-		// 	'damage': {
-		// 		'harmful': {'type': Boolean, /*'required': true,*/ 'default': false},
-		// 		'staticDmg': {'type': Number, default: 0},
-		// 		'numberOfDices': {'type': Number, 'default': 0},
-		// 		'diceType': {'type': Number, 'default': 0},
-		// 		'dmgType': [
-		// 			{'type': String, 'default': ''}
-		// 		]
-		// 	},
-		// 	'atHigherLevels': {
-		// 		'staticDmg': {'type': Number, default: 0},
-		// 		'numberOfDices': {'type': Number, default: 0},
-		// 		'diceType': {'type': Number, default: 0},
-		// 		'desc': {'type': String, 'default': ''}
-		// 	}
-		},
+		 	'damage': {																									// ok
+		 		'harmful': {'type': Boolean, 'default': false},															// *
+		 		'staticDmg': {'type': Number, default: 0},																// *
+		 		'numberOfDices': {'type': Number, 'default': 0},														// *
+		 		'diceType': {'type': Number, 'default': 0},																// *
+		 		'dmgTypes': [{'name': String}]																			// *
+		 	},																											// *
+		 	'atHigherLevels': {																							//
+		 		'staticDmg': {'type': Number, default: 0},																//
+		 		'numberOfDices': {'type': Number, default: 0},															//
+		 		'diceType': {'type': Number, default: 0},																//
+		 		'details': {'type': String, 'default': ''}																//
+		 	}																											//
+		},																												//
 // ================================================================================================================================ Damage == //
 		{
 			'collection': 'spells'

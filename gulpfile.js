@@ -5,16 +5,18 @@ var gulp = require('gulp'),
 
 	paths = {
 		src: {
-			root:			'./public/bower-components/',
-			angular:		'./public/bower-components/angular/',
-			angularRoute:	'./public/bower-components/angular-route/',
-			angularAnimate:	'./public/bower-components/angular-animate/',
-			bootstrapCss:	'./public/bower-components/bootstrap/dist/css/',
-			bootstrapJs:	'./public/bower-components/bootstrap/dist/js/',
-			textAngular:	'./public/bower-components/textAngular/dist/',
-			faCss:			'./public/bower-components/font-awesome/css/',
-			faFonts:		'./public/bower-components/font-awesome/fonts/',
-			jquery:			'./public/bower-components/jquery/dist/'
+			root:				'./public/bower-components/',
+			angular:			'./public/bower-components/angular/',
+			angularRoute:		'./public/bower-components/angular-route/',
+			angularAnimate:		'./public/bower-components/angular-animate/',
+			bootstrapCss:		'./public/bower-components/bootstrap/dist/css/',
+			bootstrapJs:		'./public/bower-components/bootstrap/dist/js/',
+			textAngular:		'./public/bower-components/textAngular/dist/',
+			angularBootstrap:	'./public/bower-components/angular-bootstrap/',
+			angularTouch:		'./public/bower-components/angular-touch/',
+			faCss:				'./public/bower-components/font-awesome/css/',
+			faFonts:			'./public/bower-components/font-awesome/fonts/',
+			jquery:				'./public/bower-components/jquery/dist/'
 		},
 		public: {
 			root:			'./public/',
@@ -31,6 +33,8 @@ var gulp = require('gulp'),
 		paths.src.textAngular + 'textAngular-rangy.min.js',
 		paths.src.textAngular + 'textAngular-sanitize.min.js',
 		paths.src.textAngular + 'textAngular.min.js',
+		paths.src.angularBootstrap + 'ui-bootstrap-tpls.min.js',
+		paths.src.angularTouch + 'angular-touch.min.js'
 		// paths.src.jquery + 'jquery.min.js',
 		// paths.src.bootstrapJs + 'bootstrap.min.js'
 	],
