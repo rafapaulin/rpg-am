@@ -13,13 +13,13 @@ angular.module('rpg')
 
 //== Save to DB block ================================================================================================== //
 		controller.save = function(data){										// Save function
+			controller.$emit('post');											// Emit 'post' event to use on directives
 			Crud.post(collection , data)										// Front end POST request
 				.then(function(res){											// Success response to user
 					controller.success = res.data.message;						// Set response to property
-
 					$timeout(function(){controller.success = null}, 3000);		// Variable clean up on success (General success message)
 					controller.newData = {};									// Variable clean up on success (General data submited to database)
-					controller.$emit('post');									// Emit 'post' event to use on directives
+					controller.$emit('postSuccess');							// Emit 'postSuccess' event to use on directives
 				})
 				.catch(function(res){											// Error response to user
 					controller.errors = [];										// Define property to use on HTML

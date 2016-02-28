@@ -16,7 +16,7 @@ angular.module('rpg')
 				scope.components = Lists.components;					// Define property to use on HTML
 				scope.savings = Lists.savings;							// Define property to use on HTML
 
-				scope.$on('post', function(event, data){				// Listen to POST success on controller [add-ctrl.js]
+				scope.$on('postSuccess', function(event, data){			// Listen to 'postSuccess' event on controller [add-ctrl.js]
 					scope.schools = Lists.schools;						// Reset List
 					scope.components = Lists.components;				// Reset List
 					scope.savings = Lists.savings;						// Reset List

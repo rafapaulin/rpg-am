@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
 // =============================================================================================================================== General == //
 
 // == Basic ================================================================================================================================= //
-			'level': {'type': Number, 'required': true},																// ok
+			'level': {'type': Number, 'required': true},	// 0 for cantrip											// ok
 			'ritual': {'type': Boolean, 'required': true, 'default': false},											// ok
 			'schools': [{'type': String, 'required': true}],															// ok
 			'savings': [																								// ok
@@ -32,27 +32,22 @@ var mongoose = require('mongoose'),
 // ================================================================================================================================= Basic == //
 
 // == Effect ================================================================================================================================ //
-			'castTime': {
-				'time': {'type': Number, 'required': true}, // In seconds. 0 for instant, reaction or bonus action. 1 action = 6s
-				'details': {'type': String, default: ''}
-			},
-			'range': {'type':Number, 'required': true},
-			'duration': [
-			 	{
-			 		'concentration': {'type': Boolean, /*'required': true*/},
-			 		'max': {'type': Number, 'required': true}, // In seconds. 0 for instant
-			 		'details': String
-			 	}
-			]/*,*/
-			// 'effect': {
-			// 	'aoe': {'type': String, default: ''},
-			// 	'size': [
-			// 		{
-			// 			'size': Number,
-			// 			'desc': {'type': String, default: ''}
-			// 		}
-			// 	]
-			// },
+			'castTime': {																								// ok
+				'time': {'type': Number, 'required': true},																// *
+				'details': {'type': String, default: ''}																// *
+			},																											// *
+			'range': {'type': Number, 'required': true},																// ok
+			'duration': {																								// ok
+			 	'concentration': {'type': Boolean, 'default': false},													// *
+			 	'max': {'type': Number, 'required': true}, 																// *
+			 	'details': String																						// *
+			},																											// *
+			 'effect': {																								//
+			 	'aoe': {'type': String, default: ''},
+				'size': {'type': Number, 'default': 0},
+			 	'cilinderHeight': {'type': Number, 'default': 0},
+			 	'details': {'type': String, default: ''}
+			}//,
 // ================================================================================================================================ Effect == //
 
 // == Damage ================================================================================================================================ //
