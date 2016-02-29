@@ -1,0 +1,19 @@
+<!-- == Feat Prerequisites ========================================================================= -->
+	<fieldset>
+		<legend>Prerequisites:</legend>
+	
+		<div class="form-group form-inline">
+			<label for="newPrereq">Add Prerequisite: </label>
+			<select id="newPrereq" class="form-control" name="newPrereq" ng-model="newPrereq" ng-options="prereq.name group by prereq.cat for prereq in prereqs | orderBy:prereq.name">
+				<option value="" hidden>-- Select --</option>
+			</select>
+			<input type="{{newPrereq.type}}" ng-show="newPrereq.array" ng-model="details">
+
+			<a ng-click="addItem(newPrereq, selectedPrereqs, 'prereqs')" ng-show="newPrereq !== undefined || ''">add</a>
+
+			<ul class="list-inline">
+				<li ng-repeat="prereq in selectedPrereqs"><span>{{prereq.name}} </span> <a ng-click="removeItem($index, selectedPrereqs, 'prereqs')">[X]</a></li>
+			</ul>
+			<a ng-click="meh(newData.prereqs.proficiencies)">meh</a>
+		</div>
+	</fieldset>

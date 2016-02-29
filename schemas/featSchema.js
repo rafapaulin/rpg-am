@@ -5,32 +5,44 @@ var mongoose = require('mongoose'),
 
 	featSchema = new Schema(
 		{
-			'name': {type:String, required: true, minlength: 3, 'unique': true, uniqueCaseInsensitive: true},			// ok
+// == General =============================================================================================================================== //
+			'name': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok
 			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok - Automatic
 			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},							// ok
 			'createdBy': String,																						// ok - Automatic (to-do)
-			'prereq': {																									// ok
-				'minStr': {'type': Number, 'default': 0},																// ok
-				'minDex': {'type': Number, 'default': 0},																// ok
-				'minCon': {'type': Number, 'default': 0},																// ok
-				'minInt': {'type': Number, 'default': 0},																// ok
-				'minWis': {'type': Number, 'default': 0},																// ok
-				'minCha': {'type': Number, 'default': 0},																// ok
-				'spellCaster': {'type': Boolean, 'default': false},														// ok
-				'proficiencies': {'type': [String], 'default': []}														// ok
-			},
-			'desc': {'type':String, 'required': true, 'minlength': 3},													// ok
+			'desc': {'type':String, 'required': true, 'minlength': 3},
+// =============================================================================================================================== General == //
+
+// == Prerequisites ========================================================================================================================= //
+			'prereqs': {												// 
+				'str': {'type': Number, 'default': 0},				// 
+				'dex': {'type': Number, 'default': 0},				// 
+				'con': {'type': Number, 'default': 0},				// 
+				'int': {'type': Number, 'default': 0},				// 
+				'wis': {'type': Number, 'default': 0},				// 
+				'cha': {'type': Number, 'default': 0},				// 
+				'spellCaster': {'type': Boolean, 'default': false},		// 
+				'proficiencies': [										// 
+					{													// 
+						'name': String,									// 
+						'cat': String									//
+						'details': String								// 
+					}													// 
+				]														// 
+			},															// 
+// ========================================================================================================================= Prerequisites == //
+
 			'bonus': {
-				'initiative': {'type': Number, 'default': 0},															// ok
-				'str': {'type': Number, 'default': 0},																	// ok
-				'dex': {'type': Number, 'default': 0},																	// ok
-				'con': {'type': Number, 'default': 0},																	// ok
-				'int': {'type': Number, 'default': 0},																	// ok
-				'wis': {'type': Number, 'default': 0},																	// ok
-				'cha': {'type': Number, 'default': 0},																	// ok
-				'hp': {'type': Number, 'default': 0},																	// ok
-				'speed': {'type': Number, 'default': 0},																// ok
-				'languageSlots': {'type': Number, 'default': 0},														// ok
+				'initiative': {'type': Number, 'default': 0},															// 
+				'str': {'type': Number, 'default': 0},																	// 
+				'dex': {'type': Number, 'default': 0},																	// 
+				'con': {'type': Number, 'default': 0},																	// 
+				'int': {'type': Number, 'default': 0},																	// 
+				'wis': {'type': Number, 'default': 0},																	// 
+				'cha': {'type': Number, 'default': 0},																	// 
+				'hp': {'type': Number, 'default': 0},																	// 
+				'speed': {'type': Number, 'default': 0},																// 
+				'languageSlots': {'type': Number, 'default': 0},														// 
 				'ac': {																									// Medium armor master
 					'value': {'type': Number, 'default': 0},
 					'dualWield': {'type': Boolean, 'default': false},
