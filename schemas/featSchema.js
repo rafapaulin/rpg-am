@@ -15,65 +15,75 @@ var mongoose = require('mongoose'),
 
 // == Prerequisites ========================================================================================================================= //
 			'prereqs': {												// 
-				'str': {'type': Number, 'default': 0},				// 
-				'dex': {'type': Number, 'default': 0},				// 
-				'con': {'type': Number, 'default': 0},				// 
-				'int': {'type': Number, 'default': 0},				// 
-				'wis': {'type': Number, 'default': 0},				// 
-				'cha': {'type': Number, 'default': 0},				// 
+				'str': {'type': Number, 'default': 0},					// 
+				'dex': {'type': Number, 'default': 0},					// 
+				'con': {'type': Number, 'default': 0},					// 
+				'int': {'type': Number, 'default': 0},					// 
+				'wis': {'type': Number, 'default': 0},					// 
+				'cha': {'type': Number, 'default': 0},					// 
 				'spellCaster': {'type': Boolean, 'default': false},		// 
 				'proficiencies': [										// 
 					{													// 
 						'name': String,									// 
-						'cat': String									//
+						'cat': String,									//
 						'details': String								// 
 					}													// 
 				]														// 
 			},															// 
 // ========================================================================================================================= Prerequisites == //
 
-			'bonus': {
-				'initiative': {'type': Number, 'default': 0},															// 
-				'str': {'type': Number, 'default': 0},																	// 
-				'dex': {'type': Number, 'default': 0},																	// 
-				'con': {'type': Number, 'default': 0},																	// 
-				'int': {'type': Number, 'default': 0},																	// 
-				'wis': {'type': Number, 'default': 0},																	// 
-				'cha': {'type': Number, 'default': 0},																	// 
-				'hp': {'type': Number, 'default': 0},																	// 
-				'speed': {'type': Number, 'default': 0},																// 
-				'languageSlots': {'type': Number, 'default': 0},														// 
-				'ac': {																									// Medium armor master
-					'value': {'type': Number, 'default': 0},
-					'dualWield': {'type': Boolean, 'default': false},
-					'minDex': {'type': Number, 'default': 0}
-				},
-				'svThrowProf': [{'type': String, 'default': ""}],
-				'equipProf': [{'type': String, 'default': ""}],
-				'skillProf': [{'type': String, 'default': ""}],
-				'spells': {
-					'rpgClass': [{'type': String, 'default': ""}],
-					'spellLevel': [
-						{
-							'qty': {'type': Number, 'default': 0},
-							'lvl': {'type': Number, 'default': 0}
-						}
-					]
-				},
-				'classFeature': [																						// checar esse parâmetro depois de montar as classes
+			'bonuses': {
+				'str': {'type': Number, 'default': 0},					// 
+				'dex': {'type': Number, 'default': 0},					// 
+				'con': {'type': Number, 'default': 0},					// 
+				'int': {'type': Number, 'default': 0},					// 
+				'wis': {'type': Number, 'default': 0},					// 
+				'cha': {'type': Number, 'default': 0},					// 
+				'anyAbility': {'type': Number, 'default': 0},			// 
+				'initiative': {'type': Number, 'default': 0},			// 
+				'hp': {'type': Number, 'default': 0},					// 
+				'speed': {'type': Number, 'default': 0},				// 
+				'langSlots': {'type': Number, 'default': 0},			// 
+				'proficiencies': [										// 
+					{													// 
+						'name': String,									// 
+						'cat': String,									//
+						'num': Number,									//
+						'details': String								// 
+					}													// 
+				],														// 
+			// 	'ac': {													// Medium armor master
+			// 		'value': {'type': Number, 'default': 0},
+			//		'condition': {'type': Boolean, 'default': false},
+			// 	},
+			// 	'spells': {
+			// 		'rpgClass': [{'type': String, 'default': ""}],
+			// 		'spellLevel': [
+			// 			{
+			// 				'qty': {'type': Number, 'default': 0},
+			// 				'lvl': {'type': Number, 'default': 0}
+			// 			}
+			// 		]
+			// 	},
+			// 	'classFeature': [										// checar esse parâmetro depois de montar as classes
+			// 		{
+			// 			'rpgClass': {'type': String, 'default': ""},
+			// 			'feature': {
+			// 				'name': {'type': String, 'default': ""},
+			// 				'desc': {'type': String, 'default': ""},
+			// 			}
+			// 		}
+			// 	],
+			// 	'diceMod': {
+			// 		'name': {'type': String, 'default': ""},
+			// 		'numberOfDices': {'type': Number, 'default': 0},
+			// 		'diceType': {'type': Number, 'default': 0}
+			// 	},
+				'custom': [
 					{
-						'rpgClass': {'type': String, 'default': ""},
-						'feature': {
-							'name': {'type': String, 'default': ""},
-							'desc': {'type': String, 'default': ""},
-						}
+						'details': String
 					}
-				],
-				'diceMod': {
-					'name': {'type': String, 'default': ""},
-					'numberOfDices': {'type': Number, 'default': 0},
-					'diceType': {'type': Number, 'default': 0}
-				},
+				]
 			}
 		},
 		{

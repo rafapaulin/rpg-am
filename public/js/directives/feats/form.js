@@ -7,34 +7,49 @@ angular.module('rpg')
 			templateUrl: '/templates/form/feat.html',
 			scope: false,
 			link: function(scope, element){
+			// == Properties set up =============================================================================================== //
+				scope.newData.prereqs					= {};
+				scope.newData.bonuses					= {};
+				scope.newData.prereqs.proficiencies		= [];
+				scope.newData.bonuses.proficiencies		= [];
 
-				scope.newData.prereqs = {};
-				scope.newData.prereqs.proficiencies = [];
+				scope.abilities							= Lists.abilities;
+				scope.displayAb							= [];
 
-				scope.prereqs = Lists.prereqs;
+			// =============================================================================================== Properties set up == //
 
-				scope.selectedPrereqs = [];
+			// == Clean up on success ============================================================================================= //
+				scope.$on('postSuccess', function(event, data) {				// Listen to 'postSuccess' event on controller [add-ctrl.js]
+					scope.abilities						= Lists.abilities;		// Reset List
 
-				scope.addItem = function(obj, array, group){
-					array.push(obj);									// Add item to array-to-be-posted
+					scope.selectedPrereqs				= [];					// Reset display array
+					scope.selectedBonuses				= [];					// *
+					
+					scope.newData.prereqs				= {};					// Re-sets the data-to-be-postes object
+					scope.newData.bonuses				= {};					// *
+					scope.newData.prereqs.proficiencies	= [];					// Re-sets the data-to-be-postes array
+					scope.newData.bonuses.proficiencies	= [];					// *
+				});
+			// ============================================================================================= Clean up on success == //
 
-					if(obj.array){
-						console.log(eval('scope.' + obj.ngModel));
-						scope.newData.prereqs.proficiencies.push({'name': obj.name, 'cat': obj.cat,  'details': scope.details})
-						scope.details = null;
-					};
-
+				scope.addItem = function(obj, display, toSave, group){
+					obj.detail = scope.detail;
+					display.push(obj);									// Add item to display array
 					scope[group] = scope[group].filter(function(list){	// Remove added item from the <select>
 						return list !== obj;
 					});
-					scope.newPrereq = undefined;
+					scope.newData[toSave][obj.ngModel] = scope.detail;
 				};
+
+
+
+
+
 
 				scope.removeItem  = function($index, array, group){		// Remove item to array-to-be-posted
 					scope[group].push(array[$index]);					// Add removed item back to the <select>
 					array.splice($index,1);
 				}
-
 
 				scope.meh = function(a){
 					console.log(a);

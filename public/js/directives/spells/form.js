@@ -29,6 +29,7 @@ angular.module('rpg')
 				scope.areasOfEffect						= Lists.areasOfEffect;							// *
 			// =============================================================================================== Properties set up == //
 
+
 				scope.$on('post', function(event, data){												// Listen to 'post' event on controller [add-ctrl.js]
 					scope.newData.range					= scope.range * scope.rLengthUnit.toMeter;		// Convert and store length as meters
 					scope.newData.effect.size			= scope.size * scope.aoeLengthUnit.toMeter;		// *
@@ -38,6 +39,7 @@ angular.module('rpg')
 					scope.newData.effect.aoe			= scope.aoeType.name;							// save data to variable-to-be POSTed
 				});
 
+			// == Clean up on success ============================================================================================= //
 				scope.$on('postSuccess', function(event, data){											// Listen to 'postSuccess' event on controller [add-ctrl.js]
 					scope.schools						= Lists.schools;								// Reset List
 					scope.components					= Lists.components;								// *
@@ -50,7 +52,7 @@ angular.module('rpg')
 					scope.newData.effect				= {};											// *
 					scope.newData.atHigherLevels		= {};											// *
 
-					scope.newData.schools				= [];											// Re-sets the data-to-be-postes ararys
+					scope.newData.schools				= [];											// Re-sets the data-to-be-postes arary
 					scope.newData.components			= [];											// *
 					scope.newData.savings				= [];											// *
 					scope.newData.damage.dmgTypes		= [];											// *
@@ -67,7 +69,7 @@ angular.module('rpg')
 					scope.aoeType						= '';											// *
 					scope.aoeLengthUnit					= '';											// *
 				});
-
+			// ============================================================================================= Clean up on success == //
 				scope.addItem = function(obj, array, group){
 					array.push(obj);									// Add item to array-to-be-posted
 					scope[group] = scope[group].filter(function(list){	// Remove added item from the <select>

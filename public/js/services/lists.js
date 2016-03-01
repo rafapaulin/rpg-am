@@ -81,50 +81,74 @@ angular.module('rpg')
 				{'name':'d12',	'value':12},
 				{'name':'d20',	'value':20}
 			],
+			'abilities': [
+				{'name':'Strength',				'cat':'Abilities',						'type':'number',	'ngModel':'str',		'info':''},
+				{'name':'Dexterity',			'cat':'Abilities',						'type':'number',	'ngModel':'dex',		'info':''},
+				{'name':'Constitution',			'cat':'Abilities',						'type':'number',	'ngModel':'con',		'info':''},
+				{'name':'Intelligence',			'cat':'Abilities',						'type':'number',	'ngModel':'int',		'info':''},
+				{'name':'Wisdow',				'cat':'Abilities',						'type':'number',	'ngModel':'wis',		'info':''},
+				{'name':'Charisma',				'cat':'Abilities',						'type':'number',	'ngModel':'cha',		'info':''},
+				{'name':'Any',					'cat':'Abilities',						'type':'number',	'ngModel':'any',		'info':''},
+			],
 			'prereqs': [
-				{'name':'Min. Strength',		'cat':'Abilities',					'type':'number',	'ngModel':'str',		'array':false},
-				{'name':'Min. Dexterity',		'cat':'Abilities',					'type':'number',	'ngModel':'dex',		'array':false},
-				{'name':'Min. Constitution',	'cat':'Abilities',					'type':'number',	'ngModel':'con',		'array':false},
-				{'name':'Min. Intelligence',	'cat':'Abilities',					'type':'number',	'ngModel':'int',		'array':false},
-				{'name':'Min. Wisdow',			'cat':'Abilities',					'type':'number',	'ngModel':'wis',		'array':false},
-				{'name':'Min. Charisma',		'cat':'Abilities',					'type':'number',	'ngModel':'cha',		'array':false},
+				{'name':'Simple melee',			'cat':'Proficiency: Weapon group',		'type':'text',		'ngModel':'smDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Simple ranged',		'cat':'Proficiency: Weapon group',		'type':'text',		'ngModel':'srDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Martial melee',		'cat':'Proficiency: Weapon group',		'type':'text',		'ngModel':'mmDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Martial ranged',		'cat':'Proficiency: Weapon group',		'type':'text',		'ngModel':'mrDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Exotic',				'cat':'Proficiency: Weapon group',		'type':'text',		'ngModel':'exDetails',	'array':'proficiencies', 'info':''},
 
-				{'name':'Simple melee',			'cat':'Proficiency: Weapon Group',	'type':'text',		'ngModel':'smDetails',	'array':true},
-				{'name':'Simple ranged',		'cat':'Proficiency: Weapon Group',	'type':'text',		'ngModel':'srDetails',	'array':true},
-				{'name':'Martial melee',		'cat':'Proficiency: Weapon Group',	'type':'text',		'ngModel':'mmDetails',	'array':true},
-				{'name':'Martial ranged',		'cat':'Proficiency: Weapon Group',	'type':'text',		'ngModel':'mrDetails',	'array':true},
-				{'name':'Exotic',				'cat':'Proficiency: Weapon Group',	'type':'text',		'ngModel':'exDetails',	'array':true},
+				{'name':'Light armor',			'cat':'Proficiency: Armor group',		'type':'text',		'ngModel':'laDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Medium armor',			'cat':'Proficiency: Armor group',		'type':'text',		'ngModel':'maDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Heavy armor',			'cat':'Proficiency: Armor group',		'type':'text',		'ngModel':'haDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Shields',				'cat':'Proficiency: Armor group',		'type':'text',		'ngModel':'shDetails',	'array':'proficiencies', 'info':''},
 
-				{'name':'Light armor',			'cat':'Proficiency: Armor Group',	'type':'text',		'ngModel':'laDetails',	'array':true},
-				{'name':'Medium armor',			'cat':'Proficiency: Armor Group',	'type':'text',		'ngModel':'maDetails',	'array':true},
-				{'name':'Heavy armor',			'cat':'Proficiency: Armor Group',	'type':'text',		'ngModel':'haDetails',	'array':true},
-				{'name':'Shields',				'cat':'Proficiency: Armor Group',	'type':'text',		'ngModel':'shDetails',	'array':true},
+				{'name':'Artisan\'s tools',		'cat':'Proficiency: Tool group',		'type':'text',		'ngModel':'atDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Disguise kit',			'cat':'Proficiency: Tool group',		'type':'text',		'ngModel':'dkDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Forgery kit',			'cat':'Proficiency: Tool group',		'type':'text',		'ngModel':'fkDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Gaming set',			'cat':'Proficiency: Tool group',		'type':'text',		'ngModel':'gsDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Herbalism kit',		'cat':'Proficiency: Tool group',		'type':'text',		'ngModel':'hkDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Musical instrument',	'cat':'Proficiency: Tool group',		'type':'text',		'ngModel':'miDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Navigator\'s tools',	'cat':'Proficiency: Tool group',		'type':'text',		'ngModel':'ntDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Poisoner\'s kit',		'cat':'Proficiency: Tool group',		'type':'text',		'ngModel':'pkDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Thieves\' tools',		'cat':'Proficiency: Tool group',		'type':'text',		'ngModel':'ttDetails',	'array':'proficiencies', 'info':''},
 
-				{'name':'Artisan\'s tools',		'cat':'Proficiency: Tool Group',	'type':'text',		'ngModel':'atDetails',	'array':true},
-				{'name':'Disguise kit',			'cat':'Proficiency: Tool Group',	'type':'text',		'ngModel':'dkDetails',	'array':true},
-				{'name':'Forgery kit',			'cat':'Proficiency: Tool Group',	'type':'text',		'ngModel':'fkDetails',	'array':true},
-				{'name':'Gaming set',			'cat':'Proficiency: Tool Group',	'type':'text',		'ngModel':'gsDetails',	'array':true},
-				{'name':'Herbalism kit',		'cat':'Proficiency: Tool Group',	'type':'text',		'ngModel':'hkDetails',	'array':true},
-				{'name':'Musical instrument',	'cat':'Proficiency: Tool Group',	'type':'text',		'ngModel':'miDetails',	'array':true},
-				{'name':'Navigator\'s tools',	'cat':'Proficiency: Tool Group',	'type':'text',		'ngModel':'ntDetails',	'array':true},
-				{'name':'Poisoner\'s kit',		'cat':'Proficiency: Tool Group',	'type':'text',		'ngModel':'pkDetails',	'array':true},
-				{'name':'Thieves\' tools',		'cat':'Proficiency: Tool Group',	'type':'text',		'ngModel':'ttDetails',	'array':true},
-
-				{'name':'Is Spellcaster?',		'cat':'Other',						'type':'checkbox',	'ngModel':'spellCaster'}
+				{'name':'Is Spellcaster?',		'cat':'Other',							'type':'checkbox',	'ngModel':'spellCaster','array':false, 'info':''}
 			],
 			'bonuses': [
-				{'name':'Strength Bonus',		'cat':'Abilities',	'type':'number',	'ngModel':'str',},
-				{'name':'Dexterity Bonus',		'cat':'Abilities',	'type':'number',	'ngModel':'dex',},
-				{'name':'Constitution Bonus',	'cat':'Abilities',	'type':'number',	'ngModel':'con',},
-				{'name':'Intelligence Bonus',	'cat':'Abilities',	'type':'number',	'ngModel':'int',},
-				{'name':'Wisdow Bonus',			'cat':'Abilities',	'type':'number',	'ngModel':'wis',},
-				{'name':'Charisma Bonus',		'cat':'Abilities',	'type':'number',	'ngModel':'cha',},
-				{'name':'HP Bonus',				'cat':'Combat',		'type':'number',	'ngModel':'hp',},
-				{'name':'Initiative Bonus',		'cat':'Combat',		'type':'number',	'ngModel':'initiative',},
-				{'name':'Speed Bonus',			'cat':'Combat',		'type':'number',	'ngModel':'speed',},
-				{'name':'Language Slots',		'cat':'Other',		'type':'number',	'ngModel':'languageSlots',},
+				{'name':'Strength',				'cat':'Abilities',						'type':'number',	'ngModel':'str'},
+				{'name':'Dexterity',			'cat':'Abilities',						'type':'number',	'ngModel':'dex'},
+				{'name':'Constitution',			'cat':'Abilities',						'type':'number',	'ngModel':'con'},
+				{'name':'Intelligence',			'cat':'Abilities',						'type':'number',	'ngModel':'int'},
+				{'name':'Wisdow',				'cat':'Abilities',						'type':'number',	'ngModel':'wis'},
+				{'name':'Charisma',				'cat':'Abilities',						'type':'number',	'ngModel':'cha'},
+				{'name':'Any',					'cat':'Abilities',						'type':'number',	'ngModel':'anyAbility'},
+
+				{'name':'HP',					'cat':'Combat',							'type':'number',	'ngModel':'hp'},
+				{'name':'Initiative',			'cat':'Combat',							'type':'number',	'ngModel':'initiative',},
+				{'name':'Speed',				'cat':'Combat',							'type':'number',	'ngModel':'speed'},
+
+				{'name':'Simple melee',			'cat':'Proficiency: Weapon group',		'type':'text',		'ngModel':'smDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Simple ranged',		'cat':'Proficiency: Weapon group',		'type':'text',		'ngModel':'srDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Martial melee',		'cat':'Proficiency: Weapon group',		'type':'text',		'ngModel':'mmDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Martial ranged',		'cat':'Proficiency: Weapon group',		'type':'text',		'ngModel':'mrDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Exotic',				'cat':'Proficiency: Weapon group',		'type':'text',		'ngModel':'exDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Weapons',				'cat':'Proficiency: Specific weapon',	'type':'number',	'ngModel':'wpSlots',	'array':'proficiencies', 'info':''},
+
+				{'name':'Light armor',			'cat':'Proficiency: Armor group',		'type':'text',		'ngModel':'laDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Medium armor',			'cat':'Proficiency: Armor group',		'type':'text',		'ngModel':'maDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Heavy armor',			'cat':'Proficiency: Armor group',		'type':'text',		'ngModel':'haDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Shields',				'cat':'Proficiency: Armor group',		'type':'text',		'ngModel':'shDetails',	'array':'proficiencies', 'info':''},
+				{'name':'Armors',				'cat':'Proficiency: Specific armor',	'type':'number',	'ngModel':'arSlots',	'array':'proficiencies', 'info':''},
+
+				{'name':'Skills/tools',			'cat':'Proficiency: Skills/tools',		'type':'number',	'ngModel':'stSlots',	'array':'proficiencies', 'info':''},
+
+				{'name':'Language "Slots"',		'cat':'Other',							'type':'number',	'ngModel':'langSlots',	'array':false,		'info':''},
+				{'name':'Custom 1"',			'cat':'Other',							'type':'text',		'ngModel':'langSlots',	'array':'custom',	'info':''},
+				{'name':'Custom 2"',			'cat':'Other',							'type':'text',		'ngModel':'langSlots',	'array':'custom',	'info':''},
+				{'name':'Custom 2"',			'cat':'Other',							'type':'text',		'ngModel':'langSlots',	'array':'custom',	'info':''}
 			]
 		};
 	});
 
+			 //	'svThrowProf': [{'type': String, 'default': ""}],
 
