@@ -3,13 +3,43 @@
 		<legend>Prerequisites:</legend>
 		<h4>Abilities:</h4>
 		<div class="form-group form-inline">
-			<select id="newPrereqAb" class="form-control" name="newPrereqAb" ng-model="newPrereqAb" ng-options="ability.name for ability in abilities | orderBy: ability.name">
-				<option value="" hidden>-- Select --</option>
+			<select id="newPrereqAb" class="form-control" name="newPrereqAb" ng-model="newPrereqAb" ng-options="ability.name for ability in prereqsAbilities | orderBy: 'name' | filter:{'name':'!any'}">
+				<option value="" hidden>-- Select ability --</option>
 			</select>
-			<input type="number" id="{{newPrereqAb.ngModel}}" class="form-control" name="{{newPrereqAb.ngModel}}" ng-model="detail">{{newPrereqAb[ngModel]}}
-			<a ng-click="addItem(newPrereqAb, displayAb, 'prereqs', 'abilities')" ng-show="newPrereqAb !== undefined">add</a>
+			<input type="{{newPrereqAb.type}}" id="{{newPrereqAb.ngModel}}" class="form-control" name="{{newPrereqAb.ngModel}}" ng-hide="newPrereqAb == null || undefined" ng-model="details">{{newPrereqAb[ngModel]}}
+			<a ng-click="addItem(newPrereqAb, displayPrereqAb, 'prereqs', 'abilities', 'prereqsAbilities')" ng-hide="newPrereqAb == null || undefined">add</a>
 		</div>
-		<div ng-repeat="a in displayAb">{{a.name}} - {{a.detail}}</div>
+		<ng-pluralize count="displayPrereqAb.length" when="{'0': '','one': 'Selected ability: ','other': 'Selected abilities: '}"></ng-pluralize>
+		<div ng-repeat="ability in displayPrereqAb">{{ability.name}} = {{ability.details}} <a ng-click="removeItem($index, displayPrereqAb, 'prereqs', 'abilities', 'prereqsAbilities')">[x]</a></div>
+		
+		<div class="form-group form-inline">
+			<label>
+				<input type="checkbox" id="spellcaster" class="spellcaster" name="spellcaster" ng-model="newData.prereqs.spellcaster"> Mark if the character must be a spellcaster to get this talent.
+			</label>
+		</div>
+
+		<h4>Proficiencies:</h4>
+		<div class="form-group form-inline">
+			<select id="newPrereqProf" class="form-control" name="newPrereqProf" ng-model="newPrereqProf" ng-options="prof.name group by prof.cat for prof in prereqsProficiencies | orderBy: 'name'">
+				<option value="" hidden>-- Select Proficiency --</option>
+			</select>
+			<a ng-click="addItem(newPrereqProf, displayPrereqProf, 'prereqs', 'proficiencies', 'prereqsProficiencies')" ng-hide="newPrereqProf == null || undefined">add</a>
+		</div>
+		<ng-pluralize count="displayPrereqProf.length" when="{'0': '','one': 'Selected proficiency: ','other': 'Selected proficiencies: '}"></ng-pluralize>
+		<div ng-repeat="prof in displayPrereqProf">{{prof.name}} = {{prof.details}} <a ng-click="removeItem($index, displayPrereqProf, 'prereqs', 'proficiencies', 'prereqsProficiencies')">[x]</a></div>
+		
+		<h4>Other:</h4>
+		<div class="form-group form-inline">
+			<label for="newPrereqsOther">Select other prerequisites: </label>
+			<select id="newPrereqsOther" class="form-control" name="newPrereqsOther" ng-model="newPrereqsOther" ng-options="other.name group by other.cat for other in prereqsOther | orderBy: 'name'">
+				<option value="" hidden>-- Select other --</option>
+			</select>
+			<input type="{{newPrereqsOther.type}}" id="{{newPrereqsOther.ngModel}}" class="form-control" name="{{newPrereqsOther.ngModel}}" ng-hide="newPrereqsOther == null || undefined" ng-model="details">
+			<a ng-click="addItem(newPrereqsOther, displayPrereqsOther, 'prereqs', 'custom', 'prereqsOther')" ng-hide="newPrereqsOther == null || undefined">add</a>
+		</div>
+
+		<ng-pluralize count="displayPrereqsOther.length" when="{'0': '','one': 'Other prerequisite: ','other': 'Other prerequisites: '}"></ng-pluralize>
+		<div ng-repeat="other in displayPrereqsOther">{{other.name}} = {{other.details}} <a ng-click="removeItem($index, displayPrereqsOther, 'prereqs', 'custom', 'prereqsOther')">[x]</a></div>
 	</fieldset>
 	<a ng-click="meh(newData.prereqs)">meh</a>
 <!-- ========================================================================= Feat Prerequisites == -->
@@ -17,5 +47,49 @@
 <!-- == Feat Bonuses =============================================================================== -->
 	<fieldset>
 		<legend>Bonuses:</legend>
+		<h4>Abilities:</h4>
+		<div class="form-group form-inline">
+			<select id="newBonusAb" class="form-control" name="newBonusAb" ng-model="newBonusAb" ng-options="ability.name for ability in bonusesAbilities | orderBy: 'name'">
+				<option value="" hidden>-- Select ability --</option>
+			</select>
+			<input type="{{newBonusAb.type}}" id="{{newBonusAb.ngModel}}" class="form-control" name="{{newBonusAb.ngModel}}" ng-hide="newBonusAb == null || undefined" ng-model="details">
+			<a ng-click="addItem(newBonusAb, displayBonusAb, 'bonuses', 'abilities', 'bonusesAbilities')" ng-hide="newBonusAb == null || undefined">add</a>
+		</div>
+		<ng-pluralize count="displayBonusAb.length" when="{'0': '','one': 'Selected bonus: ','other': 'Selected bonuses: '}"></ng-pluralize>
+		<div ng-repeat="ability in displayBonusAb">{{ability.name}} = {{ability.details}} <a ng-click="removeItem($index, displayBonusAb, 'bonuses', 'abilities', 'bonusesAbilities')">[x]</a></div>
+
+		<h4>Proficiencies:</h4>
+		<div class="form-group form-inline">
+			<select id="newBonusProf" class="form-control" name="newBonusProf" ng-model="newBonusProf" ng-options="prof.name group by prof.cat for prof in bonusesProficiencies | orderBy: 'name'">
+				<option value="" hidden>-- Select proficiency --</option>
+			</select>
+			<a ng-click="addItem(newBonusProf, displayBonusProf, 'bonuses', 'proficiencies', 'bonusesProficiencies')" ng-hide="newBonusProf == null || undefined">add</a>
+		</div>
+		<ng-pluralize count="displayBonusProf.length" when="{'0': '','one': 'Selected proficiency: ','other': 'Selected proficiencies: '}"></ng-pluralize>
+		<div ng-repeat="prof in displayBonusProf">{{prof.name}} = {{prof.details}} <a ng-click="removeItem($index, displayBonusProf, 'bonuses', 'proficiencies', 'bonusesProficiencies')">[x]</a></div>
+
+		<h4>Combat:</h4>
+		<div class="form-group form-inline">
+			<select id="newBonusCombat" class="form-control" name="newBonusCombat" ng-model="newBonusCombat" ng-options="combat.name group by combat.cat for combat in bonusesCombat | orderBy: 'name'">
+				<option value="" hidden>-- Select property --</option>
+			</select>
+			<input type="{{newBonusCombat.type}}" id="{{newBonusCombat.ngModel}}" class="form-control" name="{{newBonusCombat.ngModel}}" ng-hide="newBonusCombat == null || undefined" ng-model="details">
+			<a ng-click="addItem(newBonusCombat, displayBonusCombat, 'bonuses', 'combat', 'bonusesCombat')" ng-hide="newBonusCombat == null || undefined">add</a>
+		</div>
+		<ng-pluralize count="displayBonusCombat.length" when="{'0': '','one': 'Combat bonus: ','other': 'Combat bonuses: '}"></ng-pluralize>
+		<div ng-repeat="combat in displayBonusCombat">{{combat.name}} = {{combat.details}} <a ng-click="removeItem($index, displayBonusOther, 'bonuses', 'combat', 'bonusesCombat')">[x]</a></div>
+
+		<h4>Other:</h4>
+		<div class="form-group form-inline">
+			<select id="newBonusOther" class="form-control" name="newBonusOther" ng-model="newBonusOther" ng-options="other.name group by other.cat for other in bonusesOther | orderBy: 'name'">
+				<option value="" hidden>-- Select other --</option>
+			</select>
+			<input type="{{newBonusOther.type}}" id="{{newBonusOther.ngModel}}" class="form-control" name="{{newBonusOther.ngModel}}" ng-hide="newBonusOther == null || undefined" ng-model="details">
+			<a ng-click="addItem(newBonusOther, displayBonusOther, 'bonuses', 'custom', 'bonusesOther')" ng-hide="newBonusOther == null || undefined">add</a>
+		</div>
+
+		<ng-pluralize count="displayBonusOther.length" when="{'0': '','one': 'Other bonus: ','other': 'Other bonuses: '}"></ng-pluralize>
+		<div ng-repeat="other in displayBonusOther">{{other.name}} = {{other.details}} <a ng-click="removeItem($index, displayBonusOther, 'bonuses', 'custom', 'bonusesOther')">[x]</a></div>
 	</fieldset>
+	<a ng-click="meh(newData.bonuses)">meh</a>
 <!-- =============================================================================== Feat Bonuses == -->

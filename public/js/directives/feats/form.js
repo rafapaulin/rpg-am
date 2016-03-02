@@ -8,47 +8,92 @@ angular.module('rpg')
 			scope: false,
 			link: function(scope, element){
 			// == Properties set up =============================================================================================== //
-				scope.newData.prereqs					= {};
-				scope.newData.bonuses					= {};
-				scope.newData.prereqs.proficiencies		= [];
-				scope.newData.bonuses.proficiencies		= [];
+				scope.newData.prereqs					= {};					// Data-to-be-posted objects
+				scope.newData.bonuses					= {};					// *
 
-				scope.abilities							= Lists.abilities;
-				scope.displayAb							= [];
+				scope.newData.prereqs.proficiencies		= [];					// Data-to-be-posted arrays
+				scope.newData.bonuses.proficiencies		= [];					// *
+				scope.newData.prereqs.custom			= [];					// *
+				scope.newData.bonuses.custom			= [];					// *
+
+				scope.prereqsAbilities					= Lists.abilities;		// Lists
+				scope.prereqsProficiencies				= Lists.proficiencies;	// *
+				scope.prereqsOther						= Lists.other			// *
+				scope.bonusesAbilities					= Lists.abilities;		// *
+				scope.bonusesProficiencies				= Lists.proficiencies;	// *
+				scope.bonusesCombat						= Lists.combat			// *
+				scope.bonusesOther						= Lists.other			// *
+
+				scope.displayPrereqAb					= [];					// Display arrays
+				scope.displayPrereqProf					= [];					// *
+				scope.displayPrereqsOther				= [];					// *
+				scope.displayBonusAb					= [];					// *
+				scope.displayBonusProf					= [];					// *
+				scope.displayBonusCombat				= [];					// *
+				scope.displayBonusOther					= [];					// *
 
 			// =============================================================================================== Properties set up == //
 
 			// == Clean up on success ============================================================================================= //
 				scope.$on('postSuccess', function(event, data) {				// Listen to 'postSuccess' event on controller [add-ctrl.js]
-					scope.abilities						= Lists.abilities;		// Reset List
+					scope.prereqsAbilities				= Lists.abilities;		// Reset Lists
+					scope.prereqsProficiencies			= Lists.proficiencies	// *
+					scope.prereqsOther					= Lists.other			// *
+					scope.bonusesAbilities				= Lists.abilities;		// *
+					scope.bonusesProficiencies			= Lists.proficiencies	// *
+					scope.bonusesCombat					= Lists.combat			// *
+					scope.bonusesOther					= Lists.other			// *
 
-					scope.selectedPrereqs				= [];					// Reset display array
-					scope.selectedBonuses				= [];					// *
+					scope.displayPrereqAb				= [];					// Reset display arrays
+					scope.displayPrereqProf				= [];					// *
+					scope.displayPrereqsOther			= [];					// *
+					scope.displayBonusAb				= [];					// *
+					scope.displayBonusProf				= [];					// *
+					scope.displayBonusCombat			= [];					// *
+					scope.displayBonusOther				= [];					// *
 					
-					scope.newData.prereqs				= {};					// Re-sets the data-to-be-postes object
+					scope.newData.prereqs				= {};					// Reset the data-to-be-postes object
 					scope.newData.bonuses				= {};					// *
-					scope.newData.prereqs.proficiencies	= [];					// Re-sets the data-to-be-postes array
+
+					scope.newData.prereqs.proficiencies	= [];					// Sets the data-to-be-postes array
 					scope.newData.bonuses.proficiencies	= [];					// *
+
 				});
 			// ============================================================================================= Clean up on success == //
 
-				scope.addItem = function(obj, display, toSave, group){
-					obj.detail = scope.detail;
-					display.push(obj);									// Add item to display array
-					scope[group] = scope[group].filter(function(list){	// Remove added item from the <select>
-						return list !== obj;
+				scope.addItem = function(obj, display, toSave, group, list){		// Add item to display array and object/array-to-be-posted
+					obj.details = scope.details;
+					display.push(obj);												// Add item to display array
+
+					scope[list] = scope[list].filter(function(fList){				// Remove added item from the <select>
+						return fList !== obj;
 					});
-					scope.newData[toSave][obj.ngModel] = scope.detail;
+
+					if(obj.subObj){													// Check if object is a subobject or not (based on the relevant schema)
+						scope.newData[toSave][group]								// Add item to data-to-be-posted array
+							.push({
+									'name':obj.name,
+									'cat': obj.cat,
+									'subObj': obj.subObj,
+									'details': scope.details
+								});
+					} else {
+						scope.newData[toSave][obj.ngModel] = scope.details;			// Add info to data-to-be-posted object
+						scope.details = null;										// Reset <input>
+					};
+					scope[obj] = undefined;											// Reset <select> position
 				};
 
 
+				scope.removeItem  = function($index, display, toSave, group, list){	// Remove item from display array and from object-to-be-posted
+					if(display[$index].subObj){										// Check if object is a subobject or not (based on the relevant schema)
+						scope.newData[toSave][group].splice($index,1);				// Remove item from array-to-be-posted if subobject
+					} else {
+						delete scope.newData[toSave][display[$index].ngModel];		// Remove item from object-to-be-posted if not subobject
+					};
 
-
-
-
-				scope.removeItem  = function($index, array, group){		// Remove item to array-to-be-posted
-					scope[group].push(array[$index]);					// Add removed item back to the <select>
-					array.splice($index,1);
+					scope[list].push(display[$index]);								// Add removed item back to the <select>
+					display.splice($index,1);										// Remove item from display array from object-to-be-posted
 				}
 
 				scope.meh = function(a){
