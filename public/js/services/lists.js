@@ -49,11 +49,11 @@ angular.module('rpg')
 				{'name':'Until dspelled',	'system': 'DnD',	'toSeconds':-1}
 			],
 			'areasOfEffect': [
-				{'name':'Cone',		'a':'Length: ',				'b':'',				'desc':'A cone\'s area of effect specities its maximum length. A cone\'s width at a given point along its length is equal to that point\'s distance from the point of origin.'},
-				{'name':'Cube',		'a':'Length of sides: ',	'b':'',				'desc':'A cube\'s point of origin lies anywhere on a face of the cubic effect. The cube\'s size is expressed as the length of each side'},
-				{'name':'Cylinder',	'a':'Radius: ',				'b':' Height: ',	'desc':'A cylinder\'s point of origin is the center of a circle of a particular radius. The hiight is the distance between the base and the top od the cylinder.'},
-				{'name':'Line',		'a':'Length: ',				'b':'',				'desc':'A line extends from its point of origin in a straight path up to its length and covers an area defined by its width.'},
-				{'name':'Sphere',	'a':'Radius: ',				'b':'',				'desc':'The sphere extends outward from the point of origin, and its size is expressed as a radius that extends from that point.'}
+				{'name':'Cone',		'a':'Length: ',				'b':'',				'info':'A cone\'s area of effect specities its maximum length. A cone\'s width at a given point along its length is equal to that point\'s distance from the point of origin.'},
+				{'name':'Cube',		'a':'Length of sides: ',	'b':'',				'info':'A cube\'s point of origin lies anywhere on a face of the cubic effect. The cube\'s size is expressed as the length of each side'},
+				{'name':'Cylinder',	'a':'Radius: ',				'b':' Height: ',	'info':'A cylinder\'s point of origin is the center of a circle of a particular radius. The hiight is the distance between the base and the top od the cylinder.'},
+				{'name':'Line',		'a':'Length: ',				'b':'',				'info':'A line extends from its point of origin in a straight path up to its length and covers an area defined by its width.'},
+				{'name':'Sphere',	'a':'Radius: ',				'b':'',				'info':'The sphere extends outward from the point of origin, and its size is expressed as a radius that extends from that point.'}
 			],
 			'dmgTypes': [
 				{'name':'Bludgeoning.',	'cat':'Physical'},

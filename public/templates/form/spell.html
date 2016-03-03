@@ -98,7 +98,7 @@
 			<select id="aoeType" class="form-control" name="aoeType" required ng-model="aoeType" ng-options="aoe.name for aoe in areasOfEffect | orderBy: aoe.name">
 				<option value="" hidden>-- Select AoE --</option>
 			</select>
-			<i class="fa fa-2x fa-info-circle" uib-popover="{{aoeType.desc}}" popover-trigger="mouseenter outsideClick" ng-show="aoeType.name !== undefined"></i>
+			<i class="fa fa-2x fa-info-circle" uib-popover="{{aoeType.info}}" popover-trigger="mouseenter outsideClick" ng-show="aoeType.name !== undefined"></i>
 
 			<span ng-show="aoeType.name !== undefined">{{aoeType.a}}</span>
 			<input type="number" id="size" class="form-control" name="size" min="1" ng-show="aoeType.name !== undefined" ng-model="size">

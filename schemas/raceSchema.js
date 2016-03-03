@@ -1,14 +1,17 @@
 'use strict';
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema,
+	 uniqueV = require('mongoose-unique-validator'),
+	  Schema = mongoose.Schema,
 
 	raceSchema = new Schema(
 		{
-			'name': {'type': String, 'required': true, 'minlength': 3},
-			'slug': {'type': String, 'required': true, 'minlength': 3},
-			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},
-			'createdBy': String,
-			'desc': {'type': String, 'required': true, 'minlength': 3},
+// == General =============================================================================================================================== //
+			'name': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok
+			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok - Automatic
+			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},							// ok
+			'createdBy': String,																						// ok - Automatic (to-do)
+			'desc': {'type':String, 'required': true, 'minlength': 3},													// ok
+// =============================================================================================================================== General == //
 			'age': String,
 			'alignmentTend': String, 
 			'size': String,
@@ -24,16 +27,13 @@ var mongoose = require('mongoose'),
 				}
 			],
 			'traits': {
-				'str': Number,
-				'dex': Number,
-				'con': Number,
-				'int': Number,
-				'wis': Number,
-				'cha': Number,
-				'hp': {
-					'oneTime': Number,
-					'perLevel': Number
-				},
+				'str': {'type': Number, 'default': 0},
+				'dex': {'type': Number, 'default': 0},
+				'con': {'type': Number, 'default': 0},
+				'int': {'type': Number, 'default': 0},
+				'wis': {'type': Number, 'default': 0},
+				'cha': {'type': Number, 'default': 0},
+				'hp':  {'type': Number, 'default': 0},
 				'skillProf': [String],
 				'equipProf': [String],
 				'spells':[
@@ -47,13 +47,14 @@ var mongoose = require('mongoose'),
 					'name': String,
 					'dmg': [
 						{
-							'minLvL': Number
+							'minLvL': Number,
 							'staticDmg': Number,
 							'numberOfDices': Number,
 							'diceType': Number
 						}
 					],
-					'dmgType': [String]
+					'dmgType': [String],
+					'details': String
 				},
 				'other': [
 					{
@@ -67,5 +68,5 @@ var mongoose = require('mongoose'),
 			'collection': 'races'
 		}
 	);
-
+raceSchema.plugin(uniqueV);								// validate unique values
 module.exports = mongoose.model('Race', raceSchema);

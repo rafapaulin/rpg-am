@@ -1,7 +1,8 @@
 'use strict';
-var mongoose = require('mongoose'),
-	Schema = mongoose.Schema,
-
+var	mongoose = require('mongoose'),
+	 uniqueV = require('mongoose-unique-validator'),
+	  Schema = mongoose.Schema,
+	
 	charSheetSchema = new Schema(
 		{
 			'charName': String,
@@ -10,5 +11,7 @@ var mongoose = require('mongoose'),
 			'collection': 'charSheets'
 		}
 	);
+
+charSheetSchema.plugin(uniqueV);								// validate unique values
 
 module.exports = mongoose.model('CharSheet', charSheetSchema);
