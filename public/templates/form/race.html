@@ -1,0 +1,24 @@
+<fieldset>
+	<legend>Roleplay info:</legend>
+	<a ng-click="meh(newData.commonNames)">meh</a>
+
+	<div class="form-inline">
+		<dl class="dl-horizontal" ng-repeat="nameGroups in newData.commonNames">
+			<dt><a ng-click="remove(newData.commonNames, $index)">[x] </a> {{nameGroups.group}}</dt>
+			<dd><span ng-repeat="name in nameGroups.namesList">{{name}}<span ng-if="!$last">, </span><span ng-if="$last">.</span></span></dd>
+		</dl>
+		<div>
+			<input type="text" id="groupName" class="form-control" name="groupName" ng-model="groupName" placeholder="Group name">
+		</div>
+		<div>
+			<a ng-click="addName()">Add name example</a>			
+		</div>
+		<div ng-repeat="name in names">
+			<input type="text" id="newName{{$index}}" class="form-control" name="newName{{$index}}" placeholder="Insert new name" ng-model="name.name">
+			<a ng-click="remove(names, $index)">[x]</a>
+		</div>
+		<div>
+			<a ng-click="newGroup(names)">GROUP</a>
+		</div>
+	</div>
+</fieldset>

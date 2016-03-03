@@ -21,3 +21,4 @@ Changelog:
 0.1.2 - Generic DELETE controller
 0.1.3 - Generic GET controller
 0.1.4 - Generic PUT controller
+0.1.5 - Spells & Skills add and single pages

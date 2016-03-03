@@ -20,9 +20,9 @@ angular.module('rpg')
 				scope.newData.damage.dmgTypes			= [];											// *
 
 				scope.displayDmgTypes					= [];											// Sets up the display arrays
-				scope.displaySchools					= [];
-				scope.displaySavings					= [];
-				scope.displayComponents					= [];
+				scope.displaySchools					= [];											// *
+				scope.displaySavings					= [];											// *
+				scope.displayComponents					= [];											// *
 
 				scope.dmgTypes							= Lists.dmgTypes;								// Define property to use on HTML
 				scope.diceTypes							= Lists.diceTypes;								// *
@@ -56,6 +56,11 @@ angular.module('rpg')
 					scope.components					= Lists.components;								// *
 					scope.savings						= Lists.savings;								// *
 					scope.dmgTypes						= Lists.dmgTypes;								// *
+
+					scope.displayDmgTypes				= [];											// Reset the display arrays
+					scope.displaySchools				= [];											// *
+					scope.displaySavings				= [];											// *
+					scope.displayComponents				= [];											// *
 				
 					scope.newData.damage				= {};											// Re-sets the data-to-be-postes object
 					scope.newData.castTime				= {};											// *
@@ -116,10 +121,6 @@ angular.module('rpg')
 
 					scope[list].push(display[$index]);								// Add removed item back to the <select>
 					display.splice($index,1);										// Remove item from display array from object-to-be-posted
-				}
-
-				scope.meh = function(a){
-					console.log(a);
 				}
 			}
 		};
