@@ -6,65 +6,74 @@ var mongoose = require('mongoose'),
 	spellSchema = new Schema(
 		{
 // == General =============================================================================================================================== //
-			'name': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok
-			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok - Automatic
+			'name': {'type': String, 'required': true, 'minlength': 3, 'unique': true, 'uniqueCaseInsensitive': true},	// ok
+			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, 'uniqueCaseInsensitive': true},	// ok - Automatic
 			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},							// ok
 			'createdBy': String,																						// ok - Automatic (to-do)
-			'desc': {'type':String, 'required': true, 'minlength': 3},													//ok
+			'desc': {'type':String, 'required': true, 'minlength': 3},													// ok
 // =============================================================================================================================== General == //
 
 // == Basic ================================================================================================================================= //
 			'level': {'type': Number, 'required': true},						// ok
 			'ritual': {'type': Boolean, 'required': true, 'default': false},	// ok
-			'schools': [{'type': String, 'required': true}],					// ok
+			'schools': [														// ok
+				{																// *
+					'name': {'type': String, 'required': true}					// *
+				}																// *
+			],																	// *
 			'savings': [														// ok
 				{																// *
 					'name': {'type': String, 'required': true},					// *
-					'desc': String												// *
+					'details': String											// *
 				}																// *
 			],																	// *
 			'components': [														// ok
 				{																// *
 					'name': {'type': String, 'required': true},					// *
-					'desc': String												// *
+					'details': String											// *
 				}																// *
 			],																	// *
 // ================================================================================================================================= Basic == //
 
 // == Effect ================================================================================================================================ //
-			'castTime': {												// ok
-				'time': {'type': Number, 'required': true},				// *
-				'details': {'type': String, default: ''}				// *
-			},															// *
-			'range': {'type': Number, 'required': true},				// ok
-			'duration': {												// ok
-			 	'concentration': {'type': Boolean, 'default': false},	// *
-			 	'max': {'type': Number, 'required': true}, 				// *
-			 	'details': String										// *
-			},															// *
-			 'effect': {												// *
-			 	'aoe': {'type': String, default: ''},					// ok
-				'size': {'type': Number, 'default': 0},					// *
-			 	'cilinderHeight': {'type': Number, 'default': 0},		// *
-			 	'details': {'type': String, default: ''}				// *
-			},															// *
+			'castTime': {														// ok
+				'time': {'type': Number, 'required': true},						// *
+				'details': {'type': String, default: ''}						// *
+			},																	// *
+			'range': {'type': Number, 'required': true},						// ok
+			'duration': {														// ok
+			 	'concentration': {'type': Boolean, 'default': false},			// *
+			 	'max': {'type': Number, 'required': true}, 						// *
+			 	'details': String												// *
+			},																	// *
+			 'effect': {														// *
+			 	'aoe': {'type': String, default: ''},							// ok
+				'size': {'type': Number, 'default': 0},							// *
+			 	'cilinderHeight': {'type': Number, 'default': 0},				// *
+			 	'details': {'type': String, default: ''}						// *
+			},																	// *
 // ================================================================================================================================ Effect == //
 
 // == Damage ================================================================================================================================ //
-		 	'damage': {												// ok
-		 		'harmful': {'type': Boolean, 'default': false},		// *
-		 		'staticDmg': {'type': Number, default: 0},			// *
-		 		'numberOfDices': {'type': Number, 'default': 0},	// *
-		 		'diceType': {'type': Number, 'default': 0},			// *
-		 		'dmgTypes': [{'name': String}]						// *
-		 	},														// *
-		 	'atHigherLevels': {										//
-		 		'staticDmg': {'type': Number, default: 0},			//
-		 		'numberOfDices': {'type': Number, default: 0},		//
-		 		'diceType': {'type': Number, default: 0},			//
-		 		'details': {'type': String, 'default': ''}			//
-		 	}														//
-		},															//
+		 	'damage': {															// ok
+		 		'harmful': {'type': Boolean, 'default': false},					// *
+		 		'staticDmg': {'type': Number, default: 0},						// *
+		 		'numberOfDices': {'type': Number, 'default': 0},				// *
+		 		'diceType': {'type': Number, 'default': 0},						// *
+		 		'dmgTypes': [													// *
+		 			{															// *
+		 				'name': String,											// *
+		 				'cat': String											// *
+		 			}															// *
+		 		]																// *
+		 	},																	// *
+		 	'atHigherLevels': {													// ok
+		 		'staticDmg': {'type': Number, default: 0},						// *
+		 		'numberOfDices': {'type': Number, default: 0},					// *
+		 		'diceType': {'type': Number, default: 0},						// *
+		 		'details': {'type': String, 'default': ''}						// *
+		 	}																	// *
+		},																		// *
 // ================================================================================================================================ Damage == //
 		{
 			'collection': 'spells'

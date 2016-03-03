@@ -1,0 +1,8 @@
+	<fieldset>
+		<legend>Skill basic info:</legend>
+		<div class="form-group form-inline">
+			<select id="skillAbility" class="form-control" name="skillAbility" ng-model="skillAbility" ng-options="ability.name for ability in abilities | orderBy: 'name' | filter:{'name':'!any'}">
+				<option value="" hidden>-- Select ability --</option>
+			</select>
+		</div>
+	</fieldset>

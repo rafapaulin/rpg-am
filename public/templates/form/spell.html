@@ -3,51 +3,50 @@
 		<legend>Spell basic info</legend>
 
 		<div class="form-group form-inline">
-			<label for="newSchool">Add School: </label>
-			<select id="newSchool" class="form-control" name="newSchool" ng-model="newSchool" ng-options="school for school in schools | orderBy:school">
-				<option value="" hidden>-- Select --</option>
+			<select id="newSchool" class="form-control" name="newSchool" ng-model="newSchool" ng-options="school.name for school in schools | orderBy:'name'">
+				<option value="" hidden>-- Select school --</option>
 			</select>
-			<a ng-click="addItem(newSchool, newData.schools, 'schools')" ng-show="newSchool !== undefined">add</a>
+			<a ng-click="addItem(newSchool, displaySchools, 'schools', '', 'schools')" ng-show="newSchool !== undefined">add</a>
 			<ul class="list-inline">
 				<li ng-show="newData.schools.length > 0">
-					<ng-pluralize count="newData.schools.length" when="{'0': '','one': 'School: ','other': 'Schools: '}"></ng-pluralize>
+					<ng-pluralize count="displaySchools.length" when="{'0': '','one': 'School: ','other': 'Schools: '}"></ng-pluralize>
 				</li>
-				<li ng-repeat="school in newData.schools"><span>{{school}} </span> <a ng-click="removeItem($index, newData.schools, 'schools')">[X]</a></li>
+				<li ng-repeat="school in displaySchools"><span>{{school.name}} </span> <a ng-click="removeItem($index, displaySchools, 'schools', '', 'schools')">[X]</a></li>
 			</ul>
 		</div>
-
+<a ng-click="meh(newData.schools)">meh</a>
 		<div class="form-group form-inline">
-			<label for="level">Level: </label>
-			<input type="number" id="level" class="form-control" name="level" min="0" max="9" ng-model="newData.level">
+			<input type="number" id="level" class="form-control" name="level" min="0" max="9" ng-model="newData.level" placeholder="Spell level">
 		</div>
 
 		<div class="form-group form-inline">
-			<label for="newComponent">Add Component: </label>
 			<select id="newComponent" class="form-control" name="newComponent" ng-model="newComponent" ng-options="component.name for component in components |  orderBy:component.name">
-				<option value="" hidden>-- Select --</option>
+				<option value="" hidden>-- Select component --</option>
 			</select>
-			<a ng-click="addItem(newComponent, newData.components, 'components')"ng-show="newComponent.name !== undefined">add</a>
+			<input type="text" ng-model="details" class="form-control" ng-show="newComponent.name == 'Material'" placeholder="Details">
+
+			<a ng-click="addItem(newComponent, displayComponents, 'components', '', 'components')"ng-show="newComponent.name !== undefined">add</a>
+
 			<ul class="list-inline">
-				<li ng-show="newData.components.length > 0">
-					<ng-pluralize count="newData.components.length" when="{'0': '','one': 'Component: ','other': 'Components: '}"></ng-pluralize>
+				<li ng-show="displayComponents.length > 0">
+					<ng-pluralize count="displayComponents.length" when="{'0': '','one': 'Component: ','other': 'Components: '}"></ng-pluralize>
 				</li>
-				<li ng-repeat="component in newData.components">{{component.name}}<input type="text" ng-model="component.desc" class="form-control" ng-show="component.hasOwnProperty('desc')"> <a ng-click="removeItem($index, newData.components, 'components')">[X]</a></li>
+				<li ng-repeat="component in displayComponents">{{component.name}}. {{component.details}}.<a ng-click="removeItem($index, displayComponents, 'components', '', 'components')">[X]</a></li>
 			</ul>
 		</div>
 
 		<div class="form-group form-inline">
-			<label for="newSaving">Add Saving Throw: </label>
-
 			<select id="newSaving" class="form-control" name="newSaving" ng-model="newSaving" ng-options="saving.name for saving in savings |  orderBy:saving.name">
-				<option value="" hidden>-- Select --</option>
+				<option value="" hidden>-- Select saving throw --</option>
 			</select>
+			<input type="text" class="form-control"  ng-show="newSaving.name !== undefined" ng-model="details" placeholder="Details">
 
-			<a ng-click="addItem(newSaving, newData.savings, 'savings')" ng-show="newSaving.name !== undefined">add</a>
+			<a ng-click="addItem(newSaving, displaySavings, 'savings', '', 'savings')" ng-show="newSaving.name !== undefined">add</a>
 			<ul class="list-inline">
-				<li ng-show="newData.savings.length > 0">
-					<ng-pluralize count="newData.savings.length" when="{'0': '','one': 'Saving: ','other': 'Savings: '}"></ng-pluralize>
+				<li ng-show="displaySavings.length > 0">
+					<ng-pluralize count="displaySavings.length" when="{'0': '','one': 'Saving: ','other': 'Savings: '}"></ng-pluralize>
 				</li>
-				<li ng-repeat="saving in newData.savings">{{saving.name}}<input type="text" class="form-control" ng-model="saving.desc" ng-show="saving.hasOwnProperty('desc')"> <a ng-click="removeItem($index, newData.savings, 'savings')">[X]</a></li>
+				<li ng-repeat="saving in displaySavings">{{saving.name}}. {{saving.details}}<a ng-click="removeItem($index, displaySavings, 'savings', '', 'savings')">[X]</a></li>
 			</ul>
 		</div>
 	</fieldset>
@@ -65,6 +64,9 @@
 			</select>
 			<label for="castTimeDetails"></label>
 			<input type="text" id="castTimeDetails" class="form-control" name="castTimeDetails" placeholder="Details" ng-model="newData.castTime.details">
+		</div>
+		
+		<div class="form-group form-inline">
 			<label>
 				<input type="checkbox" id="ritual" class="" name="ritual" ng-model="newData.ritual">
 				Mark if ritual.
@@ -78,11 +80,14 @@
 				<option value="" hidden>-- Select unit --</option>
 			</select>
 			<label for="durationDetails"></label>
+			<input type="text" id="durationDetails" class="form-control" name="durationDetails" placeholder="Details" ng-model="newData.duration.details">
+		</div>
+
+		<div class="form-group form-inline">
 			<label>
 				<input type="checkbox" id="ritual" class="" name="ritual" ng-model="newData.duration.concentration">
 				Mark if Concentration can be used.
 			</label>
-			<input type="text" id="durationDetails" class="form-control" name="durationDetails" placeholder="Details" ng-model="newData.duration.details">
 		</div>
 
 		<div class="form-group form-inline">
@@ -142,21 +147,18 @@
 		</div>
 
 		<div class="form-group form-inline">
-			<label for="newDmgType">Add damage type: </label>
-
 			<select id="newDmgType" class="form-control" name="newDmgType" ng-model="newDmgType" ng-options="dmgType.name group by dmgType.cat for dmgType in dmgTypes |  orderBy: dmgType.name">
-				<option value="" hidden>-- Damage type --</option>
+				<option value="" hidden>-- Select damage type --</option>
 			</select>
 
-			<a ng-click="addItem(newDmgType, newData.damage.dmgTypes, 'dmgTypes')" ng-show="newDmgType.name !== undefined">add</a>
+			<a ng-click="addItem(newDmgType, displayDmgTypes, 'damage', 'dmgTypes', 'dmgTypes')" ng-show="newDmgType.name !== undefined">add</a>
 
 			<ul class="list-inline">
-				<li ng-show="newData.damage.dmgTypes.length > 0">
-					<ng-pluralize count="newData.damage.dmgTypes.length" when="{'0': '','one': 'Damage type: ','other': 'Damage types: '}"></ng-pluralize>
+				<li ng-show="displayDmgTypes.length > 0">
+					<ng-pluralize count="displayDmgTypes.length" when="{'0': '','one': 'Damage type: ','other': 'Damage types: '}"></ng-pluralize>
 				</li>
-				<li ng-repeat="dmgType in newData.damage.dmgTypes">{{dmgType.name}} <a ng-click="removeItem($index, newData.damage.dmgTypes, 'dmgTypes')">[X]</a></li>
+				<li ng-repeat="dmgType in displayDmgTypes">{{dmgType.name}} <a ng-click="removeItem($index, displayDmgTypes, 'damage', 'dmgTypes', 'dmgTypes')">[X]</a></li>
 			</ul>
-
 		</div>
 	</fieldset>
 <!-- ================================================================================= Damage info == -->

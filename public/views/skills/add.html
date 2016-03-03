@@ -6,16 +6,10 @@
 			<form ng-submit="save(newData)">
 				<div class="bleh" ng-show="errors" ng-repeat="error in errors">{{error}}</div>
 				<div class="blah" ng-show="success">{{success}}</div>
+				
 				<general-inputs></general-inputs>
-				<select name="skillAbility" id="skillAbility" class="form-control" ng-model="newData.ability">
-					<option value="" selected hidden disabled>Select</option>
-					<option value="Strength">Strength</option>
-					<option value="Dexterity">Dexterity</option>
-					<option value="Constitution">Constitution</option>
-					<option value="Intelligence">Intelligence</option>
-					<option value="Wisdom">Wisdom</option>
-					<option value="Charisma">Charisma</option>
-				</select>
+				<skill-form-inputs></skill-form-inputs>
+				
 				<input type="submit" class="btn btn-primary">
 			</form>
 		</div>
