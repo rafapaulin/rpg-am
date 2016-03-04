@@ -1,24 +1,34 @@
 <fieldset>
 	<legend>Roleplay info:</legend>
-	<a ng-click="meh(newData.commonNames)">meh</a>
-
 	<div class="form-inline">
-		<dl class="dl-horizontal" ng-repeat="nameGroups in newData.commonNames">
-			<dt><a ng-click="remove(newData.commonNames, $index)">[x] </a> {{nameGroups.group}}</dt>
-			<dd><span ng-repeat="name in nameGroups.namesList">{{name}}<span ng-if="!$last">, </span><span ng-if="$last">.</span></span></dd>
-		</dl>
 		<div>
 			<input type="text" id="groupName" class="form-control" name="groupName" ng-model="groupName" placeholder="Group name">
 		</div>
+
 		<div>
-			<a ng-click="addName()">Add name example</a>			
+			<a ng-click="addInput('nameInputs')">Add name example</a>			
 		</div>
-		<div ng-repeat="name in names">
-			<input type="text" id="newName{{$index}}" class="form-control" name="newName{{$index}}" placeholder="Insert new name" ng-model="name.name">
-			<a ng-click="remove(names, $index)">[x]</a>
+
+		<div ng-repeat="input in nameInputs">
+			<input type="text" id="newName{{$index}}" class="form-control" name="newName{{$index}}" required placeholder="Insert new name" ng-model="input.name">
+			<a ng-click="remove(nameInputs, $index)">[x]</a>
 		</div>
+
 		<div>
-			<a ng-click="newGroup(names)">GROUP</a>
+			<a ng-click="newGroup(nameInputs)" ng-show="groupName && nameInputs.length > 0">Add group and names</a>
 		</div>
+
+		<dl ng-repeat="nameGroup in displayNames">
+			<dt><a ng-click="remove(displayNames, $index)">[x] </a> {{nameGroup.group}}</dt>
+			<dd><span ng-repeat="name in nameGroup.namesList">{{name}}<span ng-if="!$last">, </span><span ng-if="$last">.</span></span></dd>
+		</dl>
 	</div>
+
+	<div class="form-inline">
+		<select id="newLang" class="form-control" name="newLang" ng-model="newLang" ng-options="lang.name group by lang.cat for lang in langs | orderBy: 'name'">
+			<option value="" hidden>-- Select Language --</option>
+		</select>
+		<a ng-click="addItem(newLang, displayLangs, 'langs')" ng-hide="newLang == null || undefined">add</a>
+	</div>	
+	<a ng-click="meh(displayNames)">meh</a>
 </fieldset>

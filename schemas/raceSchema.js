@@ -27,6 +27,7 @@ var mongoose = require('mongoose'),
 			'languages': [
 				{
 					'name': String,
+					'cat': String,
 					'script': String
 				}
 			],
@@ -57,7 +58,7 @@ var mongoose = require('mongoose'),
 						'cat': String,								
 						'details': String								
 					}
-				]
+				],
 				'spells':[
 					{
 						'name': String,

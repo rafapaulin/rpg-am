@@ -12,6 +12,24 @@ angular.module('rpg')
 				{'name':'Necromancy',		'ngModel':''},
 				{'name':'Transmutation',	'ngModel':''}
 			],
+			'langs': [
+				{'name':'Common',		'cat':'Standard',	'script':'Common',		'speakers':'Humans'},
+				{'name':'Dwarvish',		'cat':'Standard',	'script':'Dwarvish',	'speakers':'Dwarves'},
+				{'name':'Elvish',		'cat':'Standard',	'script':'Elvish',		'speakers':'Elves'},
+				{'name':'Giant',		'cat':'Standard',	'script':'Dwarvish',	'speakers':'Ogres, giants'},
+				{'name':'Gnomish',		'cat':'Standard',	'script':'Dwarvish',	'speakers':'Gnomes'},
+				{'name':'Goblin',		'cat':'Standard',	'script':'Dwarvish',	'speakers':'Goblinoids'},
+				{'name':'Halfling',		'cat':'Standard',	'script':'Common',		'speakers':'Halflings'},
+				{'name':'Orc',			'cat':'Standard',	'script':'Dwarvish',	'speakers':'Orcs'},
+				{'name':'Abyssal',		'cat':'Exotic',		'script':'Infernal',	'speakers':'Demons'},
+				{'name':'Celestial',	'cat':'Exotic',		'script':'Celestial',	'speakers':'Celestiais'},
+				{'name':'Draconic',		'cat':'Exotic',		'script':'Draconic',	'speakers':'Dragons, dragonborn'},
+				{'name':'Deep Speech',	'cat':'Exotic',		'script':'',			'speakers':'Mind flayers, beholders'},
+				{'name':'Infernal',		'cat':'Exotic',		'script':'Infernal',	'speakers':'Devils'},
+				{'name':'Primordial',	'cat':'Exotic',		'script':'Dwarvish',	'speakers':'Elementals'},
+				{'name':'Sylvan',		'cat':'Exotic',		'script':'Elvish',		'speakers':'Fey creatures'},
+				{'name':'Undercommon',	'cat':'Exotic',		'script':'Elvish',		'speakers':'Underdark traders'}
+			],
 			'components': [
 				{'name':'Material',		'details':''},
 				{'name':'Verbal',		'details':''},
@@ -82,54 +100,54 @@ angular.module('rpg')
 				{'name':'d20',	'value':20}
 			],
 			'abilities': [
-				{'name':'Dexterity',			'cat':'Abilities',	'type':'number',	'ngModel':'dex',		'subObj':false,	'info':''},
-				{'name':'Constitution',			'cat':'Abilities',	'type':'number',	'ngModel':'con',		'subObj':false,	'info':''},
-				{'name':'Intelligence',			'cat':'Abilities',	'type':'number',	'ngModel':'int',		'subObj':false,	'info':''},
-				{'name':'Wisdow',				'cat':'Abilities',	'type':'number',	'ngModel':'wis',		'subObj':false,	'info':''},
-				{'name':'Charisma',				'cat':'Abilities',	'type':'number',	'ngModel':'cha',		'subObj':false,	'info':''},
-				{'name':'Strength',				'cat':'Abilities',	'type':'number',	'ngModel':'str',		'subObj':false,	'info':''},
-				{'name':'Any',					'cat':'Abilities',	'type':'number',	'ngModel':'any',		'subObj':false,	'info':''}
+				{'name':'Dexterity',			'cat':'Abilities',	'type':'number',	'ngModel':'dex',	'info':''},
+				{'name':'Constitution',			'cat':'Abilities',	'type':'number',	'ngModel':'con',	'info':''},
+				{'name':'Intelligence',			'cat':'Abilities',	'type':'number',	'ngModel':'int',	'info':''},
+				{'name':'Wisdow',				'cat':'Abilities',	'type':'number',	'ngModel':'wis',	'info':''},
+				{'name':'Charisma',				'cat':'Abilities',	'type':'number',	'ngModel':'cha',	'info':''},
+				{'name':'Strength',				'cat':'Abilities',	'type':'number',	'ngModel':'str',	'info':''},
+				{'name':'Any',					'cat':'Abilities',	'type':'number',	'ngModel':'any',	'info':''}
 			],
 			'proficiencies': [
-				{'name':'Simple melee',			'cat':'Weapons',	'type':'text',		'ngModel':'smDetails',	'subObj':true,	'info':''},
-				{'name':'Simple ranged',		'cat':'Weapons',	'type':'text',		'ngModel':'srDetails',	'subObj':true,	'info':''},
-				{'name':'Martial melee',		'cat':'Weapons',	'type':'text',		'ngModel':'mmDetails',	'subObj':true,	'info':''},
-				{'name':'Martial ranged',		'cat':'Weapons',	'type':'text',		'ngModel':'mrDetails',	'subObj':true,	'info':''},
-				{'name':'Exotic',				'cat':'Weapons',	'type':'text',		'ngModel':'exDetails',	'subObj':true,	'info':''},
+				{'name':'Simple melee',			'cat':'Weapons',	'type':'text',		'info':''},
+				{'name':'Simple ranged',		'cat':'Weapons',	'type':'text',		'info':''},
+				{'name':'Martial melee',		'cat':'Weapons',	'type':'text',		'info':''},
+				{'name':'Martial ranged',		'cat':'Weapons',	'type':'text',		'info':''},
+				{'name':'Exotic',				'cat':'Weapons',	'type':'text',		'info':''},
 
-				{'name':'Light armor',			'cat':'Armors',		'type':'text',		'ngModel':'laDetails',	'subObj':true,	'info':''},
-				{'name':'Medium armor',			'cat':'Armors',		'type':'text',		'ngModel':'maDetails',	'subObj':true,	'info':''},
-				{'name':'Heavy armor',			'cat':'Armors',		'type':'text',		'ngModel':'haDetails',	'subObj':true,	'info':''},
-				{'name':'Shields',				'cat':'Armors',		'type':'text',		'ngModel':'shDetails',	'subObj':true,	'info':''},
+				{'name':'Light armor',			'cat':'Armors',		'type':'text',		'info':''},
+				{'name':'Medium armor',			'cat':'Armors',		'type':'text',		'info':''},
+				{'name':'Heavy armor',			'cat':'Armors',		'type':'text',		'info':''},
+				{'name':'Shields',				'cat':'Armors',		'type':'text',		'info':''},
 
-				{'name':'Artisan\'s tools',		'cat':'Tools',		'type':'text',		'ngModel':'atDetails',	'subObj':true,	'info':''},
-				{'name':'Disguise kit',			'cat':'Tools',		'type':'text',		'ngModel':'dkDetails',	'subObj':true,	'info':''},
-				{'name':'Forgery kit',			'cat':'Tools',		'type':'text',		'ngModel':'fkDetails',	'subObj':true,	'info':''},
-				{'name':'Gaming set',			'cat':'Tools',		'type':'text',		'ngModel':'gsDetails',	'subObj':true,	'info':''},
-				{'name':'Herbalism kit',		'cat':'Tools',		'type':'text',		'ngModel':'hkDetails',	'subObj':true,	'info':''},
-				{'name':'Musical instrument',	'cat':'Tools',		'type':'text',		'ngModel':'miDetails',	'subObj':true,	'info':''},
-				{'name':'Navigator\'s tools',	'cat':'Tools',		'type':'text',		'ngModel':'ntDetails',	'subObj':true,	'info':''},
-				{'name':'Poisoner\'s kit',		'cat':'Tools',		'type':'text',		'ngModel':'pkDetails',	'subObj':true,	'info':''},
-				{'name':'Thieves\' tools',		'cat':'Tools',		'type':'text',		'ngModel':'ttDetails',	'subObj':true,	'info':''},
+				{'name':'Artisan\'s tools',		'cat':'Tools',		'type':'text',		'info':''},
+				{'name':'Disguise kit',			'cat':'Tools',		'type':'text',		'info':''},
+				{'name':'Forgery kit',			'cat':'Tools',		'type':'text',		'info':''},
+				{'name':'Gaming set',			'cat':'Tools',		'type':'text',		'info':''},
+				{'name':'Herbalism kit',		'cat':'Tools',		'type':'text',		'info':''},
+				{'name':'Musical instrument',	'cat':'Tools',		'type':'text',		'info':''},
+				{'name':'Navigator\'s tools',	'cat':'Tools',		'type':'text',		'info':''},
+				{'name':'Poisoner\'s kit',		'cat':'Tools',		'type':'text',		'info':''},
+				{'name':'Thieves\' tools',		'cat':'Tools',		'type':'text',		'info':''},
 
-				{'name':'Strength',				'cat':'Savings',	'type':'number',	'ngModel':'strSaving',	'subObj':true,	'info':''},
-				{'name':'Dexterity',			'cat':'Savings',	'type':'number',	'ngModel':'dexSaving',	'subObj':true,	'info':''},
-				{'name':'Constitution',			'cat':'Savings',	'type':'number',	'ngModel':'conSaving',	'subObj':true,	'info':''},
-				{'name':'Intelligence',			'cat':'Savings',	'type':'number',	'ngModel':'intSaving',	'subObj':true,	'info':''},
-				{'name':'Wisdow',				'cat':'Savings',	'type':'number',	'ngModel':'wisSaving',	'subObj':true,	'info':''},
-				{'name':'Charisma',				'cat':'Savings',	'type':'number',	'ngModel':'chaSaving',	'subObj':true,	'info':''},
-				{'name':'Any',					'cat':'Savings',	'type':'number',	'ngModel':'anySaving',	'subObj':true,	'info':''}
+				{'name':'Strength',				'cat':'Savings',	'type':'number',	'info':''},
+				{'name':'Dexterity',			'cat':'Savings',	'type':'number',	'info':''},
+				{'name':'Constitution',			'cat':'Savings',	'type':'number',	'info':''},
+				{'name':'Intelligence',			'cat':'Savings',	'type':'number',	'info':''},
+				{'name':'Wisdow',				'cat':'Savings',	'type':'number',	'info':''},
+				{'name':'Charisma',				'cat':'Savings',	'type':'number',	'info':''},
+				{'name':'Any',					'cat':'Savings',	'type':'number',	'info':''}
 			],
 			'combat': [
-				{'name':'hp',					'cat':'Combat',		'type':'number',	'ngModel':'hp',			'subObj':false,	'info':''},
-				{'name':'Initiative',			'cat':'Combat',		'type':'number',	'ngModel':'initiative',	'subObj':false,	'info':''},
-				{'name':'Speed',				'cat':'Combat',		'type':'number',	'ngModel':'speed',		'subObj':false,	'info':''},
+				{'name':'hp',					'cat':'Combat',		'type':'number',	'ngModel':'hp',			'info':''},
+				{'name':'Initiative',			'cat':'Combat',		'type':'number',	'ngModel':'initiative',	'info':''},
+				{'name':'Speed',				'cat':'Combat',		'type':'number',	'ngModel':'speed',		'info':''},
 			],
 			'other': [
-				{'name':'Language "Slots"',		'cat':'Other',		'type':'number',	'ngModel':'langSlots',	'subObj':false,	'info':''},
-				{'name':'Custom 1',				'cat':'Other',		'type':'text',		'ngModel':'custom1',	'subObj':true,	'info':''},
-				{'name':'Custom 2',				'cat':'Other',		'type':'text',		'ngModel':'custom2',	'subObj':true,	'info':''},
-				{'name':'Custom 3',				'cat':'Other',		'type':'text',		'ngModel':'custom3',	'subObj':true,	'info':''}
+				{'name':'Language "Slots"',		'cat':'Other',		'type':'number',	'info':''},
+				{'name':'Custom 1',				'cat':'Other',		'type':'text',		'info':''},
+				{'name':'Custom 2',				'cat':'Other',		'type':'text',		'info':''},
+				{'name':'Custom 3',				'cat':'Other',		'type':'text',		'info':''}
 			]
 		};
 	});
