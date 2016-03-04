@@ -117,48 +117,6 @@ angular.module('rpg')
 				scope.meh = function(a){
 					console.log(a)	
 				};
-				
-
-
-
-
-
-
-
-				// scope.addItem = function(obj, display, toSave, group, list){		// Add item to display array and object/array-to-be-posted
-				// 	obj.details = scope.details;
-				// 	display.push(obj);												// Add item to display array
-
-				// 	scope[list] = scope[list].filter(function(fList){				// Remove added item from the <select>
-				// 		return fList !== obj;
-				// 	});
-
-				// 	if(obj.subObj){													// Check if object is a subobject or not (based on the relevant schema)
-				// 		scope.newData[toSave][group]								// Add item to data-to-be-posted array
-				// 			.push({
-				// 					'name':obj.name,
-				// 					'cat': obj.cat,
-				// 					'subObj': obj.subObj,
-				// 					'details': scope.details
-				// 				});
-				// 	} else {
-				// 		scope.newData[toSave][obj.ngModel] = scope.details;			// Add info to data-to-be-posted object
-				// 		scope.details = null;										// Reset <input>
-				// 	};
-				// 	scope[obj] = undefined;											// Reset <select> position
-				// };
-
-
-				// scope.removeItem  = function($index, display, toSave, group, list){	// Remove item from display array and from object-to-be-posted
-				// 	if(display[$index].subObj){										// Check if object is a subobject or not (based on the relevant schema)
-				// 		scope.newData[toSave][group].splice($index,1);				// Remove item from array-to-be-posted if subobject
-				// 	} else {
-				// 		delete scope.newData[toSave][display[$index].ngModel];		// Remove item from object-to-be-posted if not subobject
-				// 	};
-
-				// 	scope[list].push(display[$index]);								// Add removed item back to the <select>
-				// 	display.splice($index,1);										// Remove item from display array from object-to-be-posted
-				// }
 			}
 		};
 	}]);

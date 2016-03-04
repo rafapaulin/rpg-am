@@ -6,90 +6,90 @@ var mongoose = require('mongoose'),
 	raceSchema = new Schema(
 		{
 // == General =============================================================================================================================== //
-			'name': {'type': String, 'required': true, 'minlength': 3, 'unique': true, 'uniqueCaseInsensitive': true},	// ok
-			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, 'uniqueCaseInsensitive': true},	// ok - Automatic
-			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},							// ok
-			'createdBy': String,																						// ok - Automatic (to-do)
-			'desc': {'type':String, 'required': true, 'minlength': 3},													// ok
+			name: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok
+			slug: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok - Automatic
+			shortDesc: {type: String, required: true, minlength: 3, maxlength: 145},						// ok
+			createdBy: String,																				// ok - Automatic (to-do)
+			desc: {type: String, required: true, minlength: 3},												// ok
 // =============================================================================================================================== General == //
 
 // == Roleplay ============================================================================================================================== //
-			'age': {
-				'adulthood': Number,
-				'avgMax':Number
-			},
-			'alignmentTend': String,
-			'physical': {
-				'avgHeight': Number,
-				'avgWeight': Number,
-				'size': String
-			},
-			'languages': [
-				{
-					'name': String,
-					'cat': String,
-					'script': String
-				}
-			],
-			'speed': {
-				'base': Number,
-				'details': String
-			},
-			'commonNames': [								// ok
+			age: {											// ok
+				adulthood: Number,							// *
+				avgMax:Number								// *
+			},												// *
+			alignmentTend: {type: String, maxlength:145},	// *
+			physical: {										// ok
+				avgHeight: Number,							// *
+				avgWeight: Number,							// *
+				size: String								// 
+			},												// 
+			languages: [									// ok
 				{											// *
-					'group': String,						// *
-					'namesList': [String]					// *
+					name: String,							// *
+					cat: String,							// *
+					script: String							// *
+				}											// *
+			],												// *
+			speed: {										// ok
+				base: Number,								// *
+				details: String								// *
+			},												// *
+			commonNames: [									// ok
+				{											// *
+					group: String,							// *
+					namesList: [String]						// *
 				}											// *
 			],												// *
 // ============================================================================================================================== Roleplay == //
 
 // == Racial traits ========================================================================================================================= //
-			'traits': {
-				'str': {'type': Number, 'default': 0},
-				'dex': {'type': Number, 'default': 0},
-				'con': {'type': Number, 'default': 0},
-				'int': {'type': Number, 'default': 0},
-				'wis': {'type': Number, 'default': 0},
-				'cha': {'type': Number, 'default': 0},
-				'hp':  {'type': Number, 'default': 0},
-				'proficiencies':[
+			traits: {
+				str: {type: Number, default: 0},
+				dex: {type: Number, default: 0},
+				con: {type: Number, default: 0},
+				int: {type: Number, default: 0},
+				wis: {type: Number, default: 0},
+				cha: {type: Number, default: 0},
+				hp:  {type: Number, default: 0},
+				proficiencies:[
 					{
-						'name': String,									
-						'cat': String,								
-						'details': String								
+						name: String,									
+						cat: String,								
+						details: String								
 					}
 				],
-				'spells':[
+				spells:[
 					{
-						'name': String,
-						'lvlReq': Number
+						name: String,
+						lvlReq: Number
 					}
 				],
-				'dmgResist': [String],
-				'spAttack':	{
-					'name': String,
-					'dmg': [
+				dmgResist: [String],
+				spAttack: {
+					name: String,
+					dmg: [
 						{
-							'minLvL': Number,
-							'staticDmg': Number,
-							'numberOfDices': Number,
-							'diceType': Number
+							minLvL: Number,
+							staticDmg: Number,
+							numberOfDices: Number,
+							diceType: Number
 						}
 					],
-					'dmgType': [String],
-					'details': String
+					dmgType: [String],
+					details: String
 				},
-				'other': [
+				other: [
 					{
-						'name': String,
-						'details': String
+						name: String,
+						details: String
 					}
 				]
 			}
 		},
 // ========================================================================================================================= Racial traits == //
 		{
-			'collection': 'races'
+			collection: 'races'
 		}
 	);
 raceSchema.plugin(uniqueV);								// validate unique values

@@ -34,14 +34,14 @@ angular.module('rpg')
 
 			// =============================================================================================== Properties set up == //
 
-
+			// == Pass data to newData properties on POST ========================================================================= //
 				scope.$on('post', function(event, data) {							// Listen to 'post' event on controller [add-ctrl.js]
 					scope.newData.prereqs.proficiencies = scope.displayPrereqProf;	// Set the array-to-be-posted with the value of the correspondent array
 					scope.newData.prereqs.custom		= scope.displayPrereqsOther	// *
 					scope.newData.bonuses.proficiencies = scope.displayPrereqProf;	// *
 					scope.newData.bonuses.custom		= scope.displayPrereqsOther	// *
 				});
-
+			// ========================================================================= Pass data to newData properties on POST == //
 
 			// == Clean up on success ============================================================================================= //
 				scope.$on('postSuccess', function(event, data) {				// Listen to 'postSuccess' event on controller [add-ctrl.js]

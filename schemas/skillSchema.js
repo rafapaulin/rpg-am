@@ -6,17 +6,17 @@ var	mongoose = require('mongoose'),
 	skillSchema = new Schema(
 		{
 // == General =============================================================================================================================== //
-			'name': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok
-			'slug': {'type': String, 'required': true, 'minlength': 3, 'unique': true, uniqueCaseInsensitive: true},	// ok - Automatic
-			'shortDesc': {'type':String, 'required': true, 'minlength': 3, 'maxlength': 145},							// ok
-			'createdBy': String,																						// ok - Automatic (to-do)
-			'desc': {'type':String, 'required': true, 'minlength': 3},													// ok
+			name: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok
+			slug: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok - Automatic
+			shortDesc: {type: String, required: true, minlength: 3, maxlength: 145},						// ok
+			createdBy: String,																				// ok - Automatic (to-do)
+			desc: {type: String, required: true, minlength: 3},												// ok
 // =============================================================================================================================== General == //
 
-			'ability': {'type':String, 'required': true}
+			ability: {type:String, required: true}
 		},
 		{
-			'collection': 'skills'
+			collection: 'skills'
 		}
 	);
 	

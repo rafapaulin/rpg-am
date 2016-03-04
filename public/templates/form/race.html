@@ -1,6 +1,7 @@
 <fieldset>
 	<legend>Roleplay info:</legend>
 	<div class="form-inline">
+		<h4>Names:</h4>
 		<div>
 			<input type="text" id="groupName" class="form-control" name="groupName" ng-model="groupName" placeholder="Group name">
 		</div>
@@ -15,7 +16,7 @@
 		</div>
 
 		<div>
-			<a ng-click="newGroup(nameInputs)" ng-show="groupName && nameInputs.length > 0">Add group and names</a>
+			<a ng-click="newGroup(nameInputs, 'displayNames')" ng-show="groupName && nameInputs.length > 0">Add group and names</a>
 		</div>
 
 		<dl ng-repeat="nameGroup in displayNames">
@@ -25,10 +26,57 @@
 	</div>
 
 	<div class="form-inline">
+		<h4>Languages:</h4>
 		<select id="newLang" class="form-control" name="newLang" ng-model="newLang" ng-options="lang.name group by lang.cat for lang in langs | orderBy: 'name'">
 			<option value="" hidden>-- Select Language --</option>
 		</select>
-		<a ng-click="addItem(newLang, displayLangs, 'langs')" ng-hide="newLang == null || undefined">add</a>
-	</div>	
-	<a ng-click="meh(displayNames)">meh</a>
+		<a ng-click="addItem(newLang, displayLangs, languages, 'langs')" ng-hide="newLang == null || undefined">add</a>
+		<ul class="list-inline">
+			<li><ng-pluralize count="displayLangs.length" when="{'0': '','one': 'Language: ','other': 'Languages: '}"></ng-pluralize></li>
+			<li ng-repeat="lang in displayLangs">{{lang.name}}<span ng-if="!$last">, </span><span ng-if="$last">.</span></li>
+		</ul>
+	</div>
+
+	<div class="form-inline">
+		<h4>Speed:</h4>
+		<input type="number" id="baseSpeed" class="form-control" name="baseSpeed" min="0" ng-model="baseSpeed" placeholder="Set base speed">
+		<select id="sLengthUnit" class="form-control" name="sLengthUnit" required ng-model="sLengthUnit" ng-options="unit.name group by unit.system for unit in lengthUnits | orderBy: unit.toMeter | filter: {name: '!touch'}">
+			<option value="" hidden>-- Select unit --</option>
+		</select>
+		<input type="text" id="speedDetails" class="form-control" name="speedDetails" ng-model="newData.speed.details" placeholder="Details">
+	</div>
+
+	<div class="form-inline">
+		<h4>Age:</h4>
+		<label for="adulthood">Adulthood: </label>
+		<input type="number" id="adulthood" class="form-control" name="adulthood" min="0" ng-model="newData.age.adulthood">
+		<label for="adulthood">Max: </label>
+		<input type="number" id="avgMax" class="form-control" name="avgMax" min="0" ng-model="newData.age.avgMax">
+	</div>
+
+	<div class="form-inline">
+		<h4>Physical characteristics:</h4>
+		<div>
+			<label for="avgHeight">Average height: </label>
+			<input type="number" id="avgHeight" class="form-control" name="avgHeight" min="0" ng-model="avgHeight">
+			<select id="phLengthUnit" class="form-control" name="phLengthUnit" required ng-model="phLengthUnit" ng-options="unit.name group by unit.system for unit in lengthUnits | orderBy: unit.toMeter | filter: {name: '!touch'}">
+				<option value="" hidden>-- Select unit --</option>
+			</select>
+		</div>
+
+		<div>
+			<label for="avgHeight">Average weight: </label>
+			<input type="number" id="avgWeight" class="form-control" name="avgWeight" min="0" ng-model="avgWeight">
+			<select id="phWeightUnit" class="form-control" name="phWeightUnit" required ng-model="phWeightUnit" ng-options="unit.name group by unit.system for unit in weightUnits | orderBy: unit.toKg">
+				<option value="" hidden>-- Select unit --</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="form-inline">
+		<h4>Alignment:</h4>
+		<label for="alignmentTend">Tendencies</label>
+		<input type="text" id="alignmentTend" class="form-control" name="alignmentTend" ng-model="newData.alignmentTend">{{145 - newData.alignmentTend.length}}
+	</div>
+	<a ng-click="meh()">meh</a>
 </fieldset>
