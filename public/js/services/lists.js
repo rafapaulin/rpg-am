@@ -3,14 +3,14 @@ angular.module('rpg')
 	.factory('Lists', function ListsFactory() {
 		return {
 			'schools': [
-				{'name':'Abjuration',		'ngModel':''},
-				{'name':'Conjuration',		'ngModel':''},
-				{'name':'Divination',		'ngModel':''},
-				{'name':'Enchantment',		'ngModel':''},
-				{'name':'Evocation',		'ngModel':''},
-				{'name':'Illusion',			'ngModel':''},
-				{'name':'Necromancy',		'ngModel':''},
-				{'name':'Transmutation',	'ngModel':''}
+				{'name':'Abjuration'},
+				{'name':'Conjuration'},
+				{'name':'Divination'},
+				{'name':'Enchantment'},
+				{'name':'Evocation'},
+				{'name':'Illusion'},
+				{'name':'Necromancy'},
+				{'name':'Transmutation'}
 			],
 			'langs': [
 				{'name':'Common',		'cat':'Standard',	'script':'Common',		'speakers':'Humans'},
@@ -74,20 +74,20 @@ angular.module('rpg')
 				{'name':'Sphere',	'a':'Radius: ',				'b':'',				'info':'The sphere extends outward from the point of origin, and its size is expressed as a radius that extends from that point.'}
 			],
 			'dmgTypes': [
-				{'name':'Bludgeoning',	'cat':'Physical',		'subObj':true,},
-				{'name':'Piercing',		'cat':'Physical',		'subObj':true,},
-				{'name':'Slashing',		'cat':'Physical',		'subObj':true,},
+				{'name':'Bludgeoning',	'cat':'Physical'},
+				{'name':'Piercing',		'cat':'Physical'},
+				{'name':'Slashing',		'cat':'Physical'},
 
-				{'name':'Acid',			'cat':'Non-physical',	'subObj':true,},
-				{'name':'Cold',			'cat':'Non-physical',	'subObj':true,},
-				{'name':'Fire',			'cat':'Non-physical',	'subObj':true,},
-				{'name':'Force',		'cat':'Non-physical',	'subObj':true,},
-				{'name':'Lightning',	'cat':'Non-physical',	'subObj':true,},
-				{'name':'Necrotic',		'cat':'Non-physical',	'subObj':true,},
-				{'name':'Poison',		'cat':'Non-physical',	'subObj':true,},
-				{'name':'Psychic',		'cat':'Non-physical',	'subObj':true,},
-				{'name':'Radiant',		'cat':'Non-physical',	'subObj':true,},
-				{'name':'Thunder',		'cat':'Non-physical',	'subObj':true,}
+				{'name':'Acid',			'cat':'Non-physical'},
+				{'name':'Cold',			'cat':'Non-physical'},
+				{'name':'Fire',			'cat':'Non-physical'},
+				{'name':'Force',		'cat':'Non-physical'},
+				{'name':'Lightning',	'cat':'Non-physical'},
+				{'name':'Necrotic',		'cat':'Non-physical'},
+				{'name':'Poison',		'cat':'Non-physical'},
+				{'name':'Psychic',		'cat':'Non-physical'},
+				{'name':'Radiant',		'cat':'Non-physical'},
+				{'name':'Thunder',		'cat':'Non-physical'}
 			],
 			'diceTypes': [
 				{'name':'d2',	'value':2},

@@ -41,7 +41,6 @@
 		<ng-pluralize count="displayPrereqsOther.length" when="{'0': '','one': 'Other prerequisite: ','other': 'Other prerequisites: '}"></ng-pluralize>
 		<div ng-repeat="other in displayPrereqsOther">{{other.name}} = {{other.details}} <a ng-click="removeItem($index, displayPrereqsOther, 'prereqs', 'prereqsOther')">[x]</a></div>
 	</fieldset>
-	<a ng-click="meh(displayPrereqAb)">meh</a>
 <!-- ========================================================================= Feat Prerequisites == -->
 
 <!-- == Feat Bonuses =============================================================================== -->
@@ -91,5 +90,4 @@
 		<ng-pluralize count="displayBonusOther.length" when="{'0': '','one': 'Other bonus: ','other': 'Other bonuses: '}"></ng-pluralize>
 		<div ng-repeat="other in displayBonusOther">{{other.name}} = {{other.details}} <a ng-click="removeItem($index, displayBonusOther, 'bonuses', 'bonusesOther')">[x]</a></div>
 	</fieldset>
-	<a ng-click="meh(newData.bonuses)">meh</a>
 <!-- =============================================================================== Feat Bonuses == -->

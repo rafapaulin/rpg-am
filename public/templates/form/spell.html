@@ -6,12 +6,12 @@
 			<select id="newSchool" class="form-control" name="newSchool" ng-model="newSchool" ng-options="school.name for school in schools | orderBy:'name'">
 				<option value="" hidden>-- Select school --</option>
 			</select>
-			<a ng-click="addItem(newSchool, displaySchools, 'schools', '', 'schools')" ng-show="newSchool !== undefined">add</a>
+			<a ng-click="addItem(newSchool, displaySchools, 'schools', 'schools')" ng-hide="newSchool == null || undefined">add</a>
 			<ul class="list-inline">
-				<li ng-show="newData.schools.length > 0">
+				<li ng-show="displaySchools !== 0">
 					<ng-pluralize count="displaySchools.length" when="{'0': '','one': 'School: ','other': 'Schools: '}"></ng-pluralize>
 				</li>
-				<li ng-repeat="school in displaySchools"><span>{{school.name}} </span> <a ng-click="removeItem($index, displaySchools, 'schools', '', 'schools')">[X]</a></li>
+				<li ng-repeat="school in displaySchools"><span>{{school.name}} </span> <a ng-click="removeItem($index, displaySchools, 'schools', 'schools')">[X]</a><span ng-if="!$last">, </span><span ng-if="$last">.</span></li>
 			</ul>
 		</div>
 		
@@ -25,13 +25,13 @@
 			</select>
 			<input type="text" ng-model="details" class="form-control" ng-show="newComponent.name == 'Material'" placeholder="Details">
 
-			<a ng-click="addItem(newComponent, displayComponents, 'components', '', 'components')"ng-show="newComponent.name !== undefined">add</a>
+			<a ng-click="addItem(newComponent, displayComponents, 'components', 'components')"ng-show="newComponent.name !== undefined">add</a>
 
 			<ul class="list-inline">
 				<li ng-show="displayComponents.length > 0">
 					<ng-pluralize count="displayComponents.length" when="{'0': '','one': 'Component: ','other': 'Components: '}"></ng-pluralize>
 				</li>
-				<li ng-repeat="component in displayComponents">{{component.name}}. {{component.details}}.<a ng-click="removeItem($index, displayComponents, 'components', '', 'components')">[X]</a></li>
+				<li ng-repeat="component in displayComponents">{{component.name}}<span ng-if="component.details">: </span>{{component.details}}<a ng-click="removeItem($index, displayComponents, 'components', 'components')">[X]</a><span ng-if="!$last">, </span><span ng-if="$last">.</span></li>
 			</ul>
 		</div>
 
@@ -41,14 +41,15 @@
 			</select>
 			<input type="text" class="form-control"  ng-show="newSaving.name !== undefined" ng-model="details" placeholder="Details">
 
-			<a ng-click="addItem(newSaving, displaySavings, 'savings', '', 'savings')" ng-show="newSaving.name !== undefined">add</a>
+			<a ng-click="addItem(newSaving, displaySavings, 'savings', 'savings')" ng-show="newSaving.name !== undefined">add</a>
 			<ul class="list-inline">
 				<li ng-show="displaySavings.length > 0">
 					<ng-pluralize count="displaySavings.length" when="{'0': '','one': 'Saving: ','other': 'Savings: '}"></ng-pluralize>
 				</li>
-				<li ng-repeat="saving in displaySavings">{{saving.name}}. {{saving.details}}<a ng-click="removeItem($index, displaySavings, 'savings', '', 'savings')">[X]</a></li>
+				<li ng-repeat="saving in displaySavings">{{saving.name}}<span ng-if="saving.details">: </span>{{saving.details}}<a ng-click="removeItem($index, displaySavings, 'savings', 'savings')">[X]</a><span ng-if="!$last">, </span><span ng-if="$last">.</span></li>
 			</ul>
 		</div>
+		<a ng-click="meh(displaySchools.length)">meh</a>
 	</fieldset>
 <!-- ============================================================================ Spell basic info == -->
 
@@ -151,13 +152,13 @@
 				<option value="" hidden>-- Select damage type --</option>
 			</select>
 
-			<a ng-click="addItem(newDmgType, displayDmgTypes, 'damage', 'dmgTypes', 'dmgTypes')" ng-show="newDmgType.name !== undefined">add</a>
+			<a ng-click="addItem(newDmgType, displayDmgTypes, 'damage', 'dmgTypes')" ng-hide="newDmgType.name == null || undefined">add</a>
 
 			<ul class="list-inline">
 				<li ng-show="displayDmgTypes.length > 0">
 					<ng-pluralize count="displayDmgTypes.length" when="{'0': '','one': 'Damage type: ','other': 'Damage types: '}"></ng-pluralize>
 				</li>
-				<li ng-repeat="dmgType in displayDmgTypes">{{dmgType.name}} <a ng-click="removeItem($index, displayDmgTypes, 'damage', 'dmgTypes', 'dmgTypes')">[X]</a></li>
+				<li ng-repeat="dmgType in displayDmgTypes">{{dmgType.name}}<a ng-click="removeItem($index, displayDmgTypes, 'damage', 'dmgTypes')">[X]</a><span ng-if="!$last">, </span><span ng-if="$last">.</span></li>
 			</ul>
 		</div>
 	</fieldset>

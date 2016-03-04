@@ -61,10 +61,10 @@ angular.module('rpg')
 					scope.displayBonusCombat			= [];					// *
 					scope.displayBonusOther				= [];					// *
 					
-					scope.newData.prereqs				= {};					// Reset the data-to-be-postes object
+					scope.newData.prereqs				= {};					// Reset the data-to-be-posted objects
 					scope.newData.bonuses				= {};					// *
 
-					scope.newData.prereqs.proficiencies	= [];					// Sets the data-to-be-postes array
+					scope.newData.prereqs.proficiencies	= [];					// Sets the data-to-be-posted arrays
 					scope.newData.bonuses.proficiencies	= [];					// *
 
 				});
@@ -92,10 +92,6 @@ angular.module('rpg')
 					};
 					scope[list].push(display[$index]);							// Add removed item back to the <select>
 					display.splice($index,1);									// Remove item from display array
-				}
-
-				scope.meh = function(a){
-					console.log(a);
 				}
 			}
 		};
