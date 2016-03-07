@@ -36,7 +36,7 @@ angular.module('rpg')
 
 			// == Pass data to newData properties on POST ========================================================================= //
 				scope.$on('post', function(event, data) {							// Listen to 'post' event on controller [add-ctrl.js]
-					scope.newData.prereqs.proficiencies = scope.displayPrereqProf;	// Set the array-to-be-posted with the value of the correspondent array
+					scope.newData.prereqs.proficiencies = scope.displayPrereqProf;	// Set the array-to-be-posted with the value of the correspondent display array
 					scope.newData.prereqs.custom		= scope.displayPrereqsOther	// *
 					scope.newData.bonuses.proficiencies = scope.displayPrereqProf;	// *
 					scope.newData.bonuses.custom		= scope.displayPrereqsOther	// *

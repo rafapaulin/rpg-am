@@ -49,7 +49,7 @@ var mongoose = require('mongoose'),
 			 effect: {													// *
 			 	aoe: {type: String, default: ''},						// ok
 				size: {type: Number, default: 0},						// *
-			 	cilinderHeight: {type: Number, default: 0},				// *
+			 	size2: {type: Number, default: 0},						// *
 			 	details: {type: String, default: ''}					// *
 			},															// *
 // ================================================================================================================================ Effect == //

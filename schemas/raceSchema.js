@@ -22,8 +22,11 @@ var mongoose = require('mongoose'),
 			physical: {										// ok
 				avgHeight: Number,							// *
 				avgWeight: Number,							// *
-				size: String								// 
-			},												// 
+				size: {										// ok
+					name: String,							// *
+					space: Number							// *
+				}											// *
+			},												// *
 			languages: [									// ok
 				{											// *
 					name: String,							// *
@@ -44,29 +47,38 @@ var mongoose = require('mongoose'),
 // ============================================================================================================================== Roleplay == //
 
 // == Racial traits ========================================================================================================================= //
-			traits: {
-				str: {type: Number, default: 0},
-				dex: {type: Number, default: 0},
-				con: {type: Number, default: 0},
-				int: {type: Number, default: 0},
-				wis: {type: Number, default: 0},
-				cha: {type: Number, default: 0},
-				hp:  {type: Number, default: 0},
-				proficiencies:[
-					{
-						name: String,									
-						cat: String,								
-						details: String								
-					}
-				],
-				spells:[
+			bonuses: {
+				str: {type: Number, default: 0},			// ok
+				dex: {type: Number, default: 0},			// ok
+				con: {type: Number, default: 0},			// ok
+				int: {type: Number, default: 0},			// ok
+				wis: {type: Number, default: 0},			// ok
+				cha: {type: Number, default: 0},			// ok
+
+				initiative: {type: Number, default: 0},		// ok
+				hp: {type: Number, default: 0},				// ok
+				speed: {type: Number, default: 0},			// ok
+
+				proficiencies:[								// ok
+					{										// *
+						name: String,						// *
+						cat: String,						// *
+						details: String						// *
+					}										// *
+				],											// *
+				spells: [
 					{
 						name: String,
 						lvlReq: Number
 					}
 				],
-				dmgResist: [String],
-				spAttack: {
+				dmgResist: [								// ok 
+		 			{										// *
+		 				name: String,						// *
+		 				cat: String							// *
+		 			}										// *
+		 		]											// *
+				special: {
 					name: String,
 					dmg: [
 						{
@@ -79,12 +91,12 @@ var mongoose = require('mongoose'),
 					dmgType: [String],
 					details: String
 				},
-				other: [
-					{
-						name: String,
-						details: String
-					}
-				]
+				other: [									// *
+					{										// *
+						name: String,						// *
+						details: String						// *
+					}										// *
+				]											// *
 			}
 		},
 // ========================================================================================================================= Racial traits == //

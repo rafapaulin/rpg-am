@@ -38,7 +38,7 @@ angular.module('rpg')
 				scope.$on('post', function(event, data){												// Listen to 'post' event on controller [add-ctrl.js]
 					scope.newData.range					= scope.range * scope.rLengthUnit.toMeter;		// Convert and store length as meters
 					scope.newData.effect.size			= scope.size * scope.aoeLengthUnit.toMeter;		// *
-					scope.newData.effect.cilinderHeight	= scope.size2 * scope.aoeLengthUnit.toMeter;	// *
+					scope.newData.effect.size2			= scope.size2 * scope.aoeLengthUnit.toMeter;	// *
 					
 					scope.newData.castTime.time			= scope.castTime * scope.ctTimeUnit.toSeconds;	// Convert and store time as seconds
 					scope.newData.duration.max			= scope.duration * scope.durTimeUnit.toSeconds;	// *

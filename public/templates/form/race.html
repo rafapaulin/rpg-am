@@ -12,7 +12,7 @@
 
 		<div ng-repeat="input in nameInputs">
 			<input type="text" id="newName{{$index}}" class="form-control" name="newName{{$index}}" required placeholder="Insert new name" ng-model="input.name">
-			<a ng-click="remove(nameInputs, $index)">[x]</a>
+			<a ng-click="removeInput('nameInputs', $index)">[x]</a>
 		</div>
 
 		<div>
@@ -20,7 +20,7 @@
 		</div>
 
 		<dl ng-repeat="nameGroup in displayNames">
-			<dt><a ng-click="remove(displayNames, $index)">[x] </a> {{nameGroup.group}}</dt>
+			<dt><a ng-click="removeInput('displayNames', $index)">[x] </a> {{nameGroup.group}}</dt>
 			<dd><span ng-repeat="name in nameGroup.namesList">{{name}}<span ng-if="!$last">, </span><span ng-if="$last">.</span></span></dd>
 		</dl>
 	</div>
@@ -71,6 +71,10 @@
 				<option value="" hidden>-- Select unit --</option>
 			</select>
 		</div>
+		<label for="size">Size: </label>
+		<select id="size" class="form-control" name="size" required ng-model="newData.physical.size" ng-options="size.name for size in sizes | orderBy: 'space'">
+			<option value="" hidden>-- Select size --</option>
+		</select>
 	</div>
 
 	<div class="form-inline">
@@ -78,5 +82,69 @@
 		<label for="alignmentTend">Tendencies</label>
 		<input type="text" id="alignmentTend" class="form-control" name="alignmentTend" ng-model="newData.alignmentTend">{{145 - newData.alignmentTend.length}}
 	</div>
-	<a ng-click="meh()">meh</a>
+</fieldset>
+<fieldset>
+	<legend>Racial traits:</legend>
+	<h4>Abilities:</h4>
+		<div class="form-group form-inline">
+			<select id="newTraitAb" class="form-control" name="newTraitAb" ng-model="newTraitAb" ng-options="ability.name for ability in traitAbilities | orderBy: 'name'">
+				<option value="" hidden>-- Select ability --</option>
+			</select>
+			<input type="{{newTraitAb.type}}" id="{{newTraitAb.ngModel}}B" class="form-control" name="{{newTraitAb.ngModel}}B" ng-hide="newTraitAb == null || undefined" ng-model="details">
+			<a ng-click="addItem(newTraitAb, displayTraitsAb, 'bonuses', 'traitAbilities')" ng-hide="newTraitAb == null || undefined">add</a>
+		</div>
+		<ng-pluralize count="displayTraitsAb.length" when="{'0': '','one': 'Selected bonus: ','other': 'Selected bonuses: '}"></ng-pluralize>
+		<div ng-repeat="ability in displayTraitsAb">{{ability.name}} = {{ability[ability.ngModel]}} <a ng-click="removeItem($index, displayTraitsAb, 'bonuses', 'traitAbilities')">[x]</a></div>
+
+		<h4>Proficiencies:</h4>
+		<div class="form-group form-inline">
+			<select id="newTraitProf" class="form-control" name="newTraitProf" ng-model="newTraitProf" ng-options="prof.name group by prof.cat for prof in traitProficiencies | orderBy: 'name'">
+				<option value="" hidden>-- Select proficiency --</option>
+			</select>
+			<a ng-click="addItem(newTraitProf, displayTraitProf, 'bonuses', 'traitProficiencies')" ng-hide="newTraitProf == null || undefined">add</a>
+		</div>
+		<ng-pluralize count="displayBonusProf.length" when="{'0': '','one': 'Selected proficiency: ','other': 'Selected proficiencies: '}"></ng-pluralize>
+		<div ng-repeat="prof in displayTraitProf">{{prof.name}} = {{prof.details}} <a ng-click="removeItem($index, displayTraitProf, 'bonuses', 'traitProficiencies')">[x]</a></div>
+
+		<h4>Combat:</h4>
+		<div class="form-group form-inline">
+			<select id="newTraitCombat" class="form-control" name="newTraitCombat" ng-model="newTraitCombat" ng-options="combat.name group by combat.cat for combat in traitCombat | orderBy: 'name' | filter: {name:'!Speed'}">
+				<option value="" hidden>-- Select property --</option>
+			</select>
+
+			<input type="{{newTraitCombat.type}}" id="{{newTraitCombat.ngModel}}" class="form-control" name="{{newTraitCombat.ngModel}}" ng-hide="newTraitCombat == null || undefined" ng-model="details">
+			<a ng-click="addItem(newTraitCombat, displayTraitCombat, 'bonuses', 'traitCombat')" ng-hide="newTraitCombat == null || undefined">add</a>
+		</div>
+		<ng-pluralize count="displayTraitCombat.length" when="{'0': '','one': 'Combat bonus: ','other': 'Combat bonuses: '}"></ng-pluralize>
+		<div ng-repeat="combat in displayTraitCombat">{{combat.name}} = {{combat[combat.ngModel]}} <a ng-click="removeItem($index, displayTraitCombat, 'bonuses', 'traitCombat')">[x]</a></div>
+
+		<h4>Damage Resist:</h4>
+		<div class="form-group form-inline">
+			<select id="newDmgResist" class="form-control" name="newDmgResist" ng-model="newDmgResist" ng-options="dmgResist.name group by dmgResist.cat for dmgResist in dmgTypes |  orderBy: 'name'">
+				<option value="" hidden>-- Select damage type --</option>
+			</select>
+
+			<a ng-click="addItem(newDmgResist, displayDmgResist, 'bonuses', 'dmgTypes')" ng-hide="newDmgResist.name == null || undefined">add</a>
+
+			<ul class="list-inline">
+				<li ng-show="displayDmgResist.length > 0">
+					<ng-pluralize count="displayDmgResist.length" when="{'0': '','one': 'Damage Resist: ','other': 'Damage Resists: '}"></ng-pluralize>
+				</li>
+				<li ng-repeat="dmgResist in displayDmgResist">{{dmgResist.name}}<a ng-click="removeItem($index, displayDmgResist, 'bonuses', 'dmgTypes')">[X]</a><span ng-if="!$last">, </span><span ng-if="$last">.</span></li>
+			</ul>
+		</div>
+
+		<h4>Other:</h4>
+		<div class="form-group form-inline">
+			<label for="newTraitOther">Select other traits: </label>
+			<select id="newTraitOther" class="form-control" name="newTraitOther" ng-model="newTraitOther" ng-options="other.name group by other.cat for other in traitOther | orderBy: 'name' | filter: {name:'!Language'}">
+				<option value="" hidden>-- Select other --</option>
+			</select>
+			<input type="{{newTraitOther.type}}" id="{{newTraitOther.ngModel}}P" class="form-control" name="{{newTraitOther.ngModel}}P" ng-hide="newTraitOther == null || undefined" ng-model="details">
+			<a ng-click="addItem(newTraitOther, displayTraitOther, 'bonuses', 'traitOther')" ng-hide="newTraitOther == null || undefined">add</a>
+		</div>
+
+		<ng-pluralize count="displayTraitOther.length" when="{'0': '','one': 'Other trait: ','other': 'Other traits: '}"></ng-pluralize>
+		<div ng-repeat="other in displayTraitOther">{{other.name}} = {{other.details}} <a ng-click="removeItem($index, displayTraitOther, 'prereqs', 'prereqsOther')">[x]</a></div>
+		<a ng-click="meh(newData.bonuses)">meh</a>
 </fieldset>

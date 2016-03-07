@@ -76,7 +76,7 @@
 			<a ng-click="addItem(newBonusCombat, displayBonusCombat, 'bonuses', 'bonusesCombat')" ng-hide="newBonusCombat == null || undefined">add</a>
 		</div>
 		<ng-pluralize count="displayBonusCombat.length" when="{'0': '','one': 'Combat bonus: ','other': 'Combat bonuses: '}"></ng-pluralize>
-		<div ng-repeat="combat in displayBonusCombat">{{combat.name}} = {{combat.details}} <a ng-click="removeItem($index, displayBonusOther, 'bonuses', 'bonusesCombat')">[x]</a></div>
+		<div ng-repeat="combat in displayBonusCombat">{{combat.name}} = {{combat[combat.ngModel]}} <a ng-click="removeItem($index, displayBonusOther, 'bonuses', 'bonusesCombat')">[x]</a></div>
 
 		<h4>Other:</h4>
 		<div class="form-group form-inline">

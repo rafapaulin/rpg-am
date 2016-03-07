@@ -109,8 +109,8 @@
 			<span ng-show="aoeType.name !== undefined">{{aoeType.a}}</span>
 			<input type="number" id="size" class="form-control" name="size" min="1" ng-show="aoeType.name !== undefined" ng-model="size">
 
-			<span ng-show="aoeType.name == 'Cylinder'">{{aoeType.b}}</span>
-			<input type="number" id="size2" class="form-control" name="size2" min="1" ng-show="aoeType.name == 'Cylinder'" ng-model="size2">
+			<span ng-show="aoeType.name == 'Cylinder' || aoeType.name == 'Line'">{{aoeType.b}}</span>
+			<input type="number" id="size2" class="form-control" name="size2" min="1" ng-show="aoeType.name == 'Cylinder' || aoeType.name == 'Line'" ng-model="size2">
 
 			<select id="aoeLengthUnit" class="form-control" name="aoeLengthUnit" required ng-show="aoeType.name !== undefined" ng-model="aoeLengthUnit" ng-options="unit.name group by unit.system disable when unit.system=='Special' for unit in lengthUnits | orderBy: unit.toMeter">
 				<option value="" hidden>-- Select unit --</option>
