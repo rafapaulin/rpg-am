@@ -5,7 +5,7 @@ angular.module('rpg')
 
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/list-item.html',
+			templateUrl: '/templates/general/list-item.html',
 			scope: {
 				name:	 '=',
 				short:	 '=',

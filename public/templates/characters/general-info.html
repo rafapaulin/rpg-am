@@ -1,0 +1,82 @@
+<fieldset>
+	<legend>General info</legend>
+	
+	<div class="form-group form-inline">
+		<label for="skinColor">Skin color: </label>
+		<select id="skinColor" class="form-control" name="skinColor" ng-model="newData.skinColor" ng-options="skinColor.name group by skinColor.cat for skinColor in skinColors">
+			<option value="" hidden>-- Select skin color --</option>
+		</select>
+		<div style="width: 30px; height: 30px; background-color: {{skinColor.hex}}; display: inline-block; border: 1px solid"></div>
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="eyeColor">Eye color: </label>
+		<select id="eyeColor" class="form-control" name="eyeColor" ng-model="newData.eyeColor" ng-options="eyeColor.name group by eyeColor.cat for eyeColor in eyeColors">
+			<option value="" hidden>-- Select eye color --</option>
+		</select>
+		<div style="width: 30px; height: 30px; background-color: {{eyeColor.hex}}; display: inline-block; border: 1px solid"></div>
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="hairColor">Hair color: </label>
+		<select id="hairColor" class="form-control" name="hairColor" ng-model="newData.hairColor" ng-options="hairColor.name group by hairColor.cat for hairColor in hairColors">
+			<option value="" hidden>-- Select hair color --</option>
+		</select>
+		<div style="width: 30px; height: 30px; background-color: {{hairColor.hex}}; display: inline-block; border: 1px solid"></div>
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="beardColor">Beard color: </label>
+		<select id="beardColor" class="form-control" name="beardColor" ng-model="newData.beardColor" ng-options="beardColor.name group by beardColor.cat for beardColor in hairColors">
+			<option value="" hidden>-- Select beard color --</option>
+		</select>
+		<div style="width: 30px; height: 30px; background-color: {{beardColor.hex}}; display: inline-block; border: 1px solid"></div>
+	</div>
+	
+	<div class="form-group form-inline">
+		<label for="">Gender: </label>
+		<label><input type="radio" ng-model="newData.sex" value="Male"> Male</label>
+		<label><input type="radio" ng-model="newData.sex" value="Female"> Female</label>
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="alignment">Alignment: </label>
+		<select id="alignment" class="form-control" name="alignment" ng-model="newData.alignment" ng-options="alignment.name group by alignment.cat for alignment in alignments">
+			<option value="" hidden>-- Select alignment --</option>
+		</select>
+	</div>
+
+
+	<div class="form-group form-inline">
+		<label for="race">Race: </label>
+		<select id="race" class="form-control" name="race" ng-model="newData.race" ng-options="race.name for race in races | orderBy: 'name'">
+			<option value="" hidden>-- Select race --</option>
+		</select>
+	</div>
+	
+	<div class="form-group form-inline">
+		<label for="class">Class: </label>
+		<select id="class" class="form-control" name="class" ng-model="newData.class" ng-options="class.name for class in classes | orderBy: 'name'">
+			<option value="" hidden>-- Select class --</option>
+		</select>
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="background">background: </label>
+		<select id="background" class="form-control" name="background" ng-model="newData.background" ng-options="background.name for background in backgrounds | orderBy: 'name'">
+			<option value="" hidden>-- Select background --</option>
+		</select>
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="height">Height: </label>
+		<input slider type="text" ng-model="newData.height" id="height" name="height" options="{from: 1, to: 120, step: 1}" />
+		<select id="heightUnit" class="form-control" name="heightUnit" required ng-model="heightUnit" ng-options="unit.name group by unit.system for unit in heightUnits | orderBy: unit.toMeter">
+			<option value="" hidden>-- Select unit --</option>
+		</select>{{showHeight}}
+	</div>
+
+	<label for="">Weight: </label>
+	<a ng-click="meh()">meh</a>
+
+</fieldset>

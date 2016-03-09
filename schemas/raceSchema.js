@@ -59,7 +59,7 @@ var mongoose = require('mongoose'),
 				hp: {type: Number, default: 0},				// ok
 				speed: {type: Number, default: 0},			// ok
 
-				proficiencies:[								// ok
+				proficiencies: [							// ok
 					{										// *
 						name: String,						// *
 						cat: String,						// *
@@ -77,7 +77,7 @@ var mongoose = require('mongoose'),
 		 				name: String,						// *
 		 				cat: String							// *
 		 			}										// *
-		 		]											// *
+		 		],											// *
 				special: {
 					name: String,
 					dmg: [

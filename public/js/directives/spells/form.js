@@ -4,7 +4,7 @@ angular.module('rpg')
 	
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/form/spell.html',
+			templateUrl: '/templates/spells/spell.html',
 			scope: false,
 			link: function(scope, element){
 			// == Properties set up =============================================================================================== //

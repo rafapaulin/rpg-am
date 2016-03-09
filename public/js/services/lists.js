@@ -2,6 +2,148 @@
 angular.module('rpg')
 	.factory('Lists', function ListsFactory() {
 		return {
+			eyeColors: [
+				{name:'Black',			cat:'Basic',	hex:'#000000'},
+				{name:'White',			cat:'Basic',	hex:'#ffffff'},
+				{name:'Brown',			cat:'Basic',	hex:'#8b4513'},
+				{name:'Amber',			cat:'Basic',	hex:'#daa520'},
+				{name:'Hazel',			cat:'Basic',	hex:'#808000'},
+				{name:'Green',			cat:'Basic',	hex:'#228b22'},
+				{name:'Blue',			cat:'Basic',	hex:'#6495ed'},
+
+				{name:'Yellow',			cat:'Exotic',	hex:'#ffd700'},
+				{name:'Pale Brown',		cat:'Exotic',	hex:'#eda677'},
+				{name:'Emerald Green',	cat:'Exotic',	hex:'#006400'},
+				{name:'Sea Green ',		cat:'Exotic',	hex:'#2e8b57'},
+				{name:'Spring Green ',	cat:'Exotic',	hex:'#adff2f'},
+				{name:'Pale Green',		cat:'Exotic',	hex:'#98fb98'},
+				{name:'Gray',			cat:'Exotic',	hex:'#c0c0c0'},
+				{name:'Aqua',			cat:'Exotic',	hex:'#00ced1'},
+				{name:'Pale Blue',		cat:'Exotic',	hex:'#98cde3'},
+				{name:'Pale Gray',		cat:'Exotic',	hex:'#dcdcdc'},
+				{name:'Deep Blue',		cat:'Exotic',	hex:'#00008b'},
+
+				{name:'Red',			cat:'Fey',		hex:'#cf1818'},
+				{name:'Violet',			cat:'Fey',		hex:'#c71585'},
+				{name:'Purple',			cat:'Fey',		hex:'#800080'}
+			],
+			hairColors: [
+				{name:'Shaven',			cat:'',			hex:''},
+
+				{name:'Black',			cat:'Basic',	hex:'#000000'},
+				{name:'Gray',			cat:'Basic',	hex:'#828282'},
+				{name:'Light gray',		cat:'Basic',	hex:'#aaaaaa'},
+				{name:'Platinum',		cat:'Basic',	hex:'#d2d2d2'},
+				{name:'White',			cat:'Basic',	hex:'#ffffff'},
+
+				{name:'Dark blonde',	cat:'Basic',	hex:'#b8860b'},
+				{name:'Blonde',			cat:'Basic',	hex:'#daa520'},
+				{name:'Amber',			cat:'Basic',	hex:'#dd9124'},
+				{name:'Bleach blonde',	cat:'Basic',	hex:'#f0e68c'},
+
+				{name:'Dark redhead',	cat:'Basic',	hex:'#800000'},
+				{name:'Redhead',		cat:'Basic',	hex:'#ff8c00'},
+				{name:'Light redhead',	cat:'Basic',	hex:'#ff9a45'},
+				{name:'Auburn',			cat:'Basic',	hex:'#8c391d'},
+				
+				{name:'Brunette',		cat:'Basic',	hex:'#3b1f0a'},
+				{name:'Brown',			cat:'Basic',	hex:'#8b4513'},
+				{name:'Light brown',	cat:'Basic',	hex:'#a86f2c'},
+				{name:'Pale brown',		cat:'Basic',	hex:'#b58a5f'},
+
+				{name:'Deep blue',		cat:'Dyed/Fey',	hex:'#00008b'},
+				{name:'Blue',			cat:'Dyed/Fey',	hex:'#228b22'},
+				{name:'Aqua',			cat:'Dyed/Fey',	hex:'#00ced1'},
+				{name:'Pale blue',		cat:'Dyed/Fey',	hex:'#87ceeb'},
+
+				{name:'Purple',			cat:'Dyed/Fey',	hex:'#800080'},
+				{name:'Violet',			cat:'Dyed/Fey',	hex:'#c71585'},
+
+				{name:'Red',			cat:'Dyed/Fey',	hex:'#dc1414'},
+				{name:'Orange',			cat:'Dyed/Fey',	hex:'#ffa500'},
+
+				{name:'Yellow',			cat:'Dyed/Fey',	hex:'#ffd700'},
+				{name:'Hazel',			cat:'Dyed/Fey',	hex:'#808000'},
+
+				{name:'Green',			cat:'Dyed/Fey',	hex:'#228b22'},
+				{name:'Spring green',	cat:'Dyed/Fey',	hex:'#adff2f'},
+				{name:'Sea green ',		cat:'Dyed/Fey',	hex:'#2e8b57'},
+				{name:'Emerald green',	cat:'Dyed/Fey',	hex:'#006400'},
+				{name:'Pale green',		cat:'Dyed/Fey',	hex:'#87ceeb'}
+			],
+			skinColors: [
+				{name:'Pale',			cat:'Basic',	hex:'#fff5ee'},
+				{name:'Fair',			cat:'Basic',	hex:'#ffebcd'},
+				{name:'Light',			cat:'Basic',	hex:'#ffe4b5'},
+				{name:'Light Tan',		cat:'Basic',	hex:'#f5deb3'},
+				{name:'Tan',			cat:'Basic',	hex:'#d2b48c'},
+				{name:'Dark Tan',		cat:'Basic',	hex:'#cd853f'},
+				{name:'Brown',			cat:'Basic',	hex:'#a0522d'},
+				{name:'Dark Brown',		cat:'Basic',	hex:'#5c2f0e'},
+
+				{name:'Dark gray',		cat:'Exotic',	hex:'#414141'},
+				{name:'Gray',			cat:'Exotic',	hex:'#808080'},
+				{name:'Pale Gray',		cat:'Exotic',	hex:'#d5d5d5'},
+				{name:'Deep Blue',		cat:'Exotic',	hex:'#000054'},
+				{name:'Purple',			cat:'Exotic',	hex:'#800080'},
+				{name:'Dark Purple',	cat:'Exotic',	hex:'#290033'},
+				{name:'Pale Yellow',	cat:'Exotic',	hex:'#f0e68c'},
+				{name:'Olive',			cat:'Exotic',	hex:'#808000'},
+
+				{name:'Black',			cat:'Draconic',	hex:'#000000'},
+				{name:'White',			cat:'Draconic',	hex:'#ffffff'},
+				{name:'Blue',			cat:'Draconic',	hex:'#3762ed'},
+				{name:'Brass',			cat:'Draconic',	hex:'#c58516'},
+				{name:'Bronze',			cat:'Draconic',	hex:'#895e13'},
+				{name:'Copper',			cat:'Draconic',	hex:'#ac5225'},
+				{name:'Gold',			cat:'Draconic',	hex:'#c3921b'},
+				{name:'Green',			cat:'Draconic',	hex:'#1a7a1a'},
+				{name:'Red',			cat:'Draconic',	hex:'#cc0c0c'},
+				{name:'Silver',			cat:'Draconic',	hex:'#d3d3d3'},
+
+				{name:'Yellow',			cat:'Fey',		hex:'#ffd700'},
+				{name:'Orange',			cat:'Fey',		hex:'#ffa500'},
+				{name:'Emerald Green',	cat:'Fey',		hex:'#006400'},
+				{name:'Sea Green',		cat:'Fey',		hex:'#2e8b57'},
+				{name:'Spring Green',	cat:'Fey',		hex:'#adff2f'},
+				{name:'Pale Green',		cat:'Fey',		hex:'#98fb98'},
+				{name:'Violet',			cat:'Fey',		hex:'#c71585'},
+				{name:'Aqua',			cat:'Fey',		hex:'#00ced1'},
+				{name:'Pale Blue',		cat:'Fey',		hex:'#87ceeb'}
+			],
+			alignments: [
+				{name:'Lawful good',		info:'Theese creatures can be counted on to do the right thing as expected by society. Gold dragons, paladins, and most dwarves are lawful good'},
+				{name:'Neutral good',		info:'They are folk that do the best they can to help others according to their needs. Many celestiais, some cloud giants, and most gnomes are neutral good'},
+				{name:'Chaotic good',		info:'Theese creatures act as their conscience directs, with little regard for what others expect. Copper dragons, many elves, and unicorns are chaotie good.'},
+				{name:'Lawful neutral',		info:'They are Individuais that act in accordance with law, tradition, or personal codes. Many monks and some wizards are lawful neutral.'},
+				{name:'Neutral',			info:'This is the alignment of those who prefer to steer c1ear of moral questions and don\'t take sides'},
+				{name:'Chaotic neutral',	info:'Theese creatures follow their whims, holding their personal freedom above ali else. Many barbarians and rogues, and some bards, are chaotie neutral'},
+				{name:'Lawful evil',		info:'They are creatures that methodically take what they want, within the limits of acode of tradition, loyalty, or order. Devils, blue dragons, and hobgoblins are Jawful evil'},
+				{name:'Neutral evil',		info:'This is the alignment of those who do whatever they can get away with, without compassion or qualms. Many drow, some cloud giants, and yugoloths are neutral evil'},
+				{name:'Chaotic evil',		info:'Theese creatures act with arbitrary violence, spurred by their greed, hatred, or bloodlust. Demons, red dragons, and orcs are chaotic evil'}
+			],
+			levels: [
+				{level:1,	xpNeeded:0,			profBonus:2},
+				{level:2,	xpNeeded:300,		profBonus:2},
+				{level:3,	xpNeeded:900,		profBonus:2},
+				{level:4,	xpNeeded:2700,		profBonus:2},
+				{level:5,	xpNeeded:6500,		profBonus:3},
+				{level:6,	xpNeeded:14000,		profBonus:3},
+				{level:7,	xpNeeded:23000,		profBonus:3},
+				{level:8,	xpNeeded:34000,		profBonus:3},
+				{level:9,	xpNeeded:48000,		profBonus:4},
+				{level:10,	xpNeeded:64000,		profBonus:4},
+				{level:11,	xpNeeded:85000,		profBonus:4},
+				{level:12,	xpNeeded:100000,	profBonus:4},
+				{level:13,	xpNeeded:120000,	profBonus:5},
+				{level:14,	xpNeeded:140000,	profBonus:5},
+				{level:15,	xpNeeded:165000,	profBonus:5},
+				{level:16,	xpNeeded:195000,	profBonus:5},
+				{level:17,	xpNeeded:225000,	profBonus:6},
+				{level:18,	xpNeeded:265000,	profBonus:6},
+				{level:19,	xpNeeded:305000,	profBonus:6},
+				{level:20,	xpNeeded:335000,	profBonus:6}
+			],
 			sizes: [
 				{name:'Tiny',		space:0.762},
 				{name:'Small',		space:1.524},
@@ -29,6 +171,7 @@ angular.module('rpg')
 				{name:'Goblin',			cat:'Standard',		script:'Dwarvish',	speakers:'Goblinoids'},
 				{name:'Halfling',		cat:'Standard',		script:'Common',	speakers:'Halflings'},
 				{name:'Orc',			cat:'Standard',		script:'Dwarvish',	speakers:'Orcs'},
+
 				{name:'Abyssal',		cat:'Exotic',		script:'Infernal',	speakers:'Demons'},
 				{name:'Celestial',		cat:'Exotic',		script:'Celestial',	speakers:'Celestiais'},
 				{name:'Draconic',		cat:'Exotic',		script:'Draconic',	speakers:'Dragons, dragonborn'},
@@ -50,6 +193,10 @@ angular.module('rpg')
 				{name:'Intelligence',	details:''},
 				{name:'Wisdom',			details:''},
 				{name:'Charisma',		details:''}
+			],
+			heightUnits: [
+				{name:'Feets',			system:'Imperial',	convert:12, short:'ft'},
+				{name:'Meters',			system:'Metric',	convert:100, short:'m'}
 			],
 			lengthUnits: [
 				{name:'Inches',			system:'Imperial',	toMeter:0.0254, short:'in'},

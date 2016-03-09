@@ -4,7 +4,7 @@ angular.module('rpg')
 	
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/form/feat.html',
+			templateUrl: '/templates/feats/feat.html',
 			scope: false,
 			link: function(scope, element){
 			// == Properties set up =============================================================================================== //

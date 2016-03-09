@@ -4,7 +4,7 @@ angular.module('rpg')
 	
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/form/background.html',
+			templateUrl: '/templates/backgrounds/background.html',
 			scope: false,
 			link: function(scope, element){
 			}

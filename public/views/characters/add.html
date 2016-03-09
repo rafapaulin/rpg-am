@@ -1,0 +1,17 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1">
+			<h1>Hey, this the form to create a new character!</h1>
+			<h3>here is the form</h3>
+			<form ng-submit="save(newData)">
+			
+				<div class="bleh" ng-show="errors" ng-repeat="error in errors">{{error}}</div>
+				<div class="blah" ng-show="success">{{success}}</div>
+
+				<character-info></character-info>
+				
+				<input type="submit" class="btn btn-primary">
+			</form>
+		</div>
+	</div>
+</div>

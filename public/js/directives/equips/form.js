@@ -4,7 +4,7 @@ angular.module('rpg')
 	
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/form/equip.html',
+			templateUrl: '/templates/equips/equip.html',
 			scope: false,
 			link: function(scope, element){
 			}

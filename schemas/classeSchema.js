@@ -3,7 +3,7 @@ var	mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 	  Schema = mongoose.Schema,
 	
-	classSchema = new Schema(
+	classeSchema = new Schema(
 		{
 // == General =============================================================================================================================== //
 			name: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok
@@ -18,6 +18,6 @@ var	mongoose = require('mongoose'),
 		}
 	);
 
-classSchema.plugin(uniqueV);								// validate unique values
+classeSchema.plugin(uniqueV);								// validate unique values
 
-module.exports = mongoose.model('Class', classSchema);		// Export for further use
+module.exports = mongoose.model('Class', classeSchema);		// Export for further use

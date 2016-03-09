@@ -1,12 +1,12 @@
 'use strict';
 angular.module('rpg')
-	.directive('charSheetsFormInputs', ['Lists', function(Lists){
-	
+	.directive('generalInputs', function(){
+
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/form/char-sheet.html',
+			templateUrl: '/templates/general/general.html',
 			scope: false,
 			link: function(scope, element){
 			}
-		}
-	}]);
+		};
+	});

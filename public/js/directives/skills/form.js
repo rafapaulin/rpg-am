@@ -4,7 +4,7 @@ angular.module('rpg')
 	
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/form/skill.html',
+			templateUrl: '/templates/skills/skill.html',
 			scope: false,
 			link: function(scope, element){
 				scope.abilities				= Lists.abilities;

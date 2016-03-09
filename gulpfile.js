@@ -14,6 +14,7 @@ var gulp = require('gulp'),
 			textAngular:		'./public/bower-components/textAngular/dist/',
 			angularBootstrap:	'./public/bower-components/angular-bootstrap/',
 			angularTouch:		'./public/bower-components/angular-touch/',
+			angularSlider:		'./public/bower-components/angular-awesome-slider/dist/',
 			faCss:				'./public/bower-components/font-awesome/css/',
 			faFonts:			'./public/bower-components/font-awesome/fonts/',
 			jquery:				'./public/bower-components/jquery/dist/'
@@ -34,7 +35,8 @@ var gulp = require('gulp'),
 		paths.src.textAngular + 'textAngular-sanitize.min.js',
 		paths.src.textAngular + 'textAngular.min.js',
 		paths.src.angularBootstrap + 'ui-bootstrap-tpls.min.js',
-		paths.src.angularTouch + 'angular-touch.min.js'
+		paths.src.angularTouch + 'angular-touch.min.js',
+		paths.src.angularSlider + 'angular-awesome-slider.min.js'
 		// paths.src.jquery + 'jquery.min.js',
 		// paths.src.bootstrapJs + 'bootstrap.min.js'
 	],
@@ -42,7 +44,8 @@ var gulp = require('gulp'),
 		paths.src.bootstrapCss + 'bootstrap.min.css',
 		paths.src.bootstrapCss + 'bootstrap-theme.min.css',
 		paths.src.faCss + '*.min.css',
-		paths.src.textAngular + '*.css'
+		paths.src.textAngular + '*.css',
+		paths.src.angularSlider + 'css/angular-awesome-slider.min.css'
 	],
 	fontsSrc = [
 		paths.src.faFonts + '*'
