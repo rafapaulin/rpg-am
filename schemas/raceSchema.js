@@ -1,4 +1,5 @@
 'use strict';
+require('../schemas/raceSchema');
 var mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 	  Schema = mongoose.Schema,

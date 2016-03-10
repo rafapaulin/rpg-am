@@ -3,4 +3,7 @@ angular.module('rpg')
 		return function(input) {
 			return Math.floor(input);
 		};
-	});
+	})
+	.filter('names', function() {
+
+	})

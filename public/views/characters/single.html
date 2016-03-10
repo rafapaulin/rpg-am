@@ -1,0 +1,36 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1">
+			<h1>Hey, this the single skill page!</h1>
+			<h3>here is your skill details</h3>
+			<p>{{data.name}}</p>
+			<h4>Race: <small>{{data.race.bonuses}}</small></h4>
+			<p>{{data.race}}</p>
+			<p ng-bind-html="data.desc"></p>
+			<div ng-show="errors" ng-repeat="error in errors">{{error}}</div>
+			<div ng-show="success">{{success}}</div>
+			<p>
+				<a ng-href="#/{{collection}}/new">Skill add form</a>
+			</p>
+			<p>
+				<a ng-href="#/{{collection}}">Skill list</a>
+			</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<a ng-click="showForm = true">update</a>
+			<div ng-show="showForm">
+				<form ng-submit="update(data)">
+					<input type="text" class="form-control" name="skillName" id="skillName" placeholder="Name" ng-model="data.name">
+					<input type="text" class="form-control" name="skillAbility" id="skillAbility" placeholder="Ability" ng-model="data.ability">
+					<input type="text" class="form-control" name="skillShortDesc" id="skillShortDesc" placeholder="Short Description" ng-model="data.shortDesc">
+					
+					<text-angular ng-model="data.desc" ta-toolbar="[['p'],['bold', 'italics', 'underline', 'strikeThrough'],['ul', 'ol'],['clear']]"></text-angular>
+					<input type="submit" class="btn btn-primary">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+

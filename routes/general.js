@@ -29,13 +29,15 @@
 
 // == Get Item ===================================================================== //
 	.get('/:collection/:slug', function(req, res){
+		require('../schemas/raceSchema');													// Ajeitar populate aqui!
 		modelNamer(req.params.collection)
 			.findOne({'slug': req.params.slug}, function(err, doc){
 				if (err) {
 					logger().debug(err.errors);
 				}
 				res.json(doc);
-			});
+			})
+			.populate('race');
 	})
 // ==================================================================== Get items == //
 

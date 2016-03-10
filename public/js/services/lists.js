@@ -194,13 +194,9 @@ angular.module('rpg')
 				{name:'Wisdom',			details:''},
 				{name:'Charisma',		details:''}
 			],
-			heightUnits: [
-				{name:'Feet',			system:'Imperial',	toMeter:0.0254},
-				{name:'Meters',			system:'Metric',	toMeter:0.01}
-			],
 			lengthUnits: [
 				{name:'Inches',			system:'Imperial',	toMeter:0.0254, short:'in'},
-				{name:'Feet',			system:'Imperial',	toMeter:0.3048, short:'ft'},
+				{name:'Feet',			system:'Imperial',	toMeter:0.3048, short:'ft', subShort:'in'},
 				{name:'Miles',			system:'Imperial',	toMeter:1609.34, short:'mi'},
 
 				{name:'Centimeters',	system:'Metric',	toMeter:0.01, short:'cm'},
