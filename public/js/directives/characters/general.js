@@ -13,6 +13,14 @@ angular.module('rpg')
 				scope.alignments = Lists.alignments;
 				scope.heightUnits = Lists.heightUnits;
 
+				scope.height = '0';
+				scope.heightUnit = {};
+
+				scope.$on('post', function(event, data){			// Listen to 'post' event on controller [add-ctrl.js]
+					scope.newData.height = parseInt(scope.height) * scope.heightUnit.toMeter;
+					console.log(scope.newData.height);
+				});
+
 				Crud.get('races').success(function(data){		// Front end GET request
 					scope.races = data;							// Set list property to html use
 				});
@@ -22,14 +30,10 @@ angular.module('rpg')
 				Crud.get('classes').success(function(data){		// Front end GET request
 					scope.classes = data;							// Set list property to html use
 				});
-				scope.newData.height = '0';
-				scope.heightUnit = 0;
-				scope.showHeight = scope.newData.height * scope.heightUnit.convert;
 
-				console.log(scope.newData.height);
-				console.log(scope.heightUnit.convert);
-
-				scope.meh = function(){console.log(typeof scope.showHeight)}
+				scope.meh = function(a){
+					console.log(a);
+				}
 			}
 		}
 	}]);

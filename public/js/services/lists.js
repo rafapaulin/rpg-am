@@ -195,13 +195,13 @@ angular.module('rpg')
 				{name:'Charisma',		details:''}
 			],
 			heightUnits: [
-				{name:'Feets',			system:'Imperial',	convert:12, short:'ft'},
-				{name:'Meters',			system:'Metric',	convert:100, short:'m'}
+				{name:'Feet',			system:'Imperial',	toMeter:0.0254},
+				{name:'Meters',			system:'Metric',	toMeter:0.01}
 			],
 			lengthUnits: [
 				{name:'Inches',			system:'Imperial',	toMeter:0.0254, short:'in'},
-				{name:'Feets',			system:'Imperial',	toMeter:0.3048, short:'ft'},
-				{name:'Miles',			system:'Imperial',	toMeter:1609.34, short:''},
+				{name:'Feet',			system:'Imperial',	toMeter:0.3048, short:'ft'},
+				{name:'Miles',			system:'Imperial',	toMeter:1609.34, short:'mi'},
 
 				{name:'Centimeters',	system:'Metric',	toMeter:0.01, short:'cm'},
 				{name:'Meters',			system:'Metric',	toMeter:1, short:'m'},

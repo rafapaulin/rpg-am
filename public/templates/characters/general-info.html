@@ -6,7 +6,7 @@
 		<select id="skinColor" class="form-control" name="skinColor" ng-model="newData.skinColor" ng-options="skinColor.name group by skinColor.cat for skinColor in skinColors">
 			<option value="" hidden>-- Select skin color --</option>
 		</select>
-		<div style="width: 30px; height: 30px; background-color: {{skinColor.hex}}; display: inline-block; border: 1px solid"></div>
+		<div style="width: 30px; height: 30px; background-color: {{newData.skinColor.hex}}; display: inline-block; border: 1px solid"></div>
 	</div>
 
 	<div class="form-group form-inline">
@@ -14,7 +14,7 @@
 		<select id="eyeColor" class="form-control" name="eyeColor" ng-model="newData.eyeColor" ng-options="eyeColor.name group by eyeColor.cat for eyeColor in eyeColors">
 			<option value="" hidden>-- Select eye color --</option>
 		</select>
-		<div style="width: 30px; height: 30px; background-color: {{eyeColor.hex}}; display: inline-block; border: 1px solid"></div>
+		<div style="width: 30px; height: 30px; background-color: {{newData.eyeColor.hex}}; display: inline-block; border: 1px solid"></div>
 	</div>
 
 	<div class="form-group form-inline">
@@ -22,7 +22,7 @@
 		<select id="hairColor" class="form-control" name="hairColor" ng-model="newData.hairColor" ng-options="hairColor.name group by hairColor.cat for hairColor in hairColors">
 			<option value="" hidden>-- Select hair color --</option>
 		</select>
-		<div style="width: 30px; height: 30px; background-color: {{hairColor.hex}}; display: inline-block; border: 1px solid"></div>
+		<div style="width: 30px; height: 30px; background-color: {{newData.hairColor.hex}}; display: inline-block; border: 1px solid"></div>
 	</div>
 
 	<div class="form-group form-inline">
@@ -30,7 +30,7 @@
 		<select id="beardColor" class="form-control" name="beardColor" ng-model="newData.beardColor" ng-options="beardColor.name group by beardColor.cat for beardColor in hairColors">
 			<option value="" hidden>-- Select beard color --</option>
 		</select>
-		<div style="width: 30px; height: 30px; background-color: {{beardColor.hex}}; display: inline-block; border: 1px solid"></div>
+		<div style="width: 30px; height: 30px; background-color: {{newData.beardColor.hex}}; display: inline-block; border: 1px solid"></div>
 	</div>
 	
 	<div class="form-group form-inline">
@@ -70,13 +70,17 @@
 
 	<div class="form-group form-inline">
 		<label for="height">Height: </label>
-		<input slider type="text" ng-model="newData.height" id="height" name="height" options="{from: 1, to: 120, step: 1}" />
+		<input slider type="text" ng-model="height" id="height" name="height" options="{from: 1, to: 300, step: 1}" />
 		<select id="heightUnit" class="form-control" name="heightUnit" required ng-model="heightUnit" ng-options="unit.name group by unit.system for unit in heightUnits | orderBy: unit.toMeter">
 			<option value="" hidden>-- Select unit --</option>
-		</select>{{showHeight}}
+		</select>
 	</div>
+	<span ng-hide="heightUnit.name == null || undefined">
+		<span ng-if="heightUnit.name == 'Meters'">{{height / 100 | floor}}m {{height % 100}}cm</span>
+		<span ng-if="heightUnit.name == 'Feet'">{{height / 12 | floor}}ft {{height % 12}}in</span>
+	</span>	
 
 	<label for="">Weight: </label>
-	<a ng-click="meh()">meh</a>
+	<a ng-click="meh(heightUnit.name)">meh</a>
 
 </fieldset>
