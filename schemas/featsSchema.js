@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 	  Schema = mongoose.Schema,
 
-	featSchema = new Schema(
+	featsSchema = new Schema(
 		{
 // == General =============================================================================================================================== //
 			name: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok
@@ -99,6 +99,6 @@ var mongoose = require('mongoose'),
 		}
 	);
 
-featSchema.plugin(uniqueV);								// validate unique values
+featsSchema.plugin(uniqueV);								// validate unique values
 
-module.exports = mongoose.model('Feat', featSchema);
+module.exports = mongoose.model('Feats', featsSchema);

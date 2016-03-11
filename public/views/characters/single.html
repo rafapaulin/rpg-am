@@ -1,20 +1,16 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1">
-			<h1>Hey, this the single skill page!</h1>
-			<h3>here is your skill details</h3>
+			<h1>Hey, this the single charsheet page!</h1>
+			<h3>here is your charsheet</h3>
 			<p>{{data.name}}</p>
-			<h4>Race: <small>{{data.race.bonuses}}</small></h4>
-			<p>{{data.race}}</p>
+			<h4>Race: <small>{{data._ref_Race}}</small></h4>
+			<p>{{data._ref_Race.bonuses}}</p>
+			<h4>Class: <small>{{data._ref_Class}}</small></h4>
+			<p>{{data._ref_Class.desc}}</p>
 			<p ng-bind-html="data.desc"></p>
 			<div ng-show="errors" ng-repeat="error in errors">{{error}}</div>
 			<div ng-show="success">{{success}}</div>
-			<p>
-				<a ng-href="#/{{collection}}/new">Skill add form</a>
-			</p>
-			<p>
-				<a ng-href="#/{{collection}}">Skill list</a>
-			</p>
 		</div>
 	</div>
 	<div class="row">

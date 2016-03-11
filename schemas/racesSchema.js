@@ -1,10 +1,9 @@
 'use strict';
-require('../schemas/raceSchema');
 var mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 	  Schema = mongoose.Schema,
 
-	raceSchema = new Schema(
+	racesSchema = new Schema(
 		{
 // == General =============================================================================================================================== //
 			name: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok
@@ -105,5 +104,5 @@ var mongoose = require('mongoose'),
 			collection: 'races'
 		}
 	);
-raceSchema.plugin(uniqueV);								// validate unique values
-module.exports = mongoose.model('Race', raceSchema);
+racesSchema.plugin(uniqueV);								// validate unique values
+module.exports = mongoose.model('Races', racesSchema);

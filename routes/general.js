@@ -10,7 +10,7 @@
 
 // == Global Variables ============================================================= //
 	var modelNamer = function(collection){ 
-		return require('../schemas/' + collection.slice(0, -1) + 'Schema') 
+		return require('../schemas/' + collection + 'Schema') 
 	};
 // == Global Variables ============================================================= //
 
@@ -29,15 +29,29 @@
 
 // == Get Item ===================================================================== //
 	.get('/:collection/:slug', function(req, res){
-		require('../schemas/raceSchema');													// Ajeitar populate aqui!
+
+		var refs = [];
+
+
 		modelNamer(req.params.collection)
+			.findOne({'slug': req.params.slug}, function(err, doc){ // ajeitar aqui
+				for (var key in doc) {
+					if(key.indexOf('_ref_') > -1) {
+						refs.push(key.slice(5));
+					}
+				};
+				for (var i = 0; i < refs.length;  i++) {
+					refs.push(refs[i]);
+					modelNamer(refs[i].toLowerCase());
+				};
+			})
 			.findOne({'slug': req.params.slug}, function(err, doc){
 				if (err) {
 					logger().debug(err.errors);
 				}
 				res.json(doc);
 			})
-			.populate('race');
+			.populate();
 	})
 // ==================================================================== Get items == //
 

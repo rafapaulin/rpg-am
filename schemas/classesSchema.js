@@ -1,9 +1,9 @@
 'use strict';
-var mongoose = require('mongoose'),
+var	mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 	  Schema = mongoose.Schema,
-
-	backgroundSchema = new Schema(
+	
+	classesSchema = new Schema(
 		{
 // == General =============================================================================================================================== //
 			name: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok
@@ -14,10 +14,10 @@ var mongoose = require('mongoose'),
 // =============================================================================================================================== General == //
 		},
 		{
-			'collection': 'backgrounds'
+			'collection': 'classes'
 		}
 	);
 
-backgroundSchema.plugin(uniqueV);								// validate unique values
+classesSchema.plugin(uniqueV);								// validate unique values
 
-module.exports = mongoose.model('Background', backgroundSchema);
+module.exports = mongoose.model('Classes', classesSchema);		// Export for further use

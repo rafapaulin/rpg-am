@@ -3,7 +3,7 @@ var	mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 	  Schema = mongoose.Schema,
 	
-	charSheetSchema = new Schema(
+	charactersSchema = new Schema(
 		{
 			name: {type: String, required: true},
 			slug: {type: String, required: true},
@@ -32,16 +32,20 @@ var	mongoose = require('mongoose'),
 				name: String,
 				info: String
 			},
-			race: {
+			_ref_Races: {
 				type: Schema.Types.ObjectId,
 				ref: 'Race'
+			},
+			_ref_Classes: {
+				type: Schema.Types.ObjectId,
+				ref: 'Class'
 			}
 		},
 		{
-			'collection': 'charSheets'
+			collection: 'charSheets'
 		}
 	);
 
-charSheetSchema.plugin(uniqueV);								// validate unique values
+charactersSchema.plugin(uniqueV);								// validate unique values
 
-module.exports = mongoose.model('CharSheet', charSheetSchema);
+module.exports = mongoose.model('Characters', charactersSchema);

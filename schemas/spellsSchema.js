@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 	  Schema = mongoose.Schema,
 
-	spellSchema = new Schema(
+	spellsSchema = new Schema(
 		{
 // == General =============================================================================================================================== //
 			name: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok
@@ -80,6 +80,6 @@ var mongoose = require('mongoose'),
 		}
 	);
 
-spellSchema.plugin(uniqueV);							// validate unique values
+spellsSchema.plugin(uniqueV);							// validate unique values
 
-module.exports = mongoose.model('Spell', spellSchema);
+module.exports = mongoose.model('Spells', spellsSchema);
