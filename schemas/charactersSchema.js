@@ -34,15 +34,15 @@ var	mongoose = require('mongoose'),
 			},
 			_ref_Races: {
 				type: Schema.Types.ObjectId,
-				ref: 'Race'
+				ref: 'Races'
 			},
 			_ref_Classes: {
 				type: Schema.Types.ObjectId,
-				ref: 'Class'
+				ref: 'Classes'
 			}
 		},
 		{
-			collection: 'charSheets'
+			collection: 'characters'
 		}
 	);
 

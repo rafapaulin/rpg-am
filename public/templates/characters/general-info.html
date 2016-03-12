@@ -52,21 +52,21 @@
 
 	<div class="form-group form-inline">
 		<label for="race">Race: </label>
-		<select id="race" class="form-control" name="race" ng-model="newData._ref_race" ng-options="race.name for race in races | orderBy: 'name'">
+		<select id="race" class="form-control" name="race" ng-model="newData._ref_Races" ng-options="race.name for race in races | orderBy: 'name'">
 			<option value="" hidden>-- Select race --</option>
 		</select>
 	</div>
 	
 	<div class="form-group form-inline">
 		<label for="class">Class: </label>
-		<select id="class" class="form-control" name="class" ng-model="newData.class" ng-options="class.name for class in classes | orderBy: 'name'">
+		<select id="class" class="form-control" name="class" ng-model="newData._ref_Classes" ng-options="class.name for class in classes | orderBy: 'name'">
 			<option value="" hidden>-- Select class --</option>
 		</select>
 	</div>
 
 	<div class="form-group form-inline">
 		<label for="background">background: </label>
-		<select id="background" class="form-control" name="background" ng-model="newData.background" ng-options="background.name for background in backgrounds | orderBy: 'name'">
+		<select id="background" class="form-control" name="background" ng-model="newData._ref_Backgrounds" ng-options="background.name for background in backgrounds | orderBy: 'name'">
 			<option value="" hidden>-- Select background --</option>
 		</select>
 	</div>

@@ -29,29 +29,25 @@
 
 // == Get Item ===================================================================== //
 	.get('/:collection/:slug', function(req, res){
-
-		var refs = [];
-
-
+		var refs = [],															// Set up variable
+			 pop = '';															// *
 		modelNamer(req.params.collection)
-			.findOne({'slug': req.params.slug}, function(err, doc){ // ajeitar aqui
-				for (var key in doc) {
-					if(key.indexOf('_ref_') > -1) {
-						refs.push(key.slice(5));
+			.findOne({'slug': req.params.slug}, function(err, doc){				// Get the requested document to deal with data
+				for (var key in doc) {											// Iterate through each document key for referenced documents
+					if(key.indexOf('_ref_') > -1) {								// Use property prefix as validator
+						refs.push(key);											// Create an array of the properties that are referenced documents
+						modelNamer(key.slice(5).toLowerCase());					// Require schemas only for the referenced documents
 					}
 				};
-				for (var i = 0; i < refs.length;  i++) {
-					refs.push(refs[i]);
-					modelNamer(refs[i].toLowerCase());
-				};
-			})
-			.findOne({'slug': req.params.slug}, function(err, doc){
-				if (err) {
-					logger().debug(err.errors);
-				}
-				res.json(doc);
-			})
-			.populate();
+				pop = refs.join(' ');											// Convert the properties array in a space separated string to use in .populate()
+				modelNamer(req.params.collection)
+					.findOne({'slug': req.params.slug}, function(err, doc){		// Get the requested document to send to front end
+						if (err) {
+							logger().debug(err.errors);
+						}
+						res.json(doc);
+					}).populate(pop);											// Populate referenced documents
+			});
 	})
 // ==================================================================== Get items == //
 
