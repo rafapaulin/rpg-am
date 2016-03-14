@@ -7,6 +7,7 @@ angular.module('rpg')
 			templateUrl: '/templates/characters/general-info.html',
 			scope: false,
 			link: function(scope, element){
+			// == Properties set up =============================================================================================== //
 				scope.hairColors	= Lists.hairColors;
 				scope.eyeColors		= Lists.eyeColors;
 				scope.skinColors	= Lists.skinColors;
@@ -18,14 +19,14 @@ angular.module('rpg')
 				scope.weight		= '0';
 				scope.heightUnit	= {};
 				scope.weightUnit	= {};
+			// =============================================================================================== Properties set up == //
 
 				scope.$on('post', function(event, data){										// Listen to 'post' event on controller [add-ctrl.js]
 					scope.newData.height = parseInt(scope.height) * scope.heightUnit.toMeter;
 					scope.newData.weight = parseInt(scope.weight) * scope.weightUnit.toKg;
-
-					console.log(scope.newData.race);
 				});
 
+			// == GET the relevant relative documents ============================================================================= //
 				Crud.get('races').success(function(data){										// Front end GET request
 					scope.races = data;															// Set list property to html use on <select>
 				});
@@ -35,6 +36,8 @@ angular.module('rpg')
 				Crud.get('classes').success(function(data){										// Front end GET request
 					scope.classes = data;														// Set list property to html use <select>
 				});
+			// ============================================================================= GET the relevant relative documents == //
+
 
 				scope.meh = function(a){
 					console.log(a);

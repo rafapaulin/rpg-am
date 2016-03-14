@@ -1,0 +1,94 @@
+<fieldset>
+	<legend>Abilities</legend>
+		<a ng-click="meh()">meh</a>
+		<label>Select ability points system: </label><br>
+		<label><input type="radio" ng-model="abilityModel" value="randomScores" ng-click="setScoreArray(dmScoreValues)"> Random scores</label><br>
+		<label><input type="radio" ng-model="abilityModel" value="setScores" ng-click="setScoreArray(dmScoreValues)"> Set scores</label>
+		<div ng-if="abilityModel === 'randomScores'">
+			<a class="btn btn-default" ng-click="randomize(dmScoreValues)">Randomize!</a>
+			<dl class="dl-horizontal">
+				<dt>Strength</dt>
+				<dd>{{strScore}}</dd>
+
+				<dt>Dexterity</dt>
+				<dd>{{dexScore}}</dd>
+
+				<dt>Constitution</dt>
+				<dd>{{conScore}}</dd>
+
+				<dt>Intelligence</dt>
+				<dd>{{intScore}}</dd>
+
+				<dt>Wisdom</dt>
+				<dd>{{wisScore}}</dd>
+
+				<dt>Charisma</dt>
+				<dd>{{chaScore}}</dd>
+			</dl>
+		</div>
+
+		<div ng-if="abilityModel === 'setScores'">
+			<dl class="dl-horizontal">
+				<dt>Strength</dt>
+				<dd>
+					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[0] || conScore == selectScoreArray[0] || intScore == selectScoreArray[0] || wisScore == selectScoreArray[0] || chaScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[1] || conScore == selectScoreArray[1] || intScore == selectScoreArray[1] || wisScore == selectScoreArray[1] || chaScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[2] || conScore == selectScoreArray[2] || intScore == selectScoreArray[2] || wisScore == selectScoreArray[2] || chaScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[3] || conScore == selectScoreArray[3] || intScore == selectScoreArray[3] || wisScore == selectScoreArray[3] || chaScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[4] || conScore == selectScoreArray[4] || intScore == selectScoreArray[4] || wisScore == selectScoreArray[4] || chaScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[5] || conScore == selectScoreArray[5] || intScore == selectScoreArray[5] || wisScore == selectScoreArray[5] || chaScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+				</dd>
+
+				<dt>Dexterity</dt>
+				<dd>
+					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[0] || conScore == selectScoreArray[0] || intScore == selectScoreArray[0] || wisScore == selectScoreArray[0] || chaScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[1] || conScore == selectScoreArray[1] || intScore == selectScoreArray[1] || wisScore == selectScoreArray[1] || chaScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[2] || conScore == selectScoreArray[2] || intScore == selectScoreArray[2] || wisScore == selectScoreArray[2] || chaScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[3] || conScore == selectScoreArray[3] || intScore == selectScoreArray[3] || wisScore == selectScoreArray[3] || chaScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[4] || conScore == selectScoreArray[4] || intScore == selectScoreArray[4] || wisScore == selectScoreArray[4] || chaScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[5] || conScore == selectScoreArray[5] || intScore == selectScoreArray[5] || wisScore == selectScoreArray[5] || chaScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+				</dd>
+
+				<dt>Constitution</dt>
+				<dd>
+					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[0] || dexScore == selectScoreArray[0] || intScore == selectScoreArray[0] || wisScore == selectScoreArray[0] || chaScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[1] || dexScore == selectScoreArray[1] || intScore == selectScoreArray[1] || wisScore == selectScoreArray[1] || chaScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[2] || dexScore == selectScoreArray[2] || intScore == selectScoreArray[2] || wisScore == selectScoreArray[2] || chaScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[3] || dexScore == selectScoreArray[3] || intScore == selectScoreArray[3] || wisScore == selectScoreArray[3] || chaScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[4] || dexScore == selectScoreArray[4] || intScore == selectScoreArray[4] || wisScore == selectScoreArray[4] || chaScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[5] || dexScore == selectScoreArray[5] || intScore == selectScoreArray[5] || wisScore == selectScoreArray[5] || chaScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+				</dd>
+
+				<dt>Intelligence</dt>
+				<dd>
+					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[0] || dexScore == selectScoreArray[0] || conScore == selectScoreArray[0] || wisScore == selectScoreArray[0] || chaScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[1] || dexScore == selectScoreArray[1] || conScore == selectScoreArray[1] || wisScore == selectScoreArray[1] || chaScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[2] || dexScore == selectScoreArray[2] || conScore == selectScoreArray[2] || wisScore == selectScoreArray[2] || chaScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[3] || dexScore == selectScoreArray[3] || conScore == selectScoreArray[3] || wisScore == selectScoreArray[3] || chaScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[4] || dexScore == selectScoreArray[4] || conScore == selectScoreArray[4] || wisScore == selectScoreArray[4] || chaScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[5] || dexScore == selectScoreArray[5] || conScore == selectScoreArray[5] || wisScore == selectScoreArray[5] || chaScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+				</dd>
+
+				<dt>Wisdom</dt>
+				<dd>
+					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[0] || dexScore == selectScoreArray[0] || conScore == selectScoreArray[0] || intScore == selectScoreArray[0] || chaScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[1] || dexScore == selectScoreArray[1] || conScore == selectScoreArray[1] || intScore == selectScoreArray[1] || chaScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[2] || dexScore == selectScoreArray[2] || conScore == selectScoreArray[2] || intScore == selectScoreArray[2] || chaScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[3] || dexScore == selectScoreArray[3] || conScore == selectScoreArray[3] || intScore == selectScoreArray[3] || chaScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[4] || dexScore == selectScoreArray[4] || conScore == selectScoreArray[4] || intScore == selectScoreArray[4] || chaScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[5] || dexScore == selectScoreArray[5] || conScore == selectScoreArray[5] || intScore == selectScoreArray[5] || chaScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+				</dd>
+
+				<dt>Charisma</dt>
+				<dd>
+					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[0] || dexScore == selectScoreArray[0] || conScore == selectScoreArray[0] || intScore == selectScoreArray[0] || wisScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[1] || dexScore == selectScoreArray[1] || conScore == selectScoreArray[1] || intScore == selectScoreArray[1] || wisScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[2] || dexScore == selectScoreArray[2] || conScore == selectScoreArray[2] || intScore == selectScoreArray[2] || wisScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[3] || dexScore == selectScoreArray[3] || conScore == selectScoreArray[3] || intScore == selectScoreArray[3] || wisScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[4] || dexScore == selectScoreArray[4] || conScore == selectScoreArray[4] || intScore == selectScoreArray[4] || wisScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
+					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[5] || dexScore == selectScoreArray[5] || conScore == selectScoreArray[5] || intScore == selectScoreArray[5] || wisScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+				</dd>
+			</dl>
+		</div>
+		</div>
+</fieldset>
