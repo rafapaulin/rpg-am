@@ -1,9 +1,11 @@
 <fieldset>
 	<legend>Abilities</legend>
-		<a ng-click="meh()">meh</a>
+		<a ng-click="meh(strScore)">meh</a>
 		<label>Select ability points system: </label><br>
-		<label><input type="radio" ng-model="abilityModel" value="randomScores" ng-click="setScoreArray(dmScoreValues)"> Random scores</label><br>
-		<label><input type="radio" ng-model="abilityModel" value="setScores" ng-click="setScoreArray(dmScoreValues)"> Set scores</label>
+		<label><input type="radio" ng-model="abilityModel" value="randomScores" ng-click="redefine()"> Random scores</label><br>
+		<label><input type="radio" ng-model="abilityModel" value="setScores" ng-click="setScoreArray(dmScoreValues)"> Set scores</label><br>
+		<label><input type="radio" ng-model="abilityModel" value="scoreRoll" ng-click="redefine()"> Scores roll</label><br>
+	<!-- == Random fixed scores system ============================================================================================================= -->
 		<div ng-if="abilityModel === 'randomScores'">
 			<a class="btn btn-default" ng-click="randomize(dmScoreValues)">Randomize!</a>
 			<dl class="dl-horizontal">
@@ -26,7 +28,9 @@
 				<dd>{{chaScore}}</dd>
 			</dl>
 		</div>
+	<!-- ============================================================================================================= Random fixed scores system == -->
 
+	<!-- == Selected fixed scores system =========================================================================================================== -->
 		<div ng-if="abilityModel === 'setScores'">
 			<dl class="dl-horizontal">
 				<dt>Strength</dt>
@@ -90,5 +94,42 @@
 				</dd>
 			</dl>
 		</div>
+	<!-- =========================================================================================================== Selected fixed scores system == -->
+
+	<!-- == Top 3 out of 4d6 roll system =========================================================================================================== -->
+		<div ng-if="abilityModel === 'scoreRoll'">
+			<a class="btn btn-default" ng-click="roll()">Roll!</a>
+
+			<div class="row" ng-show="showRolls">
+				<div class="col-xs-4">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<td>Rolls</td>
+								<td>Top 3 sum</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="rolledValue in rolledValues">
+								<td><span ng-repeat="roll in rolledValue track by $index">{{roll}}<span ng-if="!$last">, </span></span></td>
+								<td>{{sumRolls[$index +1]}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-xs-8">
+					<dl class="dl-horizontal">
+						<dt>Strength</dt>
+						<dd>
+							<label ng-repeat="score in rolledScores track by $index"><input type="radio" id="strScore-{{$index}}" ng-model="$parent.strScore" value="{{score}}-{{$index}}" ng-disabled="">{{score}}&nbsp;&nbsp;&nbsp;</label>
+						</dd>
+						<dt>Dexterity</dt>
+						<dd>
+							<label ng-repeat="score in rolledScores track by $index"><input type="radio" id="dexScore-{{$index}}" ng-model="$parent.dexScore" value="{{score}}-{{$index}}" ng-disabled="">{{score}}&nbsp;&nbsp;&nbsp;</label>
+						</dd>
+					</dl>
+				</div>
+			</div>
 		</div>
+	<!-- =========================================================================================================== Top 3 out of 4d6 roll system == -->
 </fieldset>
