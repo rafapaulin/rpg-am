@@ -7,60 +7,59 @@ angular.module('rpg')
 			templateUrl: '/templates/characters/ability-scores.html',
 			scope: false,
 			link: function(scope, element, attr){
-			// == Properties set up =============================================================================================== //
+			// == Properties set up and resets ==================================================================================== //
 				scope.abilityModel	= '';
 				scope.rolledValues	= {};
 				scope.resultedScore	= {};
 				scope.sumRolls		= {};
 				scope.showRolls		= false;
 				scope.rolledScores	= [];
-			// =============================================================================================== Properties set up == //
+				scope.scores		= {};
+				scope.pointsPool	= 0;
 
-				scope.redefine = function(){
-					scope.strScore = undefined;
-					scope.strScore = undefined;
-					scope.dexScore = undefined;
-					scope.conScore = undefined;
-					scope.intScore = undefined;
-					scope.wisScore = undefined;
-					scope.chaScore = undefined;
+				scope.redefine = function(){					// Reset values when changing ability scores mode
+					scope.scores		= {};
+					scope.rolledScores	= [];
+					scope.rolledValues	= {};
+					scope.resultedScore	= {};
+					scope.sumRolls		= {};
+					scope.showRolls		= false;
+					scope.rolledScores	= [];
+					scope.scoreCosts	= {};
 				}
 
+				scope.resetRadios = function(){
+					scope.scores = {};
+				};
+			// ==================================================================================== Properties set up and resets == //
 
 			// == Randomized scores system ======================================================================================== //
-				scope.randomize = function(array = [15,14,13,12,10,8]){														// Randomize scores function with default socres array values
-					var abilities = ['strScore', 'dexScore', 'conScore', 'intScore', 'wisScore', 'chaScore'],				// Abilities names array
+				scope.randomize = function(array = [15,14,13,12,10,8]){											// Randomize scores function with default socres array values
+					var abilities = ['strScore', 'dexScore', 'conScore', 'intScore', 'wisScore', 'chaScore'],	// Abilities names array
 							 i = array.length;
 
-					if(typeof array !== 'array' || array.length !== 6){														// Validate array provided. If invalid, alert user and use default values
-						alert('Provided value is not a valid abilities array. Using defaut values [15,14,13,12,10,8]');
-						var array = [15,14,13,12,10,8]																		// Default array
+					if(typeof array !== 'array' || array.length !== 6){											// Validate array provided. If invalid, alert user and use default values
+						console.log('Provided value is not a valid abilities array.');
+						console.log('Using defaut values [15,14,13,12,10,8]');
+						var array = [15,14,13,12,10,8]															// Default array
 					}
 
-					while(i !== 0){																							// Randomizer
-						var ability	= abilities[Math.floor(Math.random() * abilities.length)];								// Get a ability name from abilities array
-						var score	= array[Math.floor(Math.random() * array.length)];										// Get a value  from scores array
+					while(i !== 0){																				// Randomizer
+						var ability	= abilities[Math.floor(Math.random() * abilities.length)];					// Get a ability name from abilities array
+						var score	= array[Math.floor(Math.random() * array.length)];							// Get a value  from scores array
 
-						scope[ability] = score;																				// Set selected ability with selected value
+						scope.scores[ability] = score;															// Set selected ability with selected value
 						
-						abilities.splice(abilities.indexOf(ability),1);														// Remove used ability name from abilities array
-						array.splice(array.indexOf(score),1);																// Remove used score from scores array
+						abilities.splice(abilities.indexOf(ability),1);											// Remove used ability name from abilities array
+						array.splice(array.indexOf(score),1);													// Remove used score from scores array
 
-						i = array.length;																					// Repeat until arrays are empty
+						i = array.length;																		// Repeat until arrays are empty
 					}
 				}
 			// ====================================================================================== Randomized scores system ==== //
 
 			// == Select scores system =========================================================================================== //
 				scope.setScoreArray = function(array = [15,14,13,12,10,8]){
-					scope.strScore = undefined;
-					scope.strScore = undefined;
-					scope.dexScore = undefined;
-					scope.conScore = undefined;
-					scope.intScore = undefined;
-					scope.wisScore = undefined;
-					scope.chaScore = undefined;
-
 					if(typeof array !== 'array' || array.length !== 6){
 						console.log('Provided value is not a valid abilities array. Using defaut values [15,14,13,12,10,8]');
 						var array = [15,14,13,12,10,8]
@@ -106,8 +105,8 @@ angular.module('rpg')
 							scope.rolledValues[i].push(values[i4]);
 						};
 
-						while(i3 <= 3){															// Get the top 3 d6 roll from each array
-							resultedScore += maxOfArray(values);								// Add the top roll of current array
+						while(i3 <= 3){															// Get the top 3 d6 roll from each array, ignoring lower rolls
+							resultedScore += maxOfArray(values);								// Sum the top roll of current array
 							values.splice( values.indexOf( maxOfArray(values) ), 1 );			// Remove top value from current array
 							i3++
 						};
@@ -121,8 +120,42 @@ angular.module('rpg')
 					};
 				};
 			// =============================================================================================== d6 rolls system == //
-				
 
+			// == Point buy ===================================================================================================== //
+				scope.pointBuy = function(pool = 40){
+					scope.pointsPool = pool;
+
+					scope.scores.strScore = 8;
+					scope.scores.dexScore = 8;
+					scope.scores.conScore = 8;
+					scope.scores.intScore = 8;
+					scope.scores.wisScore = 8;
+					scope.scores.chaScore = 8;
+					
+					scope.scoreCosts.strScore = 0;
+					scope.scoreCosts.dexScore = 0;
+					scope.scoreCosts.conScore = 0;
+					scope.scoreCosts.intScore = 0;
+					scope.scoreCosts.wisScore = 0;
+					scope.scoreCosts.chaScore = 0;
+				};
+
+				scope.evalScores = function(ngModel){
+					scope.scoreCosts[ngModel] = 0;
+					var cost = 0;
+
+
+					for(var i = 9; i <= scope.scores[ngModel]; i++){
+						if(Math.floor((i - 10) / 2) < 1){
+							cost = 1;
+						} else {
+							cost = Math.floor((i - 10) / 2);
+						};
+						scope.scoreCosts[ngModel] += cost;
+					}
+					console.log(scope.scoreCosts[ngModel]);
+				}
+			// ===================================================================================================== Point buy == //
 				scope.meh = function(a){
 					console.log(a);
 				}

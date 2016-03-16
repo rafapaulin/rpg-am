@@ -1,96 +1,110 @@
 <fieldset>
-	<legend>Abilities</legend>
-		<a ng-click="meh(strScore)">meh</a>
+		<legend>Abilities</legend>
+		<a ng-click="meh(scores)">meh</a>
 		<label>Select ability points system: </label><br>
-		<label><input type="radio" ng-model="abilityModel" value="randomScores" ng-click="redefine()"> Random scores</label><br>
-		<label><input type="radio" ng-model="abilityModel" value="setScores" ng-click="setScoreArray(dmScoreValues)"> Set scores</label><br>
-		<label><input type="radio" ng-model="abilityModel" value="scoreRoll" ng-click="redefine()"> Scores roll</label><br>
+		<label><input type="radio" id="randomScores"	name="randomScores"	ng-model="abilityModel" value="randomScores"	ng-click="redefine()"> Random scores</label><br>
+		<label><input type="radio" id="setScores"		name="setScores"	ng-model="abilityModel" value="setScores"		ng-click="redefine(); setScoreArray(dmScoreValues)"> Set scores</label><br>
+		<label><input type="radio" id="scoreRoll"		name="scoreRoll"	ng-model="abilityModel" value="scoreRoll"		ng-click="redefine()"> Scores roll</label><br>
+		<label><input type="radio" id="pointBuy"		name="pointBuy"		ng-model="abilityModel" value="pointBuy"		ng-click="redefine(); pointBuy()"> Point buy</label><br>
 	<!-- == Random fixed scores system ============================================================================================================= -->
 		<div ng-if="abilityModel === 'randomScores'">
 			<a class="btn btn-default" ng-click="randomize(dmScoreValues)">Randomize!</a>
 			<dl class="dl-horizontal">
 				<dt>Strength</dt>
-				<dd>{{strScore}}</dd>
+				<dd>{{scores.strScore}}</dd>
 
 				<dt>Dexterity</dt>
-				<dd>{{dexScore}}</dd>
+				<dd>{{scores.dexScore}}</dd>
 
 				<dt>Constitution</dt>
-				<dd>{{conScore}}</dd>
+				<dd>{{scores.conScore}}</dd>
 
 				<dt>Intelligence</dt>
-				<dd>{{intScore}}</dd>
+				<dd>{{scores.intScore}}</dd>
 
 				<dt>Wisdom</dt>
-				<dd>{{wisScore}}</dd>
+				<dd>{{scores.wisScore}}</dd>
 
 				<dt>Charisma</dt>
-				<dd>{{chaScore}}</dd>
+				<dd>{{scores.chaScore}}</dd>
 			</dl>
 		</div>
 	<!-- ============================================================================================================= Random fixed scores system == -->
 
 	<!-- == Selected fixed scores system =========================================================================================================== -->
 		<div ng-if="abilityModel === 'setScores'">
+			<a class="btn btn-default" ng-click="resetRadios()">Reset!</a>
 			<dl class="dl-horizontal">
 				<dt>Strength</dt>
 				<dd>
-					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[0] || conScore == selectScoreArray[0] || intScore == selectScoreArray[0] || wisScore == selectScoreArray[0] || chaScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[1] || conScore == selectScoreArray[1] || intScore == selectScoreArray[1] || wisScore == selectScoreArray[1] || chaScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[2] || conScore == selectScoreArray[2] || intScore == selectScoreArray[2] || wisScore == selectScoreArray[2] || chaScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[3] || conScore == selectScoreArray[3] || intScore == selectScoreArray[3] || wisScore == selectScoreArray[3] || chaScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[4] || conScore == selectScoreArray[4] || intScore == selectScoreArray[4] || wisScore == selectScoreArray[4] || chaScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="strScore" ng-disabled="dexScore == selectScoreArray[5] || conScore == selectScoreArray[5] || intScore == selectScoreArray[5] || wisScore == selectScoreArray[5] || chaScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+					<label ng-repeat="score in selectScoreArray track by $index">
+						<input 
+							type="radio"
+							  id="strScore-{{$index}}"
+						ng-model="$parent.scores.strScore"
+						   value="{{score}}-{{$index}}"
+						ng-disabled="scores.dexScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.conScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.intScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.wisScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.chaScore == '{{selectScoreArray[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+					</label>
 				</dd>
 
 				<dt>Dexterity</dt>
 				<dd>
-					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[0] || conScore == selectScoreArray[0] || intScore == selectScoreArray[0] || wisScore == selectScoreArray[0] || chaScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[1] || conScore == selectScoreArray[1] || intScore == selectScoreArray[1] || wisScore == selectScoreArray[1] || chaScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[2] || conScore == selectScoreArray[2] || intScore == selectScoreArray[2] || wisScore == selectScoreArray[2] || chaScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[3] || conScore == selectScoreArray[3] || intScore == selectScoreArray[3] || wisScore == selectScoreArray[3] || chaScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[4] || conScore == selectScoreArray[4] || intScore == selectScoreArray[4] || wisScore == selectScoreArray[4] || chaScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="dexScore" ng-disabled="strScore == selectScoreArray[5] || conScore == selectScoreArray[5] || intScore == selectScoreArray[5] || wisScore == selectScoreArray[5] || chaScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+					<label ng-repeat="score in selectScoreArray track by $index">
+						<input 
+							type="radio"
+							  id="dexScore-{{$index}}"
+						ng-model="$parent.scores.dexScore"
+						   value="{{score}}-{{$index}}"
+						ng-disabled="scores.strScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.conScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.intScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.wisScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.chaScore == '{{selectScoreArray[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+					</label>
 				</dd>
 
 				<dt>Constitution</dt>
 				<dd>
-					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[0] || dexScore == selectScoreArray[0] || intScore == selectScoreArray[0] || wisScore == selectScoreArray[0] || chaScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[1] || dexScore == selectScoreArray[1] || intScore == selectScoreArray[1] || wisScore == selectScoreArray[1] || chaScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[2] || dexScore == selectScoreArray[2] || intScore == selectScoreArray[2] || wisScore == selectScoreArray[2] || chaScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[3] || dexScore == selectScoreArray[3] || intScore == selectScoreArray[3] || wisScore == selectScoreArray[3] || chaScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[4] || dexScore == selectScoreArray[4] || intScore == selectScoreArray[4] || wisScore == selectScoreArray[4] || chaScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="conScore" ng-disabled="strScore == selectScoreArray[5] || dexScore == selectScoreArray[5] || intScore == selectScoreArray[5] || wisScore == selectScoreArray[5] || chaScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+					<label ng-repeat="score in selectScoreArray track by $index">
+						<input 
+							type="radio"
+							  id="conScore-{{$index}}"
+						ng-model="$parent.scores.conScore"
+						   value="{{score}}-{{$index}}"
+						ng-disabled="scores.strScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.dexScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.intScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.wisScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.chaScore == '{{selectScoreArray[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+					</label>
 				</dd>
 
 				<dt>Intelligence</dt>
 				<dd>
-					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[0] || dexScore == selectScoreArray[0] || conScore == selectScoreArray[0] || wisScore == selectScoreArray[0] || chaScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[1] || dexScore == selectScoreArray[1] || conScore == selectScoreArray[1] || wisScore == selectScoreArray[1] || chaScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[2] || dexScore == selectScoreArray[2] || conScore == selectScoreArray[2] || wisScore == selectScoreArray[2] || chaScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[3] || dexScore == selectScoreArray[3] || conScore == selectScoreArray[3] || wisScore == selectScoreArray[3] || chaScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[4] || dexScore == selectScoreArray[4] || conScore == selectScoreArray[4] || wisScore == selectScoreArray[4] || chaScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="intScore" ng-disabled="strScore == selectScoreArray[5] || dexScore == selectScoreArray[5] || conScore == selectScoreArray[5] || wisScore == selectScoreArray[5] || chaScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+					<label ng-repeat="score in selectScoreArray track by $index">
+						<input 
+							type="radio"
+							  id="intScore-{{$index}}"
+						ng-model="$parent.scores.intScore"
+						   value="{{score}}-{{$index}}"
+						ng-disabled="scores.strScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.dexScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.conScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.wisScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.chaScore == '{{selectScoreArray[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+					</label>
 				</dd>
 
 				<dt>Wisdom</dt>
 				<dd>
-					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[0] || dexScore == selectScoreArray[0] || conScore == selectScoreArray[0] || intScore == selectScoreArray[0] || chaScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[1] || dexScore == selectScoreArray[1] || conScore == selectScoreArray[1] || intScore == selectScoreArray[1] || chaScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[2] || dexScore == selectScoreArray[2] || conScore == selectScoreArray[2] || intScore == selectScoreArray[2] || chaScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[3] || dexScore == selectScoreArray[3] || conScore == selectScoreArray[3] || intScore == selectScoreArray[3] || chaScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[4] || dexScore == selectScoreArray[4] || conScore == selectScoreArray[4] || intScore == selectScoreArray[4] || chaScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="wisScore" ng-disabled="strScore == selectScoreArray[5] || dexScore == selectScoreArray[5] || conScore == selectScoreArray[5] || intScore == selectScoreArray[5] || chaScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+					<label ng-repeat="score in selectScoreArray track by $index">
+						<input 
+							type="radio"
+							  id="wisScore-{{$index}}"
+						ng-model="$parent.scores.wisScore"
+						   value="{{score}}-{{$index}}"
+						ng-disabled="scores.strScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.dexScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.conScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.intScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.chaScore == '{{selectScoreArray[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+					</label>
 				</dd>
 
 				<dt>Charisma</dt>
 				<dd>
-					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[0] || dexScore == selectScoreArray[0] || conScore == selectScoreArray[0] || intScore == selectScoreArray[0] || wisScore == selectScoreArray[0]" value="{{selectScoreArray[0]}}">{{selectScoreArray[0]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[1] || dexScore == selectScoreArray[1] || conScore == selectScoreArray[1] || intScore == selectScoreArray[1] || wisScore == selectScoreArray[1]" value="{{selectScoreArray[1]}}">{{selectScoreArray[1]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[2] || dexScore == selectScoreArray[2] || conScore == selectScoreArray[2] || intScore == selectScoreArray[2] || wisScore == selectScoreArray[2]" value="{{selectScoreArray[2]}}">{{selectScoreArray[2]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[3] || dexScore == selectScoreArray[3] || conScore == selectScoreArray[3] || intScore == selectScoreArray[3] || wisScore == selectScoreArray[3]" value="{{selectScoreArray[3]}}">{{selectScoreArray[3]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[4] || dexScore == selectScoreArray[4] || conScore == selectScoreArray[4] || intScore == selectScoreArray[4] || wisScore == selectScoreArray[4]" value="{{selectScoreArray[4]}}">{{selectScoreArray[4]}}&nbsp;&nbsp;&nbsp;</label>
-					<label><input type="radio" ng-model="chaScore" ng-disabled="strScore == selectScoreArray[5] || dexScore == selectScoreArray[5] || conScore == selectScoreArray[5] || intScore == selectScoreArray[5] || wisScore == selectScoreArray[5]" value="{{selectScoreArray[5]}}">{{selectScoreArray[5]}}&nbsp;&nbsp;&nbsp;</label>
+					<label ng-repeat="score in selectScoreArray track by $index">
+						<input 
+							type="radio"
+							  id="chaScore-{{$index}}"
+						ng-model="$parent.scores.chaScore"
+						   value="{{score}}-{{$index}}"
+						ng-disabled="scores.strScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.dexScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.conScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.intScore == '{{selectScoreArray[$index]}}-{{$index}}' || scores.wisScore == '{{selectScoreArray[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+					</label>
 				</dd>
 			</dl>
 		</div>
@@ -98,8 +112,8 @@
 
 	<!-- == Top 3 out of 4d6 roll system =========================================================================================================== -->
 		<div ng-if="abilityModel === 'scoreRoll'">
-			<a class="btn btn-default" ng-click="roll()">Roll!</a>
-
+			<a class="btn btn-default" ng-click="roll(	)">Roll!</a>
+			<a class="btn btn-default" ng-click="resetRadios()">Reset!</a>
 			<div class="row" ng-show="showRolls">
 				<div class="col-xs-4">
 					<table class="table table-striped">
@@ -121,15 +135,102 @@
 					<dl class="dl-horizontal">
 						<dt>Strength</dt>
 						<dd>
-							<label ng-repeat="score in rolledScores track by $index"><input type="radio" id="strScore-{{$index}}" ng-model="$parent.strScore" value="{{score}}-{{$index}}" ng-disabled="">{{score}}&nbsp;&nbsp;&nbsp;</label>
+							<label ng-repeat="score in rolledScores track by $index">
+								<input
+									type="radio"
+									  id="strScore-{{$index}}"
+								ng-model="$parent.scores.strScore" 
+								   value="{{score}}-{{$index}}" 
+							 ng-disabled="scores.dexScore == '{{rolledScores[$index]}}-{{$index}}' || scores.conScore == '{{rolledScores[$index]}}-{{$index}}' || scores.intScore == '{{rolledScores[$index]}}-{{$index}}' || scores.wisScore == '{{rolledScores[$index]}}-{{$index}}' || scores.chaScore == '{{rolledScores[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+							</label>
 						</dd>
 						<dt>Dexterity</dt>
 						<dd>
-							<label ng-repeat="score in rolledScores track by $index"><input type="radio" id="dexScore-{{$index}}" ng-model="$parent.dexScore" value="{{score}}-{{$index}}" ng-disabled="">{{score}}&nbsp;&nbsp;&nbsp;</label>
+							<label ng-repeat="score in rolledScores track by $index">
+								<input
+									type="radio"
+									  id="dexScore-{{$index}}"
+								ng-model="$parent.scores.dexScore" 
+								   value="{{score}}-{{$index}}" 
+							 ng-disabled="scores.strScore == '{{rolledScores[$index]}}-{{$index}}' || scores.conScore == '{{rolledScores[$index]}}-{{$index}}' || scores.intScore == '{{rolledScores[$index]}}-{{$index}}' || scores.wisScore == '{{rolledScores[$index]}}-{{$index}}' || scores.chaScore == '{{rolledScores[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+							</label>
+						</dd>
+ 						<dt>Constitution</dt>
+						<dd>
+							<label ng-repeat="score in rolledScores track by $index">
+								<input
+									type="radio"
+									  id="conScore-{{$index}}"
+								ng-model="$parent.scores.conScore" 
+								   value="{{score}}-{{$index}}" 
+							 ng-disabled="scores.strScore == '{{rolledScores[$index]}}-{{$index}}' || scores.dexScore == '{{rolledScores[$index]}}-{{$index}}' || scores.intScore == '{{rolledScores[$index]}}-{{$index}}' || scores.wisScore == '{{rolledScores[$index]}}-{{$index}}' || scores.chaScore == '{{rolledScores[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+							</label>
+						</dd>
+						<dt>Intelligence</dt>
+						<dd>
+							<label ng-repeat="score in rolledScores track by $index">
+								<input
+									type="radio"
+									  id="intScore-{{$index}}"
+								ng-model="$parent.scores.intScore" 
+								   value="{{score}}-{{$index}}" 
+							 ng-disabled="scores.strScore == '{{rolledScores[$index]}}-{{$index}}' || scores.dexScore == '{{rolledScores[$index]}}-{{$index}}' || scores.conScore == '{{rolledScores[$index]}}-{{$index}}' || scores.wisScore == '{{rolledScores[$index]}}-{{$index}}' || scores.chaScore == '{{rolledScores[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+							</label>
+						</dd>
+						<dt>Wisdom</dt>
+						<dd>
+							<label ng-repeat="score in rolledScores track by $index">
+								<input
+									type="radio"
+									  id="wisScore-{{$index}}"
+								ng-model="$parent.scores.wisScore" 
+								   value="{{score}}-{{$index}}" 
+							 ng-disabled="scores.strScore == '{{rolledScores[$index]}}-{{$index}}' || scores.dexScore == '{{rolledScores[$index]}}-{{$index}}' || scores.conScore == '{{rolledScores[$index]}}-{{$index}}' || scores.intScore == '{{rolledScores[$index]}}-{{$index}}' || scores.chaScore == '{{rolledScores[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+							</label>
+						</dd>
+						<dt>Charisma</dt>
+						<dd>
+							<label ng-repeat="score in rolledScores track by $index">
+								<input
+									type="radio"
+									  id="chaScore-{{$index}}"
+								ng-model="$parent.scores.chaScore" 
+								   value="{{score}}-{{$index}}" 
+							 ng-disabled="scores.strScore == '{{rolledScores[$index]}}-{{$index}}' || scores.dexScore == '{{rolledScores[$index]}}-{{$index}}' || scores.conScore == '{{rolledScores[$index]}}-{{$index}}' || scores.intScore == '{{rolledScores[$index]}}-{{$index}}' || scores.wisScore == '{{rolledScores[$index]}}-{{$index}}'">{{score}}&nbsp;&nbsp;&nbsp;
+							</label>
 						</dd>
 					</dl>
 				</div>
 			</div>
 		</div>
 	<!-- =========================================================================================================== Top 3 out of 4d6 roll system == -->
+
+	<!-- == Point buy system ======================================================================================================================= -->
+		<div ng-if="abilityModel === 'pointBuy'" class="form-inline">
+			<p>Remaining points on the pool: {{pointsPool - (scoreCosts.strScore + scoreCosts.dexScore + scoreCosts.conScore + scoreCosts.intScore + scoreCosts.wisScore + scoreCosts.chaScore)}}</p>
+			<p>
+				<span ng-if="(pointsPool - (scoreCosts.strScore + scoreCosts.dexScore + scoreCosts.conScore + scoreCosts.intScore + scoreCosts.wisScore + scoreCosts.chaScore)) == 0">Your scores are valid!</span>
+				<span ng-if="(pointsPool - (scoreCosts.strScore + scoreCosts.dexScore + scoreCosts.conScore + scoreCosts.intScore + scoreCosts.wisScore + scoreCosts.chaScore)) !== 0">There must be no remaining points on the pool</span>
+			</p>
+			<dl class="dl-horizontal">
+				<dt><label for="strScore">Strength: </label></dt>
+				<dd><input type="number" id="strScore" class="form-control" name="strScore" min="8" max="20" ng-model="scores.strScore" ng-change="evalScores('strScore')"> Total cost for Str: {{scoreCosts.strScore}}</dd>
+
+				<dt><label for="strScore">Dexterity: </label></dt>
+				<dd><input type="number" id="dexScore" class="form-control" name="dexScore" min="8" max="20" ng-model="scores.dexScore" ng-change="evalScores('dexScore')"> Total cost for Dex: {{scoreCosts.dexScore}}</dd>
+
+				<dt><label for="strScore">Constitution: </label></dt>
+				<dd><input type="number" id="conScore" class="form-control" name="conScore" min="8" max="20" ng-model="scores.conScore" ng-change="evalScores('conScore')"> Total cost for Con: {{scoreCosts.conScore}}</dd>
+
+				<dt><label for="strScore">Intelligence: </label></dt>
+				<dd><input type="number" id="intScore" class="form-control" name="intScore" min="8" max="20" ng-model="scores.intScore" ng-change="evalScores('intScore')"> Total cost for Int: {{scoreCosts.intScore}}</dd>
+
+				<dt><label for="strScore">Wisdom: </label></dt>
+				<dd><input type="number" id="wisScore" class="form-control" name="wisScore" min="8" max="20" ng-model="scores.wisScore" ng-change="evalScores('wisScore')"> Total cost for Wis: {{scoreCosts.wisScore}}</dd>
+
+				<dt><label for="strScore">Charisma: </label></dt>
+				<dd><input type="number" id="chaScore" class="form-control" name="chaScore" min="8" max="20" ng-model="scores.chaScore" ng-change="evalScores('chaScore')"> Total cost for Cha: {{scoreCosts.chaScore}}</dd>
+			</dl>
+		</div>
+	<!-- ======================================================================================================================= Point buy system == -->
 </fieldset>
