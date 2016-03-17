@@ -5,8 +5,39 @@ var	mongoose = require('mongoose'),
 	
 	charactersSchema = new Schema(
 		{
+// == General =============================================================================================================================== //
 			name: {type: String, required: true},
+			author: {type: String},
 			slug: {type: String, required: true},
+			_ref_Races: {
+				type: Schema.Types.ObjectId,
+				ref: 'Races',
+				required: true
+			},
+			_ref_Classes: {
+				type: Schema.Types.ObjectId,
+				ref: 'Classes',
+				required: true
+			},
+			_ref_Backgrounds: {
+				type: Schema.Types.ObjectId,
+				ref: 'Backgrounds',
+				required: true
+			},
+// =============================================================================================================================== General == //
+
+// == Personality ========================================================================================================================== //
+			alignment: {
+				name: String,
+				info: String
+			},
+			ideals: {type: String, maxlength: 145},
+			bonds: {type: String, maxlength: 145},
+			flaws: {type: String, maxlength: 145},
+			psychological: {type: String, maxlength: 145},
+// ========================================================================================================================== Personality == //
+
+// == Physical characteristics ============================================================================================================= //
 			skinColor: {
 				name: String,
 				cat: String,	
@@ -28,18 +59,19 @@ var	mongoose = require('mongoose'),
 				hex: String
 			},
 			gender: String,
-			alignment: {
-				name: String,
-				info: String
-			},
-			_ref_Races: {
-				type: Schema.Types.ObjectId,
-				ref: 'Races'
-			},
-			_ref_Classes: {
-				type: Schema.Types.ObjectId,
-				ref: 'Classes'
-			}
+			height: Number,
+			weight: Number,
+			physical: {type: String, maxlength: 145},
+// ============================================================================================================= Physical characteristics == //
+
+// == Abilities =========================================================================================================================== //
+			str: {type: Number, required: true},
+			dex: {type: Number, required: true},
+			con: {type: Number, required: true},
+			int: {type: Number, required: true},
+			wis: {type: Number, required: true},
+			cha: {type: Number, required: true}
+// =========================================================================================================================== Abilities == //
 		},
 		{
 			collection: 'characters'

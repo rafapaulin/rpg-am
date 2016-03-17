@@ -1,0 +1,21 @@
+<fieldset>
+	<legend>Personality</legend>
+	<div class="form-group form-inline">
+		<label for="alignment">Alignment: </label>
+		<select id="alignment" class="form-control" name="alignment" ng-model="newData.alignment" ng-options="alignment.name group by alignment.cat for alignment in alignments">
+			<option value="" hidden>-- Select alignment --</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="ideals">Ideals: </label> {{145 - newData.ideals.length}}
+		<input type="text" id="ideals" class="form-control" name="ideals" ng-model="newData.ideals">
+		<label for="bonds">Bonds: </label> {{145 - newData.bonds.length}}
+		<input type="text" id="bonds" class="form-control" name="bonds" ng-model="newData.bonds">
+		<label for="flaws">Flaws: </label>{{145 - newData.flaws.length}}
+		<input type="text" id="flaws" class="form-control" name="flaws" ng-model="newData.flaws">
+	</div>
+	<div class="form-group">
+		<label for="psychological">Psychological details: </label> {{145 - newData.psychological.length}}
+		<input type="text" id="psychological" class="form-control" name="psychological" ng-model="newData.psychological">
+	</div>
+</fieldset>

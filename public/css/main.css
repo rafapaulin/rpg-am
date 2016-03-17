@@ -100,3 +100,9 @@ a[ng-click] {
   opacity:1;
   height:20px;
 }
+
+.slider {
+  display:inline-block;
+  width: 20%;
+  margin: 0 15px;
+}

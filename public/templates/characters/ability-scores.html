@@ -6,6 +6,7 @@
 		<label><input type="radio" id="setScores"		name="setScores"	ng-model="abilityModel" value="setScores"		ng-click="redefine(); setScoreArray(dmScoreValues)"> Set scores</label><br>
 		<label><input type="radio" id="scoreRoll"		name="scoreRoll"	ng-model="abilityModel" value="scoreRoll"		ng-click="redefine()"> Scores roll</label><br>
 		<label><input type="radio" id="pointBuy"		name="pointBuy"		ng-model="abilityModel" value="pointBuy"		ng-click="redefine(); pointBuy()"> Point buy</label><br>
+		<label><input type="radio" id="ffa"				name="ffa"			ng-model="abilityModel" value="ffa"				ng-click="redefine()"> Free for all</label><br>
 	<!-- == Random fixed scores system ============================================================================================================= -->
 		<div ng-if="abilityModel === 'randomScores'">
 			<a class="btn btn-default" ng-click="randomize(dmScoreValues)">Randomize!</a>
@@ -38,7 +39,8 @@
 				<dt>Strength</dt>
 				<dd>
 					<label ng-repeat="score in selectScoreArray track by $index">
-						<input 
+						<input
+						required
 							type="radio"
 							  id="strScore-{{$index}}"
 						ng-model="$parent.scores.strScore"
@@ -50,7 +52,8 @@
 				<dt>Dexterity</dt>
 				<dd>
 					<label ng-repeat="score in selectScoreArray track by $index">
-						<input 
+						<input
+						required
 							type="radio"
 							  id="dexScore-{{$index}}"
 						ng-model="$parent.scores.dexScore"
@@ -62,7 +65,8 @@
 				<dt>Constitution</dt>
 				<dd>
 					<label ng-repeat="score in selectScoreArray track by $index">
-						<input 
+						<input
+						required
 							type="radio"
 							  id="conScore-{{$index}}"
 						ng-model="$parent.scores.conScore"
@@ -74,7 +78,8 @@
 				<dt>Intelligence</dt>
 				<dd>
 					<label ng-repeat="score in selectScoreArray track by $index">
-						<input 
+						<input
+						required
 							type="radio"
 							  id="intScore-{{$index}}"
 						ng-model="$parent.scores.intScore"
@@ -86,7 +91,8 @@
 				<dt>Wisdom</dt>
 				<dd>
 					<label ng-repeat="score in selectScoreArray track by $index">
-						<input 
+						<input
+						required
 							type="radio"
 							  id="wisScore-{{$index}}"
 						ng-model="$parent.scores.wisScore"
@@ -98,7 +104,8 @@
 				<dt>Charisma</dt>
 				<dd>
 					<label ng-repeat="score in selectScoreArray track by $index">
-						<input 
+						<input
+						required
 							type="radio"
 							  id="chaScore-{{$index}}"
 						ng-model="$parent.scores.chaScore"
@@ -110,7 +117,7 @@
 		</div>
 	<!-- =========================================================================================================== Selected fixed scores system == -->
 
-	<!-- == Top 3 out of 4d6 roll system =========================================================================================================== -->
+	<!-- == Top 3 out of xd6 roll system =========================================================================================================== -->
 		<div ng-if="abilityModel === 'scoreRoll'">
 			<a class="btn btn-default" ng-click="roll(	)">Roll!</a>
 			<a class="btn btn-default" ng-click="resetRadios()">Reset!</a>
@@ -137,6 +144,7 @@
 						<dd>
 							<label ng-repeat="score in rolledScores track by $index">
 								<input
+								required
 									type="radio"
 									  id="strScore-{{$index}}"
 								ng-model="$parent.scores.strScore" 
@@ -148,6 +156,7 @@
 						<dd>
 							<label ng-repeat="score in rolledScores track by $index">
 								<input
+								required
 									type="radio"
 									  id="dexScore-{{$index}}"
 								ng-model="$parent.scores.dexScore" 
@@ -159,6 +168,7 @@
 						<dd>
 							<label ng-repeat="score in rolledScores track by $index">
 								<input
+								required
 									type="radio"
 									  id="conScore-{{$index}}"
 								ng-model="$parent.scores.conScore" 
@@ -170,6 +180,7 @@
 						<dd>
 							<label ng-repeat="score in rolledScores track by $index">
 								<input
+								required
 									type="radio"
 									  id="intScore-{{$index}}"
 								ng-model="$parent.scores.intScore" 
@@ -181,6 +192,7 @@
 						<dd>
 							<label ng-repeat="score in rolledScores track by $index">
 								<input
+								required
 									type="radio"
 									  id="wisScore-{{$index}}"
 								ng-model="$parent.scores.wisScore" 
@@ -192,6 +204,7 @@
 						<dd>
 							<label ng-repeat="score in rolledScores track by $index">
 								<input
+								required
 									type="radio"
 									  id="chaScore-{{$index}}"
 								ng-model="$parent.scores.chaScore" 
@@ -233,4 +246,28 @@
 			</dl>
 		</div>
 	<!-- ======================================================================================================================= Point buy system == -->
+
+	<!-- == Free for all system =================================================================================================================== -->
+		<div ng-if="abilityModel === 'ffa'" class="form-inline">
+			<dl class="dl-horizontal">
+				<dt><label for="strScore">Strength: </label></dt>
+				<dd><input type="number" id="strScore" class="form-control" name="strScore" max="20" required ng-model="scores.strScore"></dd>
+
+				<dt><label for="strScore">Dexterity: </label></dt>
+				<dd><input type="number" id="dexScore" class="form-control" name="dexScore" max="20" required ng-model="scores.dexScore"></dd>
+
+				<dt><label for="strScore">Constitution: </label></dt>
+				<dd><input type="number" id="conScore" class="form-control" name="conScore" max="20" required ng-model="scores.conScore"></dd>
+
+				<dt><label for="strScore">Intelligence: </label></dt>
+				<dd><input type="number" id="intScore" class="form-control" name="intScore" max="20" required ng-model="scores.intScore"></dd>
+
+				<dt><label for="strScore">Wisdom: </label></dt>
+				<dd><input type="number" id="wisScore" class="form-control" name="wisScore" max="20" required ng-model="scores.wisScore"></dd>
+
+				<dt><label for="strScore">Charisma: </label></dt>
+				<dd><input type="number" id="chaScore" class="form-control" name="chaScore" max="20" required ng-model="scores.chaScore"></dd>
+			</dl>
+		</div>
+	<!-- =================================================================================================================== Free for all system == -->
 </fieldset>

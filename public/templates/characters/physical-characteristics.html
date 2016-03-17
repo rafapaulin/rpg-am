@@ -1,0 +1,66 @@
+<fieldset>
+	<legend>Physical characteristics</legend>
+
+	<div class="form-group form-inline">
+		<label for="skinColor">Skin color: </label>
+		<select id="skinColor" class="form-control" name="skinColor" ng-model="newData.skinColor" ng-options="skinColor.name group by skinColor.cat for skinColor in skinColors">
+			<option value="" hidden>-- Select skin color --</option>
+		</select>
+		<div style="width: 30px; height: 30px; background-color: {{newData.skinColor.hex}}; display: inline-block; border: 1px solid"></div>
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="eyeColor">Eye color: </label>
+		<select id="eyeColor" class="form-control" name="eyeColor" ng-model="newData.eyeColor" ng-options="eyeColor.name group by eyeColor.cat for eyeColor in eyeColors">
+			<option value="" hidden>-- Select eye color --</option>
+		</select>
+		<div style="width: 30px; height: 30px; background-color: {{newData.eyeColor.hex}}; display: inline-block; border: 1px solid"></div>
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="hairColor">Hair color: </label>
+		<select id="hairColor" class="form-control" name="hairColor" ng-model="newData.hairColor" ng-options="hairColor.name group by hairColor.cat for hairColor in hairColors">
+			<option value="" hidden>-- Select hair color --</option>
+		</select>
+		<div style="width: 30px; height: 30px; background-color: {{newData.hairColor.hex}}; display: inline-block; border: 1px solid"></div>
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="beardColor">Beard color: </label>
+		<select id="beardColor" class="form-control" name="beardColor" ng-model="newData.beardColor" ng-options="beardColor.name group by beardColor.cat for beardColor in hairColors">
+			<option value="" hidden>-- Select beard color --</option>
+		</select>
+		<div style="width: 30px; height: 30px; background-color: {{newData.beardColor.hex}}; display: inline-block; border: 1px solid"></div>
+	</div>
+	
+	<div class="form-group form-inline">
+		<label for="">Gender: </label>
+		<label><input type="radio" ng-model="newData.gender" value="Male"> Male</label>
+		<label><input type="radio" ng-model="newData.gender" value="Female"> Female</label>
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="height">Height: </label>
+		<input slider type="text" ng-model="height" id="height" name="height" options="{from: 0, to: 300, step: 1, realtime: true, className:'slider'}" />
+		<select id="heightUnit" class="form-control" name="heightUnit" required ng-model="heightUnit" ng-options="unit.name group by unit.system for unit in lengthUnits | orderBy: unit.toMeter | filter: {name:'!Touch'} | filter: {name:'!Feet'} | filter: {name:'!Miles'} | filter: {name:'!Meters'}:true | filter: {name:'!Kilometers'}">
+			<option value="" hidden>-- Select unit --</option>
+		</select>
+		<span ng-hide="heightUnit.name == null || undefined">
+			<span ng-if="heightUnit.short == 'cm'">{{height / 100 | floor}}.{{height % 100}}m</span>
+			<span ng-if="heightUnit.short == 'in'">{{height / 12 | floor}}{{heightUnit.short}} {{height % 12}}{{heightUnit.short}}</span>
+		</span>
+
+		<label for="weight">Weight: </label>
+		<input slider type="text" ng-model="weight" id="weight" name="weight" options="{from: 0, to: 500, step: 1, realtime: true, className:'slider'}" />
+		<select id="weightUnit" class="form-control" name="weightUnit" required ng-model="weightUnit" ng-options="unit.name group by unit.system for unit in weightUnits | orderBy: unit.toKg | filter: {name:'!Ounces'} | filter:{name:'!Grams'}:true | filter: {name:'!Tons'}">
+			<option value="" hidden>-- Select unit --</option>
+		</select>
+
+		<span ng-hide="weightUnit.name == null || undefined">{{weight}}{{weightUnit.short}}</span>
+	</div>
+
+	<div class="form-group">
+		<label for="physical">Physical details: </label> {{145 - newData.physical.length}}
+		<input type="text" id="physical" class="form-control" name="physical" ng-model="newData.physical">
+	</div>
+</fieldset>
