@@ -2,7 +2,11 @@
 // == Requirements ================================================================= //
 	var bodyParser = require('body-parser'),
 		  mongoose = require('mongoose').connect('mongodb://127.0.0.1/test'),
-		   express = require('express');
+			 flash = require('connect-flash'),
+		   express = require('express'),
+		   session = require('express-session'),
+		  passport = require('passport'),
+	 LocalStrategy = require('passport-local').Strategy;
 		 
 // ================================================================= Requirements == //
 
@@ -14,8 +18,16 @@
 // ============================================================= Global Variables == //
 
 // == Middlewares ================================================================== //
-	app.use(bodyParser.json());
 	app.use(express.static('public'));
+	app.use(session({
+		secret: 'keyboard cat',
+		resave: false,
+		saveUninitialized: true
+	}));
+	app.use(bodyParser.json());
+	app.use(passport.initialize());
+	app.use(passport.session());
+	app.use(flash());
 	app.use('/', general);
 // ================================================================== Middlewares == //
 

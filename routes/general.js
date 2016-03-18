@@ -53,13 +53,13 @@
 
 // == Update Item ================================================================== //
 	.put('/:collection/:slug', function(req, res){
-		req.body.slug = slug(req.body.name, { // Automatic generate slugs based on name
-			replacement: '-',				  // replace spaces with replacement 
-			symbols: true,					  // replace unicode symbols or not 
-			remove: null,					  // (optional) regex to remove characters 
-			lower: true,					  // result in lower case 
-			charmap: slug.charmap,			  // replace special characters 
-			multicharmap: slug.multicharmap	  // replace multi-characters 
+		req.body.slug = slug(req.body.name, { 		// Automatic generate slugs based on name
+			replacement: '-',				  		// replace spaces with replacement 
+			symbols: true,					  		// replace unicode symbols or not 
+			remove: null,					  		// (optional) regex to remove characters 
+			lower: true,					  		// result in lower case 
+			charmap: slug.charmap,			  		// replace special characters 
+			multicharmap: slug.multicharmap	  		// replace multi-characters 
 		});
 
 		modelNamer(req.params.collection)
@@ -78,6 +78,7 @@
 
 // == Create new items ============================================================= //
 	.post('/:collection', function(req, res){
+
 		if(req.body.name) {
 			req.body.slug = slug(req.body.name, { // Automatic generate slugs based on name
 				replacement: '-',				  // replace spaces with replacement 
@@ -103,6 +104,7 @@
 	})
 // ============================================================= Create new items == //
 
+
 // == Delete items ================================================================= //
 	.delete('/:collection/:slug', function(req, res){
 		modelNamer(req.params.collection)
@@ -116,5 +118,9 @@
 			});
 	});
 // ================================================================= Delete items == //
+
+
+
+
 
 module.exports = router;
