@@ -5,6 +5,8 @@
 		  colors = require('colors'),
 		  logger = require("../services/logger"),
 		  router = express.Router(),
+		passport = require('passport'),
+   LocalStrategy = require('passport-local').Strategy,
 			slug = require('slug');
 // ================================================================= Requirements == //
 
@@ -12,10 +14,27 @@
 	var modelNamer = function(collection){ 
 		return require('../schemas/' + collection + 'Schema') 
 	};
+
+	router.post('/login', 
+		function(req, res, next){
+			require('../schemas/usersSchema');
+			passport.authenticate('local', function(err, user, info){
+				if (err) return next(err);
+				if (user) {
+					if (err) return next(err);
+					res.json();
+				} else {
+					res.status(400).json(info);
+				}
+			})(req, res, next);	
+		}
+	)
+
+
 // == Global Variables ============================================================= //
 
 // == Get Item List ================================================================ //
-	router.get('/:collection', function(req, res){
+	.get('/:collection', function(req, res){
 		modelNamer(req.params.collection)
 			.find(function(err, docs){
 				if (err) {
@@ -64,10 +83,8 @@
 
 		modelNamer(req.params.collection)
 			.findOneAndUpdate({'slug': req.params.slug}, req.body, function(err){
-				console.log(req.body);
 				if(err) {
 					res.status(500).json(err);
-					console.log(err);
 				} else {
 					res.status(201).json({message: req.body.name + ' updated!', 'slug': req.body.slug});
 					logger().info(req.body.name + ' updated!', req.body);
@@ -78,29 +95,29 @@
 
 // == Create new items ============================================================= //
 	.post('/:collection', function(req, res){
+		if(req.params.collection !== 'login'){
+			if(req.body.name) {
+				req.body.slug = slug(req.body.name, { // Automatic generate slugs based on name
+					replacement: '-',				  // replace spaces with replacement 
+					symbols: true,					  // replace unicode symbols or not 
+					remove: null,					  // (optional) regex to remove characters 
+					lower: true,					  // result in lower case 
+					charmap: slug.charmap,			  // replace special characters 
+					multicharmap: slug.multicharmap	  // replace multi-characters 
+				});
+			};
+			new modelNamer(req.params.collection)(req.body)
+				.save(function(err){
+					if(err) {
+						logger().debug(err);
+						res.status(500).json(err.errors);
 
-		if(req.body.name) {
-			req.body.slug = slug(req.body.name, { // Automatic generate slugs based on name
-				replacement: '-',				  // replace spaces with replacement 
-				symbols: true,					  // replace unicode symbols or not 
-				remove: null,					  // (optional) regex to remove characters 
-				lower: true,					  // result in lower case 
-				charmap: slug.charmap,			  // replace special characters 
-				multicharmap: slug.multicharmap	  // replace multi-characters 
-			});
-		};
-
-		new modelNamer(req.params.collection)(req.body)
-			.save(function(err){
-				if(err) {
-					logger().debug(err);
-					res.status(500).json(err.errors);
-
-				} else {
-					res.status(201).json({'message': req.body.name + ' successfully created'});
-					logger().info(req.body.name + '  saved!', req.body);
-				}
-			});
+					} else {
+						res.status(201).json({'message': req.body.name + ' successfully created'});
+						logger().info(req.body.name + '  saved!', req.body);
+					}
+				});
+		}
 	})
 // ============================================================= Create new items == //
 
