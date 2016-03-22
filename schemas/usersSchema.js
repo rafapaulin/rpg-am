@@ -1,60 +1,26 @@
 'use strict';
-var mongoose = require('mongoose'),
-	 uniqueV = require('mongoose-unique-validator'),
-	  Schema = mongoose.Schema,
-	  bcrypt = require('bcrypt'),
-  saltFactor = 10,
-
+var    mongoose = require('mongoose'),
+	    uniqueV = require('mongoose-unique-validator'),
+	     Schema = mongoose.Schema,
+	     bcrypt = require('bcrypt'),
+     saltFactor = 10,
+     
 	usersSchema = new Schema(
 		{
-// == General =============================================================================================================================== //
+// == General ================================================================================================================================= //
 			name: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// username
 			password: {type: String, required: true, minlength: 3},
 			slug: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok - Automatic on backend - based on name
-			// firstName: {type: String, required: true, minlength: 3},
-			// lastName: {type: String, required: true, minlength: 3},
-			// country: {type: String, required: true, minlength: 3},
-// =============================================================================================================================== General == //
+			//firstName: {type: String, required: true, minlength: 3},
+			//lastName: {type: String, required: true, minlength: 3},
+			email: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true}
+			//country: {type: String, required: true, minlength: 3}
+// ================================================================================================================================= General == //
 		},
 		{
 			'collection': 'users'
 		}
 	);
-
-
-usersSchema.plugin(uniqueV);														// validate unique values
-
-
-
-
-	var passport = require('passport'),
-		LocalStrategy = require('passport-local').Strategy;
-
-	passport.use(new LocalStrategy(
-		function(username, password, done) {
-			require('../schemas/usersSchema').findOne({ name: username }, function(err, user) {
-				if (err) { return done(err); }
-
-				if (!user) {
-					console.log('not user');
-					return done(null, false, { message: 'Incorrect username.' });
-				}
-
-				user.validPassword(password, 
-					function(err, isMatch){
-						if(err) throw err;
-						if(!isMatch){
-							console.log('not valid password');
-							return done(null, false, { message: 'Incorrect password wee.' });
-						} else {
-							return done(null, user);
-						}
-					}) 
-				
-			});
-		}
-	));
-
 
 // == Password hashing ====================================================================================================================== //
 	usersSchema.pre('save', function(next) {
@@ -75,23 +41,16 @@ usersSchema.plugin(uniqueV);														// validate unique values
 	});
 // ====================================================================================================================== Password hashing == //
 
-
 // == Password verification ================================================================================================================= //
 	usersSchema.methods.validPassword = function(candidatePassword, cb) {
-		console.log(candidatePassword);
-		console.log(this.password);
 		bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
 			if (err) return cb(err);
 			console.log('isMatch? ' + isMatch)
 			cb(null, isMatch);
 		});
 	};
-
-	// usersSchema.methods.validPassword = function( pwd ) {
-	// 	// EXAMPLE CODE!
-	// 	return ( this.password === pwd );
-	// };
-
 // ================================================================================================================= Password verification == //
 
-module.exports = mongoose.model('Users', usersSchema);
+usersSchema.plugin(uniqueV);							// validate unique values
+
+module.exports = mongoose.model('Users', usersSchema);	// Export module

@@ -6,81 +6,70 @@
 		  logger = require("../services/logger"),
 		  router = express.Router(),
 		passport = require('passport'),
-   LocalStrategy = require('passport-local').Strategy,
 			slug = require('slug');
+
+	require('../services/passport');
 // ================================================================= Requirements == //
 
-// == Global Variables ============================================================= //
+// == Global Variables and functions =============================================== //
 	var modelNamer = function(collection){ 
 		return require('../schemas/' + collection + 'Schema') 
-	};
-
-	router.post('/login', 
-		function(req, res, next){
-			require('../schemas/usersSchema');
-			passport.authenticate('local', function(err, user, info){
-				if (err) return next(err);
-				if (user) {
-					if (err) return next(err);
-					res.json();
-				} else {
-					res.status(400).json(info);
-				}
-			})(req, res, next);	
-		}
-	)
-
-
-// == Global Variables ============================================================= //
-
-// == Get Item List ================================================================ //
-	.get('/:collection', function(req, res){
-		modelNamer(req.params.collection)
-			.find(function(err, docs){
-				if (err) {
-					logger().debug(err.errors);
-				}
-				res.json(docs);
+	},
+		slugger = function(name){					// Automatic generate slugs based on name
+			req.body.slug = slug(name, {
+				replacement: '-',					// replace spaces with replacement 
+				symbols: true,						// replace unicode symbols or not 
+				remove: null,						// (optional) regex to remove characters 
+				lower: true,						// result in lower case 
+				charmap: slug.charmap,				// replace special characters 
+				multicharmap: slug.multicharmap		// replace multi-characters 
 			});
-		logger().info('GET request recieved for "/' + req.params.collection + '"'); // Debug
-	})
-// ================================================================ Get item List == //
+		};
+// =============================================== Global Variables and functions == //
 
-// == Get Item ===================================================================== //
-	.get('/:collection/:slug', function(req, res){
-		var refs = [],															// Set up variable
-			 pop = '';															// *
-		modelNamer(req.params.collection)
-			.findOne({'slug': req.params.slug}, function(err, doc){				// Get the requested document to deal with data
-				for (var key in doc) {											// Iterate through each document key for referenced documents
-					if(key.indexOf('_ref_') > -1) {								// Use property prefix as validator
-						refs.push(key);											// Create an array of the properties that are referenced documents
-						modelNamer(key.slice(5).toLowerCase());					// Require schemas only for the referenced documents
+// == Get Item or list ============================================================= //
+	router.get('/:collection/:slug?', function(req, res){
+		if(!req.params.slug){												// If optional slug param exists
+			modelNamer(req.params.collection)
+				.find(function(err, docs){
+					if (err) {
+						logger().debug(err.errors);							// Error log
 					}
-				};
-				pop = refs.join(' ');											// Convert the properties array in a space separated string to use in .populate()
-				modelNamer(req.params.collection)
-					.findOne({'slug': req.params.slug}, function(err, doc){		// Get the requested document to send to front end
-						if (err) {
-							logger().debug(err.errors);
+					res.json(docs);											// Respond list of items to cient
+				});
+
+			logger().info('GET request recieved for "/' + req.params.collection + '"'); // Debug
+
+		} else {															// If optional slug param does not exist
+			var refs = [],													// Set up variable
+				 pop = '';													// *
+			modelNamer(req.params.collection)
+				.findOne({'slug': req.params.slug}, function(err, doc){		// Get the requested document to deal with data
+					for (var key in doc) {									// Iterate through each document key for referenced documents
+						if(key.indexOf('_ref_') > -1) {						// Use property prefix as validator
+							refs.push(key);									// Create an array of the properties that are referenced documents
+							modelNamer(key.slice(5).toLowerCase());			// Require schemas only for the referenced documents
 						}
-						res.json(doc);
-					}).populate(pop);											// Populate referenced documents
-			});
+					};
+					pop = refs.join(' ');									// Convert the properties array in a space separated string to use in .populate()
+					modelNamer(req.params.collection)
+						.findOne({'slug': req.params.slug}, 
+							function(err, doc){								// Get the requested document to send to front end
+								if (err) {
+									logger().debug(err.errors);
+								}
+								res.json(doc);
+							}).populate(pop);								// Populate referenced documents
+				});
+
+			logger().info('GET request recieved for "/' + req.params.collection + '/' + req.params.slug + '"'); // Debug
+		}
 	})
-// ==================================================================== Get items == //
+// ============================================================= Get Item or list == //
 
 // == Update Item ================================================================== //
 	.put('/:collection/:slug', function(req, res){
-		req.body.slug = slug(req.body.name, { 		// Automatic generate slugs based on name
-			replacement: '-',				  		// replace spaces with replacement 
-			symbols: true,					  		// replace unicode symbols or not 
-			remove: null,					  		// (optional) regex to remove characters 
-			lower: true,					  		// result in lower case 
-			charmap: slug.charmap,			  		// replace special characters 
-			multicharmap: slug.multicharmap	  		// replace multi-characters 
-		});
-
+		slugger(req.body.name);							// Automatic generate slugs based on name
 		modelNamer(req.params.collection)
 			.findOneAndUpdate({'slug': req.params.slug}, req.body, function(err){
 				if(err) {
@@ -93,18 +82,32 @@
 	})
 // ================================================================== Update Item == //
 
-// == Create new items ============================================================= //
-	.post('/:collection', function(req, res){
-		if(req.params.collection !== 'login'){
+// == Create new items or user login ============================================== //
+	.post('/:collection', function(req, res, next){
+
+		if(req.params.collection == 'login'){				// If the POST request is login attempt
+			require('../schemas/usersSchema');				// Load Users model
+			passport.authenticate('login', 					// Autenticate user using local strategy
+				function(err, user, info){
+					if (err) return next(err);
+					if (user) {
+						if (err) return next(err);
+						res.json(user);
+
+			            req.login(user, function (err) {
+			                if (err) throw err;
+			            })
+
+
+					} else {
+						res.status(400).json(info);
+					}
+					console.log('req? ' + req.session.passport.user);
+				})(req, res, next);
+
+		} else {											// If the POST request is new info
 			if(req.body.name) {
-				req.body.slug = slug(req.body.name, { // Automatic generate slugs based on name
-					replacement: '-',				  // replace spaces with replacement 
-					symbols: true,					  // replace unicode symbols or not 
-					remove: null,					  // (optional) regex to remove characters 
-					lower: true,					  // result in lower case 
-					charmap: slug.charmap,			  // replace special characters 
-					multicharmap: slug.multicharmap	  // replace multi-characters 
-				});
+				slugger(req.body.name);						// Automatic generate slugs based on name
 			};
 			new modelNamer(req.params.collection)(req.body)
 				.save(function(err){
@@ -119,7 +122,7 @@
 				});
 		}
 	})
-// ============================================================= Create new items == //
+// ============================================== Create new items or user login == //
 
 
 // == Delete items ================================================================= //
@@ -130,7 +133,7 @@
 					logger().debug(err.errors);
 				} else {
 					logger().info('Deletado com sucesso');
-					res.status(200).json({'message': 'Deletado com sucesso'});
+					res.status(200).json({message: 'Deletado com sucesso'});
 				}
 			});
 	});

@@ -4,27 +4,31 @@
 		  mongoose = require('mongoose').connect('mongodb://127.0.0.1/test'),
 			 flash = require('connect-flash'),
 		   express = require('express'),
+	  cookieParser = require('cookie-parser'),
 		   session = require('express-session'),
 		  passport = require('passport'),
-	 LocalStrategy = require('passport-local').Strategy;
+			logger = require("./services/logger"),
+		   general = require('./routes/general');
 		 
 // ================================================================= Requirements == //
 
 // == Global Variables ============================================================= //
 	var app = express(),
-		 db = mongoose.connection,
-	 logger = require("./services/logger"),
-	general = require('./routes/general');
+		 db = mongoose.connection;
 // ============================================================= Global Variables == //
 
 // == Middlewares ================================================================== //
 	app.use(express.static('public'));
-	app.use(session({
-		secret: 'keyboard cat',
-		resave: false,
-		saveUninitialized: true
-	}));
+	app.use(cookieParser());
 	app.use(bodyParser.json());
+	app.use(session({
+		secret: 'cha-lah, head cha-lah... não importa o que aconteça....',
+		resave: false,
+		saveUninitialized: true,
+		cookie: { 
+			secure: false
+		}
+	}));
 	app.use(passport.initialize());
 	app.use(passport.session());
 	app.use(flash());

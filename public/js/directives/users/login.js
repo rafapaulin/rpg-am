@@ -1,17 +1,17 @@
 'use strict';
 angular.module('rpg')
-	.directive('userSignIn', ['Lists', 'Crud', '$timeout', function(Lists, Crud, $timeout){
+	.directive('userLogin', ['Lists', 'Crud', '$timeout', function(Lists, Crud, $timeout){
 	
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/users/sign-in.html',
+			templateUrl: '/templates/users/login.html',
 			scope: false,
 			link: function(scope, element){
 				scope.auth = function(data){
 					Crud.post('login', data)
 						.then(function(res){									// Success response to user
 							console.log(res);
-							scope.success = 'Welcome ' + data.username;					// Set response to property
+							scope.success = 'Welcome ' + res.data.name;		// Set response to property
 							$timeout(function(){scope.success = null}, 3000);	// Variable clean up on success (General success message)
 							scope.user = {};									// Variable clean up on success (General data submited to database)
 						})
