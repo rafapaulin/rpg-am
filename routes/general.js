@@ -14,7 +14,8 @@
 // == Global Variables and functions =============================================== //
 	var modelNamer = function(collection){ 
 		return require('../schemas/' + collection + 'Schema') 
-	},
+		},
+
 		slugger = function(name){					// Automatic generate slugs based on name
 			req.body.slug = slug(name, {
 				replacement: '-',					// replace spaces with replacement 
@@ -24,11 +25,23 @@
 				charmap: slug.charmap,				// replace special characters 
 				multicharmap: slug.multicharmap		// replace multi-characters 
 			});
-		};
+		},
+
+		isLoggedIn = function (req, res, next) {
+
+			// if user is authenticated in the session, carry on 
+			if (req.isAuthenticated()){
+				console.log('Autenticado!!!');
+				return next();
+			}
+
+			// if they aren't redirect them to the home page
+			console.log('MERDA, não autenticado!!!');
+		}
 // =============================================== Global Variables and functions == //
 
 // == Get Item or list ============================================================= //
-	router.get('/:collection/:slug?', function(req, res){
+	router.get('/:collection/:slug?', isLoggedIn, function(req, res){
 		if(!req.params.slug){												// If optional slug param exists
 			modelNamer(req.params.collection)
 				.find(function(err, docs){
@@ -89,20 +102,24 @@
 			require('../schemas/usersSchema');				// Load Users model
 			passport.authenticate('login', 					// Autenticate user using local strategy
 				function(err, user, info){
+					console.log(user);
 					if (err) return next(err);
 					if (user) {
 						if (err) return next(err);
-						res.json(user);
+						//res.json(user);
 
 			            req.login(user, function (err) {
-			                if (err) throw err;
+			                if (err) {
+			                	return next(err); 
+			                }
 			            })
-
-
+			            //res.redirect('/');
+			            res.json(user);
+			            console.log(req.session);
+			            console.log('\n\nuser\n' + req.user);
 					} else {
 						res.status(400).json(info);
 					}
-					console.log('req? ' + req.session.passport.user);
 				})(req, res, next);
 
 		} else {											// If the POST request is new info

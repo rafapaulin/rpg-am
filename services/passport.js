@@ -4,6 +4,7 @@ var		 passport = require('passport'),
 
 // == LOCAL login strategy ========================================================================================================== //
 	passport.use('login', new LocalStrategy(
+		//{passReqToCallback: true},
 		function(username, password, done) {
 			User.findOne({$or: [ {name: username}, {email: username} ]},							// Try to login using username or email
 				function(err, user) {
@@ -33,17 +34,14 @@ var		 passport = require('passport'),
 // ========================================================================================================== LOCAL login strategy == //
 
 passport.serializeUser(function(user, done) {
-	console.log(user);
-	done(null, user._id);
+	console.log('serializou!');
+	done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
 	console.log(id);
+	console.log('deserializou!');
 	User.findById(id, function(err, user) {
-		if(err){
-			done(err);
-		}
 		done(null, user);
 	});
-	console.log(req.user)
 });
