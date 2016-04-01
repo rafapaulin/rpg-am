@@ -7,8 +7,6 @@
 		  router = express.Router(),
 		passport = require('passport'),
 			slug = require('slug');
-
-	require('../services/passport');
 // ================================================================= Requirements == //
 
 // == Global Variables and functions =============================================== //
@@ -28,15 +26,13 @@
 		},
 
 		isLoggedIn = function (req, res, next) {
-
-			// if user is authenticated in the session, carry on 
-			if (req.isAuthenticated()){
+			if (req.isAuthenticated()){						// If user is authenticated in the session, carry on 
 				console.log('Autenticado!!!');
 				return next();
+			} else {
+				console.log('MERDA, não autenticado!!!');	// If user is not authenticated do something
+				return next();
 			}
-
-			// if they aren't redirect them to the home page
-			console.log('MERDA, não autenticado!!!');
 		}
 // =============================================== Global Variables and functions == //
 
@@ -95,36 +91,42 @@
 	})
 // ================================================================== Update Item == //
 
-// == Create new items or user login ============================================== //
-	.post('/:collection', function(req, res, next){
+// == Create new items or user login =============================================== //
+	.post('/:collection/:slug?', function(req, res, next){
+		if(req.params.collection == 'login'){					// Check if the POST request is login attempt
+			require('../services/passport');					// Load passport
+			require('../schemas/usersSchema');					// Load Users model
 
-		if(req.params.collection == 'login'){				// If the POST request is login attempt
-			require('../schemas/usersSchema');				// Load Users model
-			passport.authenticate('login', 					// Autenticate user using local strategy
-				function(err, user, info){
-					console.log(user);
-					if (err) return next(err);
-					if (user) {
+	// -- Local Strategy Login ----------------------------------------------------- //
+			if(req.params.slug && req.params.slug == 'local'){
+				passport.authenticate('local', 						// Autenticate user using local strategy
+					function(err, user, info){
 						if (err) return next(err);
-						//res.json(user);
-
-			            req.login(user, function (err) {
-			                if (err) {
-			                	return next(err); 
-			                }
-			            })
-			            //res.redirect('/');
-			            res.json(user);
-			            console.log(req.session);
-			            console.log('\n\nuser\n' + req.user);
-					} else {
-						res.status(400).json(info);
-					}
+						if (user) {									// Check for user
+							if (err) return next(err);
+							req.login(user, function (err) {		// Stabilishes Session for the user
+								if (err) return next(err);
+							})
+							res.json(user);
+						} else {
+							res.status(500).json(info);				// Send error object to front end
+						}
+					})(req, res, next);
+			}
+	// ----------------------------------------------------- Local Strategy Login -- //
+			else if(req.params.slug && req.params.slug == 'facebook'){
+				console.log('login face');
+				passport.authenticate('facebook',
+					function(err, user, info){
+						console.log(user);
 				})(req, res, next);
+			}
 
-		} else {											// If the POST request is new info
+
+
+		} else {												// If the POST request is new info
 			if(req.body.name) {
-				slugger(req.body.name);						// Automatic generate slugs based on name
+				slugger(req.body.name);							// Automatic generate slugs based on name
 			};
 			new modelNamer(req.params.collection)(req.body)
 				.save(function(err){

@@ -1,10 +1,11 @@
 'use strict';
-var    mongoose = require('mongoose'),
-	    uniqueV = require('mongoose-unique-validator'),
-	     Schema = mongoose.Schema,
-	     bcrypt = require('bcrypt'),
-     saltFactor = 10,
-     
+var		mongoose = require('mongoose'),
+		 uniqueV = require('mongoose-unique-validator'),
+		  Schema = mongoose.Schema,
+		  bcrypt = require('bcrypt'),
+	  saltFactor = 10,
+	findOrCreate = require('mongoose-findorcreate'),
+
 	usersSchema = new Schema(
 		{
 // == General ================================================================================================================================= //
@@ -52,5 +53,6 @@ var    mongoose = require('mongoose'),
 // ================================================================================================================= Password verification == //
 
 usersSchema.plugin(uniqueV);							// validate unique values
+usersSchema.plugin(findOrCreate);						// Find or create user plugin
 
 module.exports = mongoose.model('Users', usersSchema);	// Export module

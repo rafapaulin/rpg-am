@@ -1,12 +1,12 @@
-var		 passport = require('passport'),
-	LocalStrategy = require('passport-local').Strategy,
-			 User = require('../schemas/usersSchema');
+var			 passport = require('passport'),
+		LocalStrategy = require('passport-local').Strategy,
+	 FacebookStrategy = require('passport-facebook').Strategy,
+				 User = require('../schemas/usersSchema');
 
 // == LOCAL login strategy ========================================================================================================== //
-	passport.use('login', new LocalStrategy(
-		//{passReqToCallback: true},
+	passport.use('local', new LocalStrategy (
 		function(username, password, done) {
-			User.findOne({$or: [ {name: username}, {email: username} ]},							// Try to login using username or email
+			User.findOne({$or: [ {name: username}, {email: username} ]},						// Try to login using username or email
 				function(err, user) {
 					if (err) return done(err);
 
@@ -33,13 +33,30 @@ var		 passport = require('passport'),
 	));
 // ========================================================================================================== LOCAL login strategy == //
 
+
+
+passport.use('facebook', new FacebookStrategy (
+	{
+		clientID: '890656767746313',
+		clientSecret: '491e79739122a45e785d1e36f8fe7926',
+		callbackURL: "/"
+	}, 
+	function(accessToken, refreshToken, profile, done) {
+		console.log('accessToken: ' + accessToken + '\nrefreshToken: ' + refreshToken + '\nprofile: ' + profile + '\ndone: ' + done);
+		// User.findOrCreate({}, function(err, user) {
+		// 	if (err) { return done(err); }
+		// 	done(null, user);
+		// });
+	}
+));
+
+
 passport.serializeUser(function(user, done) {
 	console.log('serializou!');
 	done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-	console.log(id);
 	console.log('deserializou!');
 	User.findById(id, function(err, user) {
 		done(null, user);
