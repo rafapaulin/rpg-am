@@ -8,7 +8,7 @@ angular.module('rpg')
 			scope: false,
 			link: function(scope, element){
 				scope.authLocal = function(data){
-					Crud.login('login', 'local', data)
+					Crud.login('auth', 'local', data)
 						.then(function(res){									// Success response to user
 							console.log(res);
 							scope.success = 'Welcome ' + res.data.name;			// Set response to property
@@ -25,7 +25,7 @@ angular.module('rpg')
 				};
 				
 				scope.authFace = function(){
-					Crud.login('login', 'facebook', {})
+					Crud.getOne('auth', 'facebook')
 						.then(function(res){									// Success response to user
 							console.log(res);
 							scope.success = 'Welcome ' + res.data.name;			// Set response to property

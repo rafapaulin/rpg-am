@@ -1,7 +1,8 @@
 var			 passport = require('passport'),
 		LocalStrategy = require('passport-local').Strategy,
 	 FacebookStrategy = require('passport-facebook').Strategy,
-				 User = require('../schemas/usersSchema');
+				 User = require('../schemas/usersSchema'),
+			   config = require('../services/oauth');
 
 // == LOCAL login strategy ========================================================================================================== //
 	passport.use('local', new LocalStrategy (
@@ -33,22 +34,28 @@ var			 passport = require('passport'),
 	));
 // ========================================================================================================== LOCAL login strategy == //
 
+// passport.use('facebook', new FacebookStrategy (config.facebook,
+// 	function(accessToken, refreshToken, profile, done) {
+// 		console.log('alguma coisa?');done(err, user);
+// 		return done(null, profile);
+// 		// User.findOrCreate({}, function(err, user) {
+// 		// 	if (err) { return done(err); }
+// 		// 	done(err, user);
+// 		// });
+// 	}
+// ));
 
 
-passport.use('facebook', new FacebookStrategy (
-	{
-		clientID: '890656767746313',
-		clientSecret: '491e79739122a45e785d1e36f8fe7926',
-		callbackURL: "/"
-	}, 
-	function(accessToken, refreshToken, profile, done) {
-		console.log('accessToken: ' + accessToken + '\nrefreshToken: ' + refreshToken + '\nprofile: ' + profile + '\ndone: ' + done);
-		// User.findOrCreate({}, function(err, user) {
-		// 	if (err) { return done(err); }
-		// 	done(null, user);
-		// });
-	}
-));
+passport.use(new FacebookStrategy(config.facebook,
+  function(accessToken, refreshToken, profile, cb) {
+  	console.log(profile);
+    // In this example, the user's Facebook profile is supplied as the user
+    // record.  In a production-quality application, the Facebook profile should
+    // be associated with a user record in the application's database, which
+    // allows for account linking and authentication with other identity
+    // providers.
+    return cb(null, profile);
+  }));
 
 
 passport.serializeUser(function(user, done) {

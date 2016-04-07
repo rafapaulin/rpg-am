@@ -9,7 +9,7 @@
 			slug = require('slug');
 // ================================================================= Requirements == //
 
-// == Global Variables and functions =============================================== //
+// == Routing functions and middlewares ============================================ //
 	var modelNamer = function(collection){ 
 		return require('../schemas/' + collection + 'Schema') 
 		},
@@ -25,7 +25,7 @@
 			});
 		},
 
-		isLoggedIn = function (req, res, next) {
+		isLoggedIn = function(req, res, next) {
 			if (req.isAuthenticated()){						// If user is authenticated in the session, carry on 
 				console.log('Autenticado!!!');
 				return next();
@@ -33,12 +33,32 @@
 				console.log('MERDA, não autenticado!!!');	// If user is not authenticated do something
 				return next();
 			}
-		}
+		},
+
+		facebookLogin = function(req, res, next) {
+			if(req.params.collection == 'auth' && req.params.slug == 'facebook') {
+				require('../services/passport');
+				console.log('longinzou');
+				//console.log(passport.authenticate('facebook'))
+				return passport.authenticate('facebook')(req, res, next);
+			}else {
+			return next();}
+		},
+		facebookCallback = function(req, res, next) {
+			if(req.params.callback) {
+				console.log('calbackeou');
+				return passport.authenticate('facebook', {failureRedirect: '/'})(req, res, next);
+			}
+			return next()
+		};
 // =============================================== Global Variables and functions == //
 
 // == Get Item or list ============================================================= //
-	router.get('/:collection/:slug?', isLoggedIn, function(req, res){
-		if(!req.params.slug){												// If optional slug param exists
+require('../services/passport');
+	router.get('/:collection/:slug?/:callback?', facebookLogin, isLoggedIn, facebookCallback,
+		function(req, res){
+	// ------------------------------------------------- Facebook Strategy Login -- // /auth/facebook/callback
+		 if(!req.params.slug){										// If optional slug param exists
 			modelNamer(req.params.collection)
 				.find(function(err, docs){
 					if (err) {
@@ -93,12 +113,12 @@
 
 // == Create new items or user login =============================================== //
 	.post('/:collection/:slug?', function(req, res, next){
-		if(req.params.collection == 'login'){					// Check if the POST request is login attempt
+		if(req.params.collection == 'auth'){					// Check if the POST request is login attempt
 			require('../services/passport');					// Load passport
 			require('../schemas/usersSchema');					// Load Users model
 
-	// -- Local Strategy Login ----------------------------------------------------- //
-			if(req.params.slug && req.params.slug == 'local'){
+	// -- Local Strategy Login ---------------------------------------------------- //
+			if(req.params.slug == 'local'){
 				passport.authenticate('local', 						// Autenticate user using local strategy
 					function(err, user, info){
 						if (err) return next(err);
@@ -113,16 +133,7 @@
 						}
 					})(req, res, next);
 			}
-	// ----------------------------------------------------- Local Strategy Login -- //
-			else if(req.params.slug && req.params.slug == 'facebook'){
-				console.log('login face');
-				passport.authenticate('facebook',
-					function(err, user, info){
-						console.log(user);
-				})(req, res, next);
-			}
-
-
+	// ---------------------------------------------------- Local Strategy Login -- //
 
 		} else {												// If the POST request is new info
 			if(req.body.name) {
