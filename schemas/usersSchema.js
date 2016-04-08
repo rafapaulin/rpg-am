@@ -4,18 +4,25 @@ var		mongoose = require('mongoose'),
 		  Schema = mongoose.Schema,
 		  bcrypt = require('bcrypt'),
 	  saltFactor = 10,
-	findOrCreate = require('mongoose-findorcreate'),
 
 	usersSchema = new Schema(
 		{
 // == General ================================================================================================================================= //
-			name: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// username
-			password: {type: String, required: true, minlength: 3},
-			slug: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok - Automatic on backend - based on name
-			//firstName: {type: String, required: true, minlength: 3},
-			//lastName: {type: String, required: true, minlength: 3},
-			email: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true}
+			name: {type: String, unique: true, uniqueCaseInsensitive: true},	// username
+			password: {type: String, minlength: 4},
+			slug: {type: String, unique: true, uniqueCaseInsensitive: true},	// ok - Automatic on backend - based on name
+			firstName: {type: String},
+			middleName: {type: String},
+			lastName: {type: String},
+			email: {type: String, unique: true, uniqueCaseInsensitive: true},
 			//country: {type: String, required: true, minlength: 3}
+			socialIDs: {
+				facebook: {
+					id: {type: String, unique: true}
+				},
+				twitter: {},
+				google: {}
+			}
 // ================================================================================================================================= General == //
 		},
 		{
@@ -53,6 +60,5 @@ var		mongoose = require('mongoose'),
 // ================================================================================================================= Password verification == //
 
 usersSchema.plugin(uniqueV);							// validate unique values
-usersSchema.plugin(findOrCreate);						// Find or create user plugin
 
 module.exports = mongoose.model('Users', usersSchema);	// Export module

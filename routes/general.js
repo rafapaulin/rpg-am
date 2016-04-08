@@ -40,9 +40,9 @@
 				require('../services/passport');
 				console.log('longinzou');
 				//console.log(passport.authenticate('facebook'))
-				return passport.authenticate('facebook')(req, res, next);
-			}else {
-			return next();}
+				return passport.authenticate('facebook', {scope: ['public_profile', 'email']})(req, res, next);
+			}
+			return next();
 		},
 		facebookCallback = function(req, res, next) {
 			if(req.params.callback) {
@@ -98,7 +98,9 @@ require('../services/passport');
 
 // == Update Item ================================================================== //
 	.put('/:collection/:slug', function(req, res){
-		slugger(req.body.name);							// Automatic generate slugs based on name
+		if(req.body.name) {
+			slugger(req.body.name);							// Automatic generate slugs based on name
+		};
 		modelNamer(req.params.collection)
 			.findOneAndUpdate({'slug': req.params.slug}, req.body, function(err){
 				if(err) {

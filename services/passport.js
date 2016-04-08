@@ -7,7 +7,7 @@ var			 passport = require('passport'),
 // == LOCAL login strategy ========================================================================================================== //
 	passport.use('local', new LocalStrategy (
 		function(username, password, done) {
-			User.findOne({$or: [ {name: username}, {email: username} ]},						// Try to login using username or email
+			User.findOne({$or: [{name: username}, {email: username}]},						// Try to login using username or email
 				function(err, user) {
 					if (err) return done(err);
 
@@ -34,29 +34,43 @@ var			 passport = require('passport'),
 	));
 // ========================================================================================================== LOCAL login strategy == //
 
-// passport.use('facebook', new FacebookStrategy (config.facebook,
-// 	function(accessToken, refreshToken, profile, done) {
-// 		console.log('alguma coisa?');done(err, user);
-// 		return done(null, profile);
-// 		// User.findOrCreate({}, function(err, user) {
-// 		// 	if (err) { return done(err); }
-// 		// 	done(err, user);
-// 		// });
-// 	}
-// ));
+passport.use('facebook', new FacebookStrategy (config.facebook,
+	function(accessToken, refreshToken, profile, done) {
+		console.log('accessToken: ' + accessToken);
+		console.log('refreshToken: ' + refreshToken);
+		console.log('*** Profile***');
+		console.log(profile._json);
+		console.log('*** Profile***');
 
-
-passport.use(new FacebookStrategy(config.facebook,
-  function(accessToken, refreshToken, profile, cb) {
-  	console.log(profile);
-    // In this example, the user's Facebook profile is supplied as the user
-    // record.  In a production-quality application, the Facebook profile should
-    // be associated with a user record in the application's database, which
-    // allows for account linking and authentication with other identity
-    // providers.
-    return cb(null, profile);
-  }));
-
+		User.findOneAndUpdate(
+			{
+				$or: [
+					{email: profile._json.email},
+					{socialIDs: {facebook: {id: profile._json.id}}}
+				]
+			},
+			{
+				$set: {
+					firstName: profile._json.first_name,
+					middleName: profile._json.middle_name,
+					lastName: profile._json.last_name,
+					avatar: profile._json.picture,
+					gender: profile._json.gender,
+					email: profile._json.email,
+					socialIDs: {
+						facebook: {
+							id: profile._json.id,
+							profileLink: profile._json.link,
+						}
+					}
+				}
+			},
+			{new: true, upsert: true},
+			function(err, user){
+				done(err, user)
+			});
+	}
+));
 
 passport.serializeUser(function(user, done) {
 	console.log('serializou!');
