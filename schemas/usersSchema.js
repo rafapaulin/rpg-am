@@ -18,7 +18,15 @@ var		mongoose = require('mongoose'),
 			//country: {type: String, required: true, minlength: 3}
 			socialIDs: {
 				facebook: {
-					id: {type: String, unique: true}
+					id: {type: String, unique: true, uniqueCaseInsensitive: true},
+					profileLink: {type: String},
+					profilePic: {type: String},
+					firstName: {type: String},
+					middleName: {type: String},
+					lastName: {type: String},
+					gender: {type: String},
+					email: {type: String},
+					timeZone: {type: String}
 				},
 				twitter: {},
 				google: {}

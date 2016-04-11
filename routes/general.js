@@ -13,18 +13,6 @@
 	var modelNamer = function(collection){ 
 		return require('../schemas/' + collection + 'Schema') 
 		},
-
-		slugger = function(name){					// Automatic generate slugs based on name
-			req.body.slug = slug(name, {
-				replacement: '-',					// replace spaces with replacement 
-				symbols: true,						// replace unicode symbols or not 
-				remove: null,						// (optional) regex to remove characters 
-				lower: true,						// result in lower case 
-				charmap: slug.charmap,				// replace special characters 
-				multicharmap: slug.multicharmap		// replace multi-characters 
-			});
-		},
-
 		isLoggedIn = function(req, res, next) {
 			if (req.isAuthenticated()){						// If user is authenticated in the session, carry on 
 				console.log('Autenticado!!!');
@@ -34,7 +22,6 @@
 				return next();
 			}
 		},
-
 		facebookLogin = function(req, res, next) {
 			if(req.params.collection == 'auth' && req.params.slug == 'facebook') {
 				require('../services/passport');
@@ -54,7 +41,7 @@
 // =============================================== Global Variables and functions == //
 
 // == Get Item or list ============================================================= //
-require('../services/passport');
+	require('../services/passport');
 	router.get('/:collection/:slug?/:callback?', facebookLogin, isLoggedIn, facebookCallback,
 		function(req, res){
 	// ------------------------------------------------- Facebook Strategy Login -- // /auth/facebook/callback
@@ -99,7 +86,14 @@ require('../services/passport');
 // == Update Item ================================================================== //
 	.put('/:collection/:slug', function(req, res){
 		if(req.body.name) {
-			slugger(req.body.name);							// Automatic generate slugs based on name
+			req.body.slug = slug(req.body.name, {	// Automatic generate slugs based on name
+				replacement: '-',					// replace spaces with replacement 
+				symbols: true,						// replace unicode symbols or not 
+				remove: null,						// (optional) regex to remove characters 
+				lower: true,						// result in lower case 
+				charmap: slug.charmap,				// replace special characters 
+				multicharmap: slug.multicharmap		// replace multi-characters 
+			});
 		};
 		modelNamer(req.params.collection)
 			.findOneAndUpdate({'slug': req.params.slug}, req.body, function(err){
@@ -118,7 +112,6 @@ require('../services/passport');
 		if(req.params.collection == 'auth'){					// Check if the POST request is login attempt
 			require('../services/passport');					// Load passport
 			require('../schemas/usersSchema');					// Load Users model
-
 	// -- Local Strategy Login ---------------------------------------------------- //
 			if(req.params.slug == 'local'){
 				passport.authenticate('local', 						// Autenticate user using local strategy
@@ -137,9 +130,16 @@ require('../services/passport');
 			}
 	// ---------------------------------------------------- Local Strategy Login -- //
 
-		} else {												// If the POST request is new info
+		} else {										// If the POST request is new info
 			if(req.body.name) {
-				slugger(req.body.name);							// Automatic generate slugs based on name
+				req.body.slug = slug(req.body.name, {	// Automatic generate slugs based on name
+					replacement: '-',					// replace spaces with replacement 
+					symbols: true,						// replace unicode symbols or not 
+					remove: null,						// (optional) regex to remove characters 
+					lower: true,						// result in lower case 
+					charmap: slug.charmap,				// replace special characters 
+					multicharmap: slug.multicharmap		// replace multi-characters 
+				});
 			};
 			new modelNamer(req.params.collection)(req.body)
 				.save(function(err){

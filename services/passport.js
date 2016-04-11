@@ -2,12 +2,13 @@ var			 passport = require('passport'),
 		LocalStrategy = require('passport-local').Strategy,
 	 FacebookStrategy = require('passport-facebook').Strategy,
 				 User = require('../schemas/usersSchema'),
+			   logger = require("../services/logger"),
 			   config = require('../services/oauth');
 
 // == LOCAL login strategy ========================================================================================================== //
 	passport.use('local', new LocalStrategy (
 		function(username, password, done) {
-			User.findOne({$or: [{name: username}, {email: username}]},						// Try to login using username or email
+			User.findOne({$or: [{name: username}, {email: username}]},							// Try to login using username or email
 				function(err, user) {
 					if (err) return done(err);
 
@@ -36,31 +37,30 @@ var			 passport = require('passport'),
 
 passport.use('facebook', new FacebookStrategy (config.facebook,
 	function(accessToken, refreshToken, profile, done) {
-		console.log('accessToken: ' + accessToken);
-		console.log('refreshToken: ' + refreshToken);
 		console.log('*** Profile***');
-		console.log(profile._json);
+		logger().info(profile._json);
 		console.log('*** Profile***');
 
 		User.findOneAndUpdate(
 			{
 				$or: [
 					{email: profile._json.email},
-					{socialIDs: {facebook: {id: profile._json.id}}}
+					{'socialIDs.facebook.id': profile._json.id}
 				]
 			},
 			{
 				$set: {
-					firstName: profile._json.first_name,
-					middleName: profile._json.middle_name,
-					lastName: profile._json.last_name,
-					avatar: profile._json.picture,
-					gender: profile._json.gender,
-					email: profile._json.email,
 					socialIDs: {
 						facebook: {
 							id: profile._json.id,
 							profileLink: profile._json.link,
+							profilePic: profile._json.picture.data.url,
+							firstName: profile._json.first_name,
+							middleName: profile._json.middle_name,
+							lastName: profile._json.last_name,
+							gender: profile._json.gender,
+							email: profile._json.email,
+							timeZone: profile._json.timezone
 						}
 					}
 				}
