@@ -26,7 +26,6 @@
 			if(req.params.collection == 'auth' && req.params.slug == 'facebook') {
 				require('../services/passport');
 				console.log('longinzou');
-				//console.log(passport.authenticate('facebook'))
 				return passport.authenticate('facebook', {scope: ['public_profile', 'email']})(req, res, next);
 			}
 			return next();
@@ -34,7 +33,9 @@
 		facebookCallback = function(req, res, next) {
 			if(req.params.callback) {
 				console.log('calbackeou');
-				return passport.authenticate('facebook', {failureRedirect: '/'})(req, res, next);
+				return passport.authenticate('facebook', {
+					failureRedirect: '/#/login'
+				})(req, res, next);
 			}
 			return next()
 		};
@@ -42,10 +43,10 @@
 
 // == Get Item or list ============================================================= //
 	require('../services/passport');
-	router.get('/:collection/:slug?/:callback?', facebookLogin, isLoggedIn, facebookCallback,
+	router.get('/:collection/:slug?/:callback?', facebookLogin, facebookCallback, isLoggedIn,
 		function(req, res){
 	// ------------------------------------------------- Facebook Strategy Login -- // /auth/facebook/callback
-		 if(!req.params.slug){										// If optional slug param exists
+		 if(!req.params.slug){												// If optional slug param exists
 			modelNamer(req.params.collection)
 				.find(function(err, docs){
 					if (err) {
@@ -140,6 +141,9 @@
 					charmap: slug.charmap,				// replace special characters 
 					multicharmap: slug.multicharmap		// replace multi-characters 
 				});
+				if(req.params.collection == 'users'){	// If it is a new user, convert the field 'name' to 'username'
+					req.body.userName = req.body.name;
+				}
 			};
 			new modelNamer(req.params.collection)(req.body)
 				.save(function(err){

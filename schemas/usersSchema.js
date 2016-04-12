@@ -8,7 +8,7 @@ var		mongoose = require('mongoose'),
 	usersSchema = new Schema(
 		{
 // == General ================================================================================================================================= //
-			name: {type: String, unique: true, uniqueCaseInsensitive: true},	// username
+			userName: {type: String, unique: true, uniqueCaseInsensitive: true},
 			password: {type: String, minlength: 4},
 			slug: {type: String, unique: true, uniqueCaseInsensitive: true},	// ok - Automatic on backend - based on name
 			firstName: {type: String},

@@ -40,7 +40,8 @@ passport.use('facebook', new FacebookStrategy (config.facebook,
 		console.log('*** Profile***');
 		logger().info(profile._json);
 		console.log('*** Profile***');
-
+		console.log('accessToken: ' + accessToken);
+		console.log('refreshToken: ' + refreshToken);
 		User.findOneAndUpdate(
 			{
 				$or: [
@@ -53,6 +54,7 @@ passport.use('facebook', new FacebookStrategy (config.facebook,
 					socialIDs: {
 						facebook: {
 							id: profile._json.id,
+							accessToken: accessToken,
 							profileLink: profile._json.link,
 							profilePic: profile._json.picture.data.url,
 							firstName: profile._json.first_name,

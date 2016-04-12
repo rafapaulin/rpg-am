@@ -21,7 +21,17 @@
 	app.use(express.static('public'));
 	app.use(cookieParser());
 	app.use(bodyParser.json());
-	app.use(session({secret: 'ilovescotchscotchyscotchscotch'}));
+	app.use(session(
+		{
+			secret: 'chalah, head chalah, não importa o que aconteça....',
+			resave: false,
+			saveUninitialized: true
+			cookie: {
+				secure: false,
+
+			}
+		}
+	));
 	app.use(passport.initialize());
 	app.use(passport.session());
 	app.use(flash());
