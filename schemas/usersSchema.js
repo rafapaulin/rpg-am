@@ -11,25 +11,38 @@ var		mongoose = require('mongoose'),
 			userName: {type: String, unique: true, uniqueCaseInsensitive: true},
 			password: {type: String, minlength: 4},
 			slug: {type: String, unique: true, uniqueCaseInsensitive: true},	// ok - Automatic on backend - based on name
-			firstName: {type: String},
-			middleName: {type: String},
-			lastName: {type: String},
+			name: {type: String},
 			email: {type: String, unique: true, uniqueCaseInsensitive: true},
-			//country: {type: String, required: true, minlength: 3}
+			country: {type: String},
 			socialIDs: {
 				facebook: {
 					id: {type: String, unique: true, uniqueCaseInsensitive: true},
+					email: {type: String, unique: true, uniqueCaseInsensitive: true},
 					profileLink: {type: String},
 					profilePic: {type: String},
 					firstName: {type: String},
 					middleName: {type: String},
 					lastName: {type: String},
 					gender: {type: String},
-					email: {type: String},
 					timeZone: {type: String}
 				},
-				twitter: {},
-				google: {}
+				twitter: {
+					id: {type: String, unique: true, uniqueCaseInsensitive: true},
+					email: {type: String, unique: true, uniqueCaseInsensitive: true},
+					name: {type: String},
+					screenName: {type: String},
+					profilePic: {type: String},
+					location: {type: String},
+					timeZone: {type: String}
+				},
+				google: {
+					id: {type: String, unique: true, uniqueCaseInsensitive: true},
+					email: {type: String, unique: true, uniqueCaseInsensitive: true},
+					name: {type: String},
+					profileLink: {type: String},
+					profilePic: {type: String},
+					gender: {type: String}
+				}
 			}
 // ================================================================================================================================= General == //
 		},

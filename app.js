@@ -25,9 +25,9 @@
 		{
 			secret: 'chalah, head chalah, não importa o que aconteça....',
 			resave: false,
-			saveUninitialized: true
+			saveUninitialized: true,
 			cookie: {
-				secure: false,
+				secure: false,	
 
 			}
 		}

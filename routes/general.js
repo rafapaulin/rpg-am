@@ -11,8 +11,9 @@
 
 // == Routing functions and middlewares ============================================ //
 	var modelNamer = function(collection){ 
-		return require('../schemas/' + collection + 'Schema') 
+			return require('../schemas/' + collection + 'Schema') 
 		},
+
 		isLoggedIn = function(req, res, next) {
 			if (req.isAuthenticated()){						// If user is authenticated in the session, carry on 
 				console.log('Autenticado!!!');
@@ -22,19 +23,65 @@
 				return next();
 			}
 		},
+
 		facebookLogin = function(req, res, next) {
 			if(req.params.collection == 'auth' && req.params.slug == 'facebook') {
 				require('../services/passport');
-				console.log('longinzou');
+				console.log('longinzou facebook');
 				return passport.authenticate('facebook', {scope: ['public_profile', 'email']})(req, res, next);
 			}
 			return next();
 		},
+
 		facebookCallback = function(req, res, next) {
-			if(req.params.callback) {
-				console.log('calbackeou');
+			if(req.params.callback && req.params.collection == 'auth' && req.params.slug == 'facebook') {
+				require('../services/passport');
+				console.log('calbackeou facebook');
 				return passport.authenticate('facebook', {
-					failureRedirect: '/#/login'
+					successRedirect: 'http://www.google.com',
+					failureRedirect: 'http://www.amazon.com'
+				})(req, res, next);
+			}
+			return next()
+		},
+
+		twitterLogin = function(req, res, next) {
+			if(req.params.collection == 'auth' && req.params.slug == 'twitter') {
+				require('../services/passport');
+				console.log('longinzou twitter');
+				return passport.authenticate('twitter')(req, res, next);
+			}
+			return next();
+		},
+
+		twitterCallback = function(req, res, next) {
+			if(req.params.callback && req.params.collection == 'auth' && req.params.slug == 'twitter') {
+				require('../services/passport');
+				console.log('calbackeou twitter');
+				return passport.authenticate('twitter', {
+					successRedirect: 'http://www.google.com',
+					failureRedirect: 'http://www.amazon.com'
+				})(req, res, next);
+			}
+			return next()
+		},
+
+		googleLogin = function(req, res, next) {
+			if(req.params.collection == 'auth' && req.params.slug == 'google') {
+				require('../services/passport');
+				console.log('longinzou google');
+				return passport.authenticate('google', {scope: ['profile', 'email']})(req, res, next);
+			}
+			return next();
+		},
+
+		googleCallback = function(req, res, next) {
+			if(req.params.callback && req.params.collection == 'auth' && req.params.slug == 'google') {
+				require('../services/passport');
+				console.log('calbackeou google');
+				return passport.authenticate('google', {
+					successRedirect: 'http://www.google.com',
+					failureRedirect: 'http://www.amazon.com'
 				})(req, res, next);
 			}
 			return next()
@@ -42,8 +89,14 @@
 // =============================================== Global Variables and functions == //
 
 // == Get Item or list ============================================================= //
-	require('../services/passport');
-	router.get('/:collection/:slug?/:callback?', facebookLogin, facebookCallback, isLoggedIn,
+	router.get('/:collection/:slug?/:callback?',
+		facebookCallback,
+		twitterCallback,
+		googleCallback,
+		facebookLogin,
+		twitterLogin,
+		googleLogin,
+		isLoggedIn,
 		function(req, res){
 	// ------------------------------------------------- Facebook Strategy Login -- // /auth/facebook/callback
 		 if(!req.params.slug){												// If optional slug param exists
