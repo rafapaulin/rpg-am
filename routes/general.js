@@ -24,80 +24,33 @@
 			}
 		},
 
-		facebookLogin = function(req, res, next) {
-			if(req.params.collection == 'auth' && req.params.slug == 'facebook') {
+		login = function(req, res, next) {
+			if(req.params.collection == 'auth') {
 				require('../services/passport');
-				console.log('longinzou facebook');
-				return passport.authenticate('facebook', {scope: ['public_profile', 'email']})(req, res, next);
-			}
+
+				if(req.params.callback) {
+					console.log('calbackeou no ' + req.params.slug);
+					return	passport.authenticate(req.params.slug, 
+								{
+									successRedirect: 'http://www.google.com',
+									failureRedirect: 'http://www.amazon.com'
+								}
+							)(req, res, next);
+				} else {
+					console.log('longinzou no ' + req.params.slug);
+					var gScope = {};
+					if(req.params.slug == 'google'){
+						gScope = {scope: ['profile', 'email']}
+					}
+					return passport.authenticate(req.params.slug, gScope)(req, res, next);
+				}
+			} 
 			return next();
-		},
-
-		facebookCallback = function(req, res, next) {
-			if(req.params.callback && req.params.collection == 'auth' && req.params.slug == 'facebook') {
-				require('../services/passport');
-				console.log('calbackeou facebook');
-				return passport.authenticate('facebook', {
-					successRedirect: 'http://www.google.com',
-					failureRedirect: 'http://www.amazon.com'
-				})(req, res, next);
-			}
-			return next()
-		},
-
-		twitterLogin = function(req, res, next) {
-			if(req.params.collection == 'auth' && req.params.slug == 'twitter') {
-				require('../services/passport');
-				console.log('longinzou twitter');
-				return passport.authenticate('twitter')(req, res, next);
-			}
-			return next();
-		},
-
-		twitterCallback = function(req, res, next) {
-			if(req.params.callback && req.params.collection == 'auth' && req.params.slug == 'twitter') {
-				require('../services/passport');
-				console.log('calbackeou twitter');
-				return passport.authenticate('twitter', {
-					successRedirect: 'http://www.google.com',
-					failureRedirect: 'http://www.amazon.com'
-				})(req, res, next);
-			}
-			return next()
-		},
-
-		googleLogin = function(req, res, next) {
-			if(req.params.collection == 'auth' && req.params.slug == 'google') {
-				require('../services/passport');
-				console.log('longinzou google');
-				return passport.authenticate('google', {scope: ['profile', 'email']})(req, res, next);
-			}
-			return next();
-		},
-
-		googleCallback = function(req, res, next) {
-			if(req.params.callback && req.params.collection == 'auth' && req.params.slug == 'google') {
-				require('../services/passport');
-				console.log('calbackeou google');
-				return passport.authenticate('google', {
-					successRedirect: 'http://www.google.com',
-					failureRedirect: 'http://www.amazon.com'
-				})(req, res, next);
-			}
-			return next()
 		};
 // =============================================== Global Variables and functions == //
 
 // == Get Item or list ============================================================= //
-	router.get('/:collection/:slug?/:callback?',
-		facebookCallback,
-		twitterCallback,
-		googleCallback,
-		facebookLogin,
-		twitterLogin,
-		googleLogin,
-		isLoggedIn,
-		function(req, res){
+	router.get('/:collection/:slug?/:callback?', login, isLoggedIn, function(req, res){
 	// ------------------------------------------------- Facebook Strategy Login -- // /auth/facebook/callback
 		 if(!req.params.slug){												// If optional slug param exists
 			modelNamer(req.params.collection)

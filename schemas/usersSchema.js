@@ -16,8 +16,8 @@ var		mongoose = require('mongoose'),
 			country: {type: String},
 			socialIDs: {
 				facebook: {
-					id: {type: String, unique: true, uniqueCaseInsensitive: true},
-					email: {type: String, unique: true, uniqueCaseInsensitive: true},
+					id: {type: String},
+					email: {type: String},
 					profileLink: {type: String},
 					profilePic: {type: String},
 					firstName: {type: String},
@@ -27,8 +27,8 @@ var		mongoose = require('mongoose'),
 					timeZone: {type: String}
 				},
 				twitter: {
-					id: {type: String, unique: true, uniqueCaseInsensitive: true},
-					email: {type: String, unique: true, uniqueCaseInsensitive: true},
+					id: {type: String},
+					email: {type: String},
 					name: {type: String},
 					screenName: {type: String},
 					profilePic: {type: String},
@@ -36,8 +36,8 @@ var		mongoose = require('mongoose'),
 					timeZone: {type: String}
 				},
 				google: {
-					id: {type: String, unique: true, uniqueCaseInsensitive: true},
-					email: {type: String, unique: true, uniqueCaseInsensitive: true},
+					id: {type: String},
+					email: {type: String},
 					name: {type: String},
 					profileLink: {type: String},
 					profilePic: {type: String},
