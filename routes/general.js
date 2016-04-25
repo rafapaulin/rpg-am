@@ -10,42 +10,53 @@
 // ================================================================= Requirements == //
 
 // == Routing functions and middlewares ============================================ //
-	var modelNamer = function(collection){ 
+	var modelNamer = function(collection){										// Return require for the schema passed as collection
 			return require('../schemas/' + collection + 'Schema') 
 		},
 
-		isLoggedIn = function(req, res, next) {
-			if (req.isAuthenticated()){						// If user is authenticated in the session, carry on 
+		slugger = function(){													// Generate item slug based on the name passed
+			req.body.slug = slug(req.body.name, {								// Automatic generate slugs based on name
+				replacement: '-',												// replace spaces with replacement 
+				symbols: true,													// replace unicode symbols or not 
+				remove: null,													// (optional) regex to remove characters 
+				lower: true,													// result in lower case 
+				charmap: slug.charmap,											// replace special characters 
+				multicharmap: slug.multicharmap									// replace multi-characters 
+			});
+		},
+
+		isLoggedIn = function(req, res, next) {									// Check if user is logged in
+			if (req.isAuthenticated()){	
 				console.log('Autenticado!!!');
 				return next();
 			} else {
-				console.log('MERDA, não autenticado!!!');	// If user is not authenticated do something
+				console.log('MERDA, não autenticado!!!');
 				return next();
 			}
 		},
 
-		login = function(req, res, next) {
+		login = function(req, res, next) {										// Log user in
 			if(req.params.collection == 'auth') {
-				require('../services/passport');
+				require('../services/passport');								// Require strategies file only if needed
 
 				if(req.params.callback) {
 					console.log('calbackeou no ' + req.params.slug);
-					return	passport.authenticate(req.params.slug, 
+					return	passport.authenticate(req.params.slug,
 								{
-									successRedirect: 'http://www.google.com',
-									failureRedirect: 'http://www.amazon.com'
+									successRedirect: 'http://www.google.com',	// If user logs in, redirect here
+									failureRedirect: 'http://www.amazon.com'	// If login fail, redirect here
 								}
 							)(req, res, next);
 				} else {
 					console.log('longinzou no ' + req.params.slug);
 					var gScope = {};
-					if(req.params.slug == 'google'){
-						gScope = {scope: ['profile', 'email']}
-					}
+					if(req.params.slug == 'google'){							// Google strategy demands scope, which is optional to the others
+						gScope = {scope: ['profile', 'email']};
+					};
 					return passport.authenticate(req.params.slug, gScope)(req, res, next);
 				}
-			} 
-			return next();
+			}
+			return next();														// If it is not a login attempt, ignore this middleware
 		};
 // =============================================== Global Variables and functions == //
 
@@ -85,40 +96,34 @@
 							}).populate(pop);								// Populate referenced documents
 				});
 
-			logger().info('GET request recieved for "/' + req.params.collection + '/' + req.params.slug + '"'); // Debug
+			logger().info('GET request recieved for "/' + req.params.collection + '/'+ req.params.slug + '"');
 		}
 	})
 // ============================================================= Get Item or list == //
 
 // == Update Item ================================================================== //
 	.put('/:collection/:slug', function(req, res){
-		if(req.body.name) {
-			req.body.slug = slug(req.body.name, {	// Automatic generate slugs based on name
-				replacement: '-',					// replace spaces with replacement 
-				symbols: true,						// replace unicode symbols or not 
-				remove: null,						// (optional) regex to remove characters 
-				lower: true,						// result in lower case 
-				charmap: slug.charmap,				// replace special characters 
-				multicharmap: slug.multicharmap		// replace multi-characters 
-			});
-		};
-		modelNamer(req.params.collection)
-			.findOneAndUpdate({'slug': req.params.slug}, req.body, function(err){
-				if(err) {
-					res.status(500).json(err);
-				} else {
-					res.status(201).json({message: req.body.name + ' updated!', 'slug': req.body.slug});
-					logger().info(req.body.name + ' updated!', req.body);
-				}
-			});
+		if(req.body.name) {slugger()};
+		modelNamer(req.params.collection)						// Load Users model
+			.findOneAndUpdate(
+				{slug: req.params.slug},						// Query
+				req.body,										// New Data
+				function(err){									// If error, throw it to client
+					if(err) {
+						res.status(500).json(err);
+					} else {									// If success, save and notify client
+						res.status(201).json({message: req.body.name + ' updated! ', slug: req.body.slug});
+						logger().info(req.body.name + ' updated! ' + req.body);
+					}
+				});
 	})
 // ================================================================== Update Item == //
 
 // == Create new items or user login =============================================== //
 	.post('/:collection/:slug?', function(req, res, next){
-		if(req.params.collection == 'auth'){					// Check if the POST request is login attempt
-			require('../services/passport');					// Load passport
-			require('../schemas/usersSchema');					// Load Users model
+		if(req.params.collection == 'auth'){						// Check if the POST request is login attempt
+			require('../services/passport');						// Load passport
+			require('../schemas/usersSchema');						// Load Users model
 	// -- Local Strategy Login ---------------------------------------------------- //
 			if(req.params.slug == 'local'){
 				passport.authenticate('local', 						// Autenticate user using local strategy
@@ -137,28 +142,23 @@
 			}
 	// ---------------------------------------------------- Local Strategy Login -- //
 
-		} else {										// If the POST request is new info
+		} else {												// If the POST request is new info
 			if(req.body.name) {
-				req.body.slug = slug(req.body.name, {	// Automatic generate slugs based on name
-					replacement: '-',					// replace spaces with replacement 
-					symbols: true,						// replace unicode symbols or not 
-					remove: null,						// (optional) regex to remove characters 
-					lower: true,						// result in lower case 
-					charmap: slug.charmap,				// replace special characters 
-					multicharmap: slug.multicharmap		// replace multi-characters 
-				});
-				if(req.params.collection == 'users'){	// If it is a new user, convert the field 'name' to 'username'
+				slugger();
+				if(req.params.collection == 'users'){			// If it is a new user, convert the field 'name' to 'username'
 					req.body.userName = req.body.name;
 				}
 			};
-			new modelNamer(req.params.collection)(req.body)
+			new modelNamer(req.params.collection)(req.body)		// Load the correct model and pass the Data to save function
 				.save(function(err){
-					if(err) {
+					if(err) {									// If error, throw it to client
 						logger().debug(err);
 						res.status(500).json(err.errors);
 
-					} else {
-						res.status(201).json({'message': req.body.name + ' successfully created'});
+					} else {									// If success, save and notify client
+						res.status(201).json({
+							message: req.body.name + ' successfully created'
+						});
 						logger().info(req.body.name + '  saved!', req.body);
 					}
 				});
@@ -170,12 +170,14 @@
 // == Delete items ================================================================= //
 	.delete('/:collection/:slug', function(req, res){
 		modelNamer(req.params.collection)
-			.remove({'slug': req.params.slug}, function(err, doc){
+			.remove({slug: req.params.slug}, function(err, doc){
 				if(err) {
 					logger().debug(err.errors);
 				} else {
-					logger().info('Deletado com sucesso');
-					res.status(200).json({message: 'Deletado com sucesso'});
+					logger().info(req.params.slug + 'Deletado com sucesso');
+					res.status(200).json({
+						message: 'Deletado com sucesso'
+					});
 				}
 			});
 	});

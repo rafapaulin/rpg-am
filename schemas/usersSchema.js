@@ -18,22 +18,21 @@ var		mongoose = require('mongoose'),
 				facebook: {
 					id: {type: String},
 					email: {type: String},
+					name: {type: String},
 					profileLink: {type: String},
 					profilePic: {type: String},
-					firstName: {type: String},
-					middleName: {type: String},
-					lastName: {type: String},
-					gender: {type: String},
-					timeZone: {type: String}
+					token: {type: String},
+					secret: {type: String}
 				},
 				twitter: {
 					id: {type: String},
 					email: {type: String},
 					name: {type: String},
-					screenName: {type: String},
+					profileLink: {type: String},
 					profilePic: {type: String},
-					location: {type: String},
-					timeZone: {type: String}
+					token: {type: String},
+					secret: {type: String},
+					screenName: {type: String}
 				},
 				google: {
 					id: {type: String},
@@ -41,7 +40,8 @@ var		mongoose = require('mongoose'),
 					name: {type: String},
 					profileLink: {type: String},
 					profilePic: {type: String},
-					gender: {type: String}
+					token: {type: String},
+					secret: {type: String}
 				}
 			}
 // ================================================================================================================================= General == //
