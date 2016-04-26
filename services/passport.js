@@ -1,5 +1,5 @@
 'use strict';
-// == Requirements ================================================================= //
+// == Requirements ================================================================================================================== //
 	var			 passport = require('passport'),
 			LocalStrategy = require('passport-local').Strategy,
 		 FacebookStrategy = require('passport-facebook').Strategy,
@@ -10,18 +10,25 @@
 					 slug = require('slug'),
 				   logger = require("../services/logger"),
 				   config = require('../services/oauth'),
-// ================================================================= Requirements == //
+// ================================================================================================================== Requirements == //
 
+// == Generic social network strategy function ====================================================================================== //
 	socialQuery = function(provider, profile, tokenA, tokenB) {
+	// -- Default parameter values -------------------------------------------------------------------------------------------------- //
 		tokenA = typeof tokenA !== 'undefined' ? tokenA : null;
 		tokenB = typeof tokenB !== 'undefined' ? tokenB : null;
+	// -------------------------------------------------------------------------------------------------- Default parameter values -- //
 
+	// -- Scope variables ----------------------------------------------------------------------------------------------------------- //
 		var picture,
 			fullName,
 			link,
 			$set = {},
 			provID = {},
+			dateNow = new Date,
+	// ----------------------------------------------------------------------------------------------------------- Scope variables -- //
 
+	// -- Internal functions -------------------------------------------------------------------------------------------------------- //
 			tempUserName = slug(profile.emails[0].value.substr(0, profile.emails[0].value.indexOf('@')) + randomstring.generate({length: 6, charset: 'numeric'}), {
 				replacement: '-',					// replace spaces with replacement 
 				symbols: true,						// replace unicode symbols or not 
@@ -30,22 +37,26 @@
 				charmap: slug.charmap,				// replace special characters 
 				multicharmap: slug.multicharmap		// replace multi-characters 
 			});
+	// -------------------------------------------------------------------------------------------------------- Internal functions -- //
 
-		if(provider == 'facebook') {
+	// -- Social network specific info ---------------------------------------------------------------------------------------------- //
+		if(provider == 'facebook') {										// Set variables with facebook retrieved info
 			picture = profile._json.picture.data.url;
 			fullName = profile._json.name;
 			link = profile._json.link;
-		} else if(provider == 'twitter') {
+		} else if(provider == 'twitter') {									// Set variables with twitter retrieved info
 			picture = profile._json.profile_image_url.replace('_normal','');
 			fullName = profile._json.name;
 			link = 'http://twitter.com/' + profile._json.screen_name;
-		} else if(provider == 'google') {
+		} else if(provider == 'google') {									// Set variables with google retrieved info
 			picture = profile._json.image.url.replace('?sz=50','');
 			fullName = profile._json.displayName;
 			link = profile._json.url;
 		};
+	// ---------------------------------------------------------------------------------------------- Social network specific info -- //
 
-		$set['socialIDs.' + provider] = {
+	// -- Sub-object with variable keys --------------------------------------------------------------------------------------------- //
+		$set['socialIDs.' + provider] = {									// Set up object with provider variable as key
 			id: profile._json.id,
 			profileLink: link,
 			profilePic: picture,
@@ -56,23 +67,27 @@
 			secret: tokenB
 		};
 
-		provID['socialIDs.' + provider + '.id'] = profile._json.id;
+		provID['socialIDs.' + provider + '.id'] = profile._json.id;			// Set up object with provider variable as key
+	// --------------------------------------------------------------------------------------------- Sub-object with variable keys -- //
 
+	// -- Returned object ----------------------------------------------------------------------------------------------------------- //
+	console.log(dateNow);
 		return {
 			query: {
-				$or: [														// Try to login using social network id or diferent email sources
-					provID,
-					{email: profile.emails[0].value},
-					{'socialIDs.facebook.email': profile.emails[0].value},
-					{'socialIDs.twitter.email': profile.emails[0].value},
-					{'socialIDs.google.email': profile.emails[0].value}
+				$or: [
+					provID,													// Try to login using social network id
+					{email: profile.emails[0].value},						// Try to login using diferent email on the DB
+					{'socialIDs.facebook.email': profile.emails[0].value},	// *
+					{'socialIDs.twitter.email': profile.emails[0].value},	// *
+					{'socialIDs.google.email': profile.emails[0].value}		// *
 				]
 			},
 			data: {
-				$setOnInsert: {												// Set up local info
+				$setOnInsert: {												// Set up local info based on social network data
 					userName: tempUserName,
 					slug: tempUserName,
-					email: profile.emails[0].value
+					email: profile.emails[0].value,
+					created: dateNow
 				},
 				$set														// Set up social network provided info
 			},
@@ -81,7 +96,10 @@
 				upsert: true
 			},
 		}
+	// ----------------------------------------------------------------------------------------------------------- Returned object -- //
 	};
+// ====================================================================================== Generic social network strategy function == //
+
 // == LOCAL login strategy ========================================================================================================== //
 	passport.use('local', new LocalStrategy (
 		function(username, password, done) {
@@ -124,9 +142,6 @@
 // == FACEBOOK login strategy ======================================================================================================= //
 	passport.use('facebook', new FacebookStrategy (config.facebook,
 		function(tokenA, tokenB, profile, done) {					// tokenA = accessToken | tokenB = refreshToken
-			console.log('tokenA: ' + tokenA);
-			console.log('tokenB: ' + tokenB);
-
 			User.findOneAndUpdate(
 				socialQuery('facebook', profile).query,
 				socialQuery('facebook', profile, tokenA, tokenB).data,
@@ -169,16 +184,16 @@
 	));
 // ========================================================================================================= GOOGLE login strategy == //
 
-
-
-passport.serializeUser(function(user, done) {
-	console.log('serializou!');
-	done(null, user);
-});
-
-passport.deserializeUser(function(id, done) {
-	console.log('deserializou!');
-	User.findById(id, function(err, user) {
+// == Cookie handling =============================================================================================================== //
+	passport.serializeUser(function(user, done) {		// Create cookie
+		console.log('serializou!');
 		done(null, user);
 	});
-});
+
+	passport.deserializeUser(function(id, done) {		// Read cookie and find logged user
+		console.log('deserializou!');
+		User.findById(id, function(err, user) {
+			done(null, user);
+		});
+	});
+// =============================================================================================================== Cookie handling == //

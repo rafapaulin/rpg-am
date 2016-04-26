@@ -14,6 +14,7 @@ var		mongoose = require('mongoose'),
 			name: {type: String},
 			email: {type: String, unique: true, uniqueCaseInsensitive: true},
 			country: {type: String},
+			created: {type: Date},
 			socialIDs: {
 				facebook: {
 					id: {type: String},

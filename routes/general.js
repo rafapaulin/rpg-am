@@ -6,16 +6,16 @@
 		  logger = require("../services/logger"),
 		  router = express.Router(),
 		passport = require('passport'),
-			slug = require('slug');
+			slug = require('slug'),
 // ================================================================= Requirements == //
 
 // == Routing functions and middlewares ============================================ //
-	var modelNamer = function(collection){										// Return require for the schema passed as collection
+		modelNamer = function(collection){										// Return require for the schema passed as collection
 			return require('../schemas/' + collection + 'Schema') 
 		},
 
-		slugger = function(){													// Generate item slug based on the name passed
-			req.body.slug = slug(req.body.name, {								// Automatic generate slugs based on name
+		slugger = function(slugSrc, nameSrc){									// Generate item slug based on the name passed
+			slugSrc = slug(nameSrc, {											// Automatic generate slugs based on name
 				replacement: '-',												// replace spaces with replacement 
 				symbols: true,													// replace unicode symbols or not 
 				remove: null,													// (optional) regex to remove characters 
@@ -35,12 +35,11 @@
 			}
 		},
 
-		login = function(req, res, next) {										// Log user in
+		login = function(req, res, next) {										// Log user in (social networks)
 			if(req.params.collection == 'auth') {
 				require('../services/passport');								// Require strategies file only if needed
 
 				if(req.params.callback) {
-					console.log('calbackeou no ' + req.params.slug);
 					return	passport.authenticate(req.params.slug,
 								{
 									successRedirect: 'http://www.google.com',	// If user logs in, redirect here
@@ -48,7 +47,6 @@
 								}
 							)(req, res, next);
 				} else {
-					console.log('longinzou no ' + req.params.slug);
 					var gScope = {};
 					if(req.params.slug == 'google'){							// Google strategy demands scope, which is optional to the others
 						gScope = {scope: ['profile', 'email']};
@@ -62,12 +60,13 @@
 
 // == Get Item or list ============================================================= //
 	router.get('/:collection/:slug?/:callback?', login, isLoggedIn, function(req, res){
-	// ------------------------------------------------- Facebook Strategy Login -- // /auth/facebook/callback
+	// ------------------------------------------------- Facebook Strategy Login -- //
 		 if(!req.params.slug){												// If optional slug param exists
 			modelNamer(req.params.collection)
 				.find(function(err, docs){
 					if (err) {
 						logger().debug(err.errors);							// Error log
+						res.status(500).json(err.errors);					// Send error to client
 					}
 					res.json(docs);											// Respond list of items to cient
 				});
@@ -90,30 +89,28 @@
 						.findOne({'slug': req.params.slug}, 
 							function(err, doc){								// Get the requested document to send to front end
 								if (err) {
-									logger().debug(err.errors);
+									logger().debug(err.errors);				// Log errors
+									res.status(500).json(err.errors);		// Send error to client
 								}
 								res.json(doc);
 							}).populate(pop);								// Populate referenced documents
 				});
-
-			logger().info('GET request recieved for "/' + req.params.collection + '/'+ req.params.slug + '"');
 		}
 	})
 // ============================================================= Get Item or list == //
 
 // == Update Item ================================================================== //
 	.put('/:collection/:slug', function(req, res){
-		if(req.body.name) {slugger()};
+		if(req.body.name) {slugger(req.body.slug, req.body.name)};
 		modelNamer(req.params.collection)						// Load Users model
 			.findOneAndUpdate(
 				{slug: req.params.slug},						// Query
 				req.body,										// New Data
 				function(err){									// If error, throw it to client
 					if(err) {
-						res.status(500).json(err);
+						res.status(500).json(err);				// Send error to client
 					} else {									// If success, save and notify client
 						res.status(201).json({message: req.body.name + ' updated! ', slug: req.body.slug});
-						logger().info(req.body.name + ' updated! ' + req.body);
 					}
 				});
 	})
@@ -144,7 +141,7 @@
 
 		} else {												// If the POST request is new info
 			if(req.body.name) {
-				slugger();
+				slugger(req.body.slug, req.body.name);
 				if(req.params.collection == 'users'){			// If it is a new user, convert the field 'name' to 'username'
 					req.body.userName = req.body.name;
 				}
@@ -153,38 +150,32 @@
 				.save(function(err){
 					if(err) {									// If error, throw it to client
 						logger().debug(err);
-						res.status(500).json(err.errors);
+						res.status(500).json(err.errors);		// Send error to client
 
 					} else {									// If success, save and notify client
 						res.status(201).json({
 							message: req.body.name + ' successfully created'
 						});
-						logger().info(req.body.name + '  saved!', req.body);
 					}
 				});
 		}
 	})
 // ============================================== Create new items or user login == //
 
-
 // == Delete items ================================================================= //
 	.delete('/:collection/:slug', function(req, res){
-		modelNamer(req.params.collection)
-			.remove({slug: req.params.slug}, function(err, doc){
+		modelNamer(req.params.collection)							// Load correct model
+			.remove({slug: req.params.slug}, function(err, doc){	// Query by item slug
 				if(err) {
-					logger().debug(err.errors);
+					logger().debug(err.errors);						// Log error
+					res.status(500).json(err.errors);				// Send error to client
 				} else {
-					logger().info(req.params.slug + 'Deletado com sucesso');
-					res.status(200).json({
+					res.status(200).json({							// Send success msg to client
 						message: 'Deletado com sucesso'
 					});
 				}
 			});
 	});
 // ================================================================= Delete items == //
-
-
-
-
 
 module.exports = router;
