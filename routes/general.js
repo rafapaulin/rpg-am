@@ -14,52 +14,48 @@
 			return require('../schemas/' + collection + 'Schema') 
 		},
 
-		slugger = function(slugSrc, nameSrc){									// Generate item slug based on the name passed
-			slugSrc = slug(nameSrc, {											// Automatic generate slugs based on name
-				replacement: '-',												// replace spaces with replacement 
-				symbols: true,													// replace unicode symbols or not 
-				remove: null,													// (optional) regex to remove characters 
-				lower: true,													// result in lower case 
-				charmap: slug.charmap,											// replace special characters 
-				multicharmap: slug.multicharmap									// replace multi-characters 
-			});
-		},
-
 		isLoggedIn = function(req, res, next) {									// Check if user is logged in
-			if (req.isAuthenticated()){	
+			if (req.isAuthenticated()){
 				console.log('Autenticado!!!');
 				return next();
 			} else {
 				console.log('MERDA, não autenticado!!!');
-				return next();
+				res.status(401)
+					.json({
+						message: 'Você ainda não está logado.\n' + 
+								 'Por favor, efetue seu login ou cadastre-se gratuitamente!'
+					});
 			}
 		},
 
-		login = function(req, res, next) {										// Log user in (social networks)
+		login = function(req, res, next) {								// Log user in (social networks)
 			if(req.params.collection == 'auth') {
-				require('../services/passport');								// Require strategies file only if needed
+				require('../services/passport');						// Require strategies file only if needed
 
 				if(req.params.callback) {
 					return	passport.authenticate(req.params.slug,
 								{
-									successRedirect: 'http://www.google.com',	// If user logs in, redirect here
-									failureRedirect: 'http://www.amazon.com'	// If login fail, redirect here
+									successRedirect: '/#/dashboard',	// If user logs in, redirect here
+									failureRedirect: '/#/users/new'		// If login fail, redirect here
 								}
 							)(req, res, next);
 				} else {
 					var gScope = {};
-					if(req.params.slug == 'google'){							// Google strategy demands scope, which is optional to the others
+					if(req.params.slug == 'google'){					// Google strategy demands scope, which is optional to the others
 						gScope = {scope: ['profile', 'email']};
 					};
 					return passport.authenticate(req.params.slug, gScope)(req, res, next);
 				}
 			}
-			return next();														// If it is not a login attempt, ignore this middleware
+			return next();												// If it is not a login attempt, ignore this middleware
 		};
 // =============================================== Global Variables and functions == //
 
 // == Get Item or list ============================================================= //
-	router.get('/:collection/:slug?/:callback?', login, isLoggedIn, function(req, res){
+	router.get('/dashboard', isLoggedIn, function(req, res){
+		res.status(200).json(req.user);
+	})
+	.get('/:collection/:slug?/:callback?', login, function(req, res){
 	// ------------------------------------------------- Facebook Strategy Login -- //
 		 if(!req.params.slug){												// If optional slug param exists
 			modelNamer(req.params.collection)
@@ -78,6 +74,10 @@
 				 pop = '';													// *
 			modelNamer(req.params.collection)
 				.findOne({'slug': req.params.slug}, function(err, doc){		// Get the requested document to deal with data
+					if(doc.createdBy){
+						refs.push('createdBy');
+						require('../schemas/usersSchema');
+					};
 					for (var key in doc) {									// Iterate through each document key for referenced documents
 						if(key.indexOf('_ref_') > -1) {						// Use property prefix as validator
 							refs.push(key);									// Create an array of the properties that are referenced documents
@@ -139,13 +139,25 @@
 			}
 	// ---------------------------------------------------- Local Strategy Login -- //
 
-		} else {												// If the POST request is new info
+		} else if(req.user) {									// If the POST request is new info and the user is loged in
+			req.body.createdOn = new Date;						// Set the creation date
+			req.body.createdBy = req.user._id;					// Set the author
+
 			if(req.body.name) {
-				slugger(req.body.slug, req.body.name);
+				req.body.slug = slug(req.body.name, {			// Automatic generate slugs based on name
+					replacement: '-',							// replace spaces with replacement 
+					symbols: true,								// replace unicode symbols or not 
+					remove: null,								// (optional) regex to remove characters 
+					lower: true,								// result in lower case 
+					charmap: slug.charmap,						// replace special characters 
+					multicharmap: slug.multicharmap				// replace multi-characters 
+				});
+
 				if(req.params.collection == 'users'){			// If it is a new user, convert the field 'name' to 'username'
 					req.body.userName = req.body.name;
 				}
 			};
+
 			new modelNamer(req.params.collection)(req.body)		// Load the correct model and pass the Data to save function
 				.save(function(err){
 					if(err) {									// If error, throw it to client
@@ -157,6 +169,13 @@
 							message: req.body.name + ' successfully created'
 						});
 					}
+				});
+		} else {
+			console.log('MERDA, não autenticado!!! não da pra criar!');
+			res.status(401)
+				.json({
+					message: 'Você ainda não está logado.\n' + 
+							 'Por favor, efetue seu login ou cadastre-se gratuitamente!'
 				});
 		}
 	})

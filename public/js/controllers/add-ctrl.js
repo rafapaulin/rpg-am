@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('rpg')
-	.controller('addController', ['$scope', 'Crud', '$routeParams', '$timeout', function($scope, Crud, $routeParams, $timeout){
+	.controller('addController', ['$scope', 'Crud', '$routeParams', '$timeout', '$location', function($scope, Crud, $routeParams, $timeout, $location){
 		var controller = $scope,
 			collection = $routeParams.collection;
 
@@ -23,11 +23,16 @@ angular.module('rpg')
 					controller.$emit('postSuccess');							// Emit 'postSuccess' event to use on directives
 				})
 				.catch(function(res){											// Error response to user
-					controller.errors = [];										// Define property to use on HTML
-					for(var key in res.data) { 									// Get all error messages in the array
-						controller.errors.push(res.data[key].message);
-					};
-					$timeout(function(){controller.errors = null}, 3000);		// Variable clean up (General error message)
+					if(res.status == 401 && confirm(res.data.message)){
+						console.log(res);
+						$location.path('users/new');
+					} else {
+						controller.errors = [];										// Define property to use on HTML
+						for(var key in res.data) { 									// Get all error messages in the array
+							controller.errors.push(res.data[key].message);
+						};
+						$timeout(function(){controller.errors = null}, 3000);		// Variable clean up (General error message)
+					}
 				});
 //================================================================================================== Save to DB block == //
 		}

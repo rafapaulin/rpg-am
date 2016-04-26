@@ -1,0 +1,36 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-10 col-xs-offset-1">
+			<h1>Hey, this is the dashboard page!</h1>
+			<h3>here is your user info</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h4>Local:</h4>
+			<p><strong>UserName:</strong> {{data.userName}}</p>
+			<p><strong>E-mail:</strong> {{data.email}}</p>
+			<p><strong>Created:</strong> {{data.created}}</p>
+			<br>
+			<h4>Facebook:</h4>
+			<figure><img src="{{data.socialIDs.facebook.profilePic}}" alt="" class="img-responsive"></figure>
+			<p><strong>Name:</strong> {{data.socialIDs.facebook.name}}</p>
+			<p><strong>E-mail:</strong> {{data.socialIDs.facebook.email}}</p>
+			<p><strong>Profile Link:</strong> {{data.socialIDs.facebook.profileLink}}</p>
+			<br>
+			<h4>Google:</h4>
+			<figure><img src="{{data.socialIDs.google.profilePic}}" alt="" class="img-responsive"></figure>
+			<p><strong>Name:</strong> {{data.socialIDs.google.name}}</p>
+			<p><strong>E-mail:</strong> {{data.socialIDs.google.email}}</p>
+			<p><strong>Profile Link:</strong> {{data.socialIDs.google.profileLink}}</p>
+			<br>
+			<h4>Twitter:</h4>
+			<figure><img src="{{data.socialIDs.twitter.profilePic}}" alt="" class="img-responsive"></figure>
+			<p><strong>Screen Name:</strong> {{data.socialIDs.twitter.screenName}}</p>
+			<p><strong>Name:</strong> {{data.socialIDs.twitter.name}}</p>
+			<p><strong>E-mail:</strong> {{data.socialIDs.twitter.email}}</p>
+			<p><strong>Profile Link:</strong> {{data.socialIDs.twitter.profileLink}}</p>
+		</div>
+	</div>
+</div>
+

@@ -3,10 +3,10 @@
 		<div class="col-xs-10 col-xs-offset-1">
 			<h1>Hey, this the single skill page!</h1>
 			<h3>here is your skill details</h3>
-			<p>{{data.name}}</p>
-			<p>{{data.shortDesc}}</p>
-			<p>{{data.ability}}</p>
-			<p>{{data.prof}}</p>
+			<p><strong>Skill name: </strong>{{data.name}}</p>
+			<p><strong>Skill Short desc.: </strong>{{data.shortDesc}}</p>
+			<p><strong>Skill ability: </strong>{{data.ability}}</p>
+			<p><strong>Created by: </strong>{{data.createdBy.userName}}</p>
 			<p ng-bind-html="data.desc"></p>
 			<div ng-show="errors" ng-repeat="error in errors">{{error}}</div>
 			<div ng-show="success">{{success}}</div>

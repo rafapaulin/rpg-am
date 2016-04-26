@@ -7,7 +7,11 @@ var	mongoose = require('mongoose'),
 		{
 // == General =============================================================================================================================== //
 			name: {type: String, required: true},
-			author: {type: String},
+			createdOn: {type: Date},
+			createdBy: {								// ok - Automatic (to-do)
+				type: Schema.Types.ObjectId,			// *
+				ref: 'Users'							// *
+			},											// *
 			slug: {type: String, required: true},
 			_ref_Races: {
 				type: Schema.Types.ObjectId,
@@ -78,6 +82,6 @@ var	mongoose = require('mongoose'),
 		}
 	);
 
-charactersSchema.plugin(uniqueV);								// validate unique values
+charactersSchema.plugin(uniqueV);									// validate unique values
 
 module.exports = mongoose.model('Characters', charactersSchema);

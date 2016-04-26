@@ -14,7 +14,7 @@ var		mongoose = require('mongoose'),
 			name: {type: String},
 			email: {type: String, unique: true, uniqueCaseInsensitive: true},
 			country: {type: String},
-			created: {type: Date},
+			createdOn: {type: Date},
 			socialIDs: {
 				facebook: {
 					id: {type: String},
@@ -44,6 +44,56 @@ var		mongoose = require('mongoose'),
 					token: {type: String},
 					secret: {type: String}
 				}
+			},
+			createdContent: {
+				_ref_Backgrounds:[
+					{
+						type: Schema.Types.ObjectId,
+						ref: 'Backgrounds'
+					}
+				],
+				_ref_Characters:[
+					{
+						type: Schema.Types.ObjectId,
+						ref: 'Characters'
+					}
+				],
+				_ref_Classes:[
+					{
+						type: Schema.Types.ObjectId,
+						ref: 'Classes'
+					}
+				],
+				_ref_Equips:[
+					{
+						type: Schema.Types.ObjectId,
+						ref: 'Equips'
+					}
+				],
+				_ref_Skills:[
+					{
+						type: Schema.Types.ObjectId,
+						ref: 'Skills'
+					}
+				],
+				_ref_Spells:[
+					{
+						type: Schema.Types.ObjectId,
+						ref: 'Spells'
+					}
+				],
+				_ref_Feats:[
+					{
+						type: Schema.Types.ObjectId,
+						ref: 'Feats'
+					}
+				],
+				_ref_Races:[
+					{
+						type: Schema.Types.ObjectId,
+						ref: 'Races'
+					}
+				],
 			}
 // ================================================================================================================================= General == //
 		},

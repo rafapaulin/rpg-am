@@ -87,7 +87,7 @@
 					userName: tempUserName,
 					slug: tempUserName,
 					email: profile.emails[0].value,
-					created: dateNow
+					createdOn: dateNow
 				},
 				$set														// Set up social network provided info
 			},
