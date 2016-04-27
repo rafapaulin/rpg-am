@@ -24,7 +24,6 @@ angular.module('rpg')
 				})
 				.catch(function(res){											// Error response to user
 					if(res.status == 401 && confirm(res.data.message)){
-						console.log(res);
 						$location.path('users/new');
 					} else {
 						controller.errors = [];										// Define property to use on HTML

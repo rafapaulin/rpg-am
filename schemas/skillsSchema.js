@@ -2,7 +2,8 @@
 var	mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 	  Schema = mongoose.Schema,
-	
+		slug = require('slug'),
+
 	skillsSchema = new Schema(
 		{
 // == General =============================================================================================================================== //
@@ -16,14 +17,12 @@ var	mongoose = require('mongoose'),
 			},
 			desc: {type: String, required: true, minlength: 3},												// ok
 // =============================================================================================================================== General == //
-
 			ability: {type:String, required: true}
 		},
 		{
 			collection: 'skills'
 		}
 	);
-	
 skillsSchema.plugin(uniqueV);								// validate unique values
 
 module.exports = mongoose.model('Skills', skillsSchema);		// Export for further use
