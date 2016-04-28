@@ -7,7 +7,8 @@ var	mongoose = require('mongoose'),
 		{
 // == General =============================================================================================================================== //
 			name: {type: String, required: true},
-			createdOn: {type: Date},
+			createdOn: {type: Date},					// ok - Automatic
+			lastUpdate: {type: Date},					// ok - Automatic
 			createdBy: {								// ok - Automatic (to-do)
 				type: Schema.Types.ObjectId,			// *
 				ref: 'Users'							// *

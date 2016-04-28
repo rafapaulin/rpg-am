@@ -8,7 +8,6 @@
 			 randomstring = require("randomstring"),
 					 User = require('../schemas/usersSchema'),
 					 slug = require('slug'),
-				   logger = require("../services/logger"),
 				   config = require('../services/oauth'),
 // ================================================================================================================== Requirements == //
 
@@ -71,7 +70,6 @@
 	// --------------------------------------------------------------------------------------------- Sub-object with variable keys -- //
 
 	// -- Returned object ----------------------------------------------------------------------------------------------------------- //
-	console.log(dateNow);
 		return {
 			query: {
 				$or: [
@@ -87,7 +85,7 @@
 					userName: tempUserName,
 					slug: tempUserName,
 					email: profile.emails[0].value,
-					createdOn: dateNow
+					memberSince: dateNow
 				},
 				$set														// Set up social network provided info
 			},
@@ -118,17 +116,22 @@
 
 					if (!user) {																// Check for existing username. If not, return a message
 						console.log('not user');
-						return done(null, false, {message: 'Incorrect username.' });
-					}
-
+						return done(null, false, {message: username + 'is not a user yet. Please Sign up' });
+					};
+					if(!user.password){
+						console.log('password not set');
+						return done(null, false, {message: 'Password not set for account' + username +
+															'Please, log in with a social network, than set a password in your dashboard.'
+												 });
+					};
 					user.validPassword(password, 												// Check for a valid password if username exists
 						function(err, isMatch){
 							if(err) throw err;
-
 							if(!isMatch){														// If password does not match, return a message to user.
 								console.log('not valid password');
 								return done(null, false, {message: 'Incorrect password.' });
 							} else {															// If everything passes, return the user object
+								console.log(user);
 								return done(null, user);
 							}
 						}

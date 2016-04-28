@@ -2,7 +2,6 @@
 var	mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 	  Schema = mongoose.Schema,
-		slug = require('slug'),
 
 	skillsSchema = new Schema(
 		{
@@ -10,7 +9,8 @@ var	mongoose = require('mongoose'),
 			name: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok
 			slug: {type: String, required: true, minlength: 3, unique: true, uniqueCaseInsensitive: true},	// ok - Automatic
 			shortDesc: {type: String, required: true, minlength: 3, maxlength: 145},						// ok
-			createdOn: {type: Date},
+			createdOn: {type: Date},																		// ok - Automatic
+			lastUpdate: {type: Date},																		// ok - Automatic
 			createdBy: {																					// ok - Automatic (to-do)
 				type: Schema.Types.ObjectId,
 				ref: 'Users'
