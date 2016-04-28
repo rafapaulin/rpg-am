@@ -5,7 +5,7 @@ var	modelNamer = function(collection){							// Return require for the schema pa
 	},
 
 	slugger = function(req, reference){
-		require('slug');										// Require slug plugin only if needed
+		var slug = require('slug');								// Require slug plugin only if needed
 		req.body.slug = slug(reference, {						// Automatic generate slugs based on name
 			replacement: '-',									// replace spaces with replacement 
 			symbols: true,										// replace unicode symbols or not 
@@ -135,18 +135,29 @@ var	modelNamer = function(collection){							// Return require for the schema pa
 				}
 			},
 
-			createContent: function(req, res) {								// Create new item
-				req.body.createdOn = new Date;								// Set the creation date
-				req.body.createdBy = req.user._id;							// Set the author
+			createContent: function(req, res) {									// Create new item
+				req.body.createdOn = new Date;									// Set the creation date
+				req.body.createdBy = req.user._id;								// Set the author
 
 				if(req.body.name) slugger(req, req.body.name);
 
-				new modelNamer(req.params.collection)(req.body).save(		// Load the correct model and pass the Data to save function
+				var newData = new modelNamer(req.params.collection)(req.body);	// Load the correct model and pass the Data to variable
+
+				newData.save(													// Save newData to DB
 					function(err){
-						if(err) {											// If error, throw it to client
-							logger().debug(err);
-							res.status(500).json(err.errors);				// Send error to client
-						} else {											// If success, save and notify client
+						if(err) {												// If error, throw it to client
+							console.log(err);
+							res.status(500).json(err.errors);					// Send error to client
+						} else {												// If success, save and notify client
+							require('../schemas/usersSchema').findByIdAndUpdate(// Call users Schema
+								req.user._id,									// Query
+								{
+									$addToSet: { 'createdContent._ref_Skills': newData._id }
+								},
+								{new: true}										// Options
+							);
+
+
 							res.status(201).json({
 								message: req.body.name + ' successfully created'
 							});
@@ -155,15 +166,15 @@ var	modelNamer = function(collection){							// Return require for the schema pa
 				);
 			},
 
-			deleteContent: function(req, res){								// Delete items
+			deleteContent: function(req, res){									// Delete items
 				modelNamer(req.params.collection).remove(
-					{slug: req.params.slug},								// Query by item slug
+					{slug: req.params.slug},									// Query by item slug
 					function(err, doc){
 						if(err) {
-							logger().debug(err.errors);						// Log error
-							res.status(500).json(err.errors);				// Send error to client
+							logger().debug(err.errors);							// Log error
+							res.status(500).json(err.errors);					// Send error to client
 						} else {
-							res.status(200).json({							// Send success msg to client
+							res.status(200).json({								// Send success msg to client
 								message: 'Deletado com sucesso'
 							});
 						}
@@ -171,20 +182,20 @@ var	modelNamer = function(collection){							// Return require for the schema pa
 				);
 			},
 
-			updateContent: function(req, res){								// Update existing item
+			updateContent: function(req, res){									// Update existing item
 				if(req.body.name) slugger(req, req.body.name);
 				else if(req.body.userName) slugger(req.body.userName);
 
-				req.body.lastUpdate = new Date;								// Set up the update date
+				req.body.lastUpdate = new Date;									// Set up the update date
 
-				modelNamer(req.params.collection).findOneAndUpdate(			// Load correct model
-					{slug: req.params.slug},								// Query by item slug
-					{$set: req.body},										// New Data
-					function(err){											// If error, throw it to client
+				modelNamer(req.params.collection).findOneAndUpdate(				// Load correct model
+					{slug: req.params.slug},									// Query by item slug
+					{$set: req.body},											// New Data
+					function(err){												// If error, throw it to client
 						if(err) {
-							res.status(500).json(err);						// Send error to client
+							res.status(500).json(err);							// Send error to client
 						} else {
-							res.status(201).json({							// Send success msg to client
+							res.status(201).json({								// Send success msg to client
 								message: req.body.name + ' updated! ', 
 								slug: req.body.slug
 							});
