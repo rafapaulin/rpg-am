@@ -142,19 +142,31 @@ var	modelNamer = function(collection){							// Return require for the schema pa
 				if(req.body.name) slugger(req, req.body.name);
 
 				var newData = new modelNamer(req.params.collection)(req.body);	// Load the correct model and pass the Data to variable
-
 				newData.save(													// Save newData to DB
 					function(err){
 						if(err) {												// If error, throw it to client
 							console.log(err);
 							res.status(500).json(err.errors);					// Send error to client
 						} else {												// If success, save and notify client
+							var $addToSet = {};
+								itemReferenceGroup =	'_ref_' +
+														req.params.collection.charAt(0).toUpperCase() +
+														req.params.collection.slice(1),
+
+							$addToSet['createdContent.' + itemReferenceGroup] = newData._id;
+
 							require('../schemas/usersSchema').findByIdAndUpdate(// Call users Schema
 								req.user._id,									// Query
 								{
-									$addToSet: { 'createdContent._ref_Skills': newData._id }
+									$addToSet									// Add a reference to the created object on the user profile
 								},
-								{new: true}										// Options
+								{new: true},									// Options
+								function(err, doc) {
+									console.log('err:');
+									console.log(err);
+									console.log('doc:');
+									console.log(doc);
+								}
 							);
 
 
