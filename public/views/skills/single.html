@@ -7,6 +7,7 @@
 			<p><strong>Skill Short desc.: </strong>{{data.shortDesc}}</p>
 			<p><strong>Skill ability: </strong>{{data.ability}}</p>
 			<p><strong>Created by: </strong>{{data.createdBy.userName}}</p>
+			<p><strong>Created by: </strong>{{data.createdBy}}</p>
 			<p ng-bind-html="data.desc"></p>
 			<div ng-show="errors" class="blah" ng-repeat="error in errors">{{error}}</div>
 			<div ng-show="success" class="blah">>>{{success}}<<</div>
