@@ -1,4 +1,13 @@
 'use strict';
+require('../schemas/backgroundsSchema');
+require('../schemas/charactersSchema');
+require('../schemas/classesSchema');
+require('../schemas/equipsSchema');
+require('../schemas/featsSchema');
+require('../schemas/racesSchema');
+require('../schemas/skillsSchema');
+require('../schemas/spellsSchema');
+
 var		mongoose = require('mongoose'),
 		 uniqueV = require('mongoose-unique-validator'),
 		  Schema = mongoose.Schema,
@@ -46,52 +55,59 @@ var		mongoose = require('mongoose'),
 				}
 			},
 			createdContent: {
-				_ref_Backgrounds:[
+				backgrounds:[
 					{
 						type: Schema.Types.ObjectId,
-						ref: 'Backgrounds'
+						ref: 'Backgrounds',
+						autopopulate: true
 					}
 				],
-				_ref_Characters:[
+				characters:[
 					{
 						type: Schema.Types.ObjectId,
-						ref: 'Characters'
+						ref: 'Characters',
+						autopopulate: true
 					}
 				],
-				_ref_Classes:[
+				classes:[
 					{
 						type: Schema.Types.ObjectId,
-						ref: 'Classes'
+						ref: 'Classes',
+						autopopulate: true
 					}
 				],
-				_ref_Equips:[
+				equips:[
 					{
 						type: Schema.Types.ObjectId,
-						ref: 'Equips'
+						ref: 'Equips',
+						autopopulate: true
 					}
 				],
-				_ref_Skills:[
+				skills:[
 					{
 						type: Schema.Types.ObjectId,
 						ref: 'Skills'
 					}
 				],
-				_ref_Spells:[
+				spells:[
 					{
 						type: Schema.Types.ObjectId,
-						ref: 'Spells'
+						ref: 'Spells',
+						autopopulate: true
 					}
 				],
-				_ref_Feats:[
+				feats:[
 					{
 						type: Schema.Types.ObjectId,
-						ref: 'Feats'
+						ref: 'Feats',
+						autopopulate: true
 					}
 				],
-				_ref_Races:[
+				faces:[
 					{
 						type: Schema.Types.ObjectId,
-						ref: 'Races'
+						ref: 'Races',
+						autopopulate: true
 					}
 				]
 			}
@@ -132,5 +148,6 @@ var		mongoose = require('mongoose'),
 // ================================================================================================================= Password verification == //
 
 usersSchema.plugin(uniqueV);							// validate unique values
+usersSchema.plugin(autopopulate);						// Autopopulate users
 
 module.exports = mongoose.model('Users', usersSchema);	// Export module

@@ -68,8 +68,8 @@ var	modelNamer = function(collection){							// Return require for the schema pa
 				return next();													// If it is not a login attempt, ignore this middleware
 			},
 
-			getList: function(req, res, next){									// GET request for list of items
-				if(!req.params.slug){											// If optional slug param not exists
+			getItems: function(req, res, next){									// GET request for list of items
+				if(!req.params.slug){											// If optional slug param not exists (GET for list)
 					modelNamer(req.params.collection).find(function(err, docs){
 						if (err) {
 							logger().debug(err.errors);							// Error log
@@ -77,40 +77,18 @@ var	modelNamer = function(collection){							// Return require for the schema pa
 						}
 						res.json(docs);											// Send list of items to cient
 					});
-				} else {
-					return next();												// If not list of item request, ignore
+				} else {														// GET for single item
+					modelNamer(req.params.collection).findOne(
+						{'slug': req.params.slug},								// Query parameters
+						function(err, doc){										// Get the requested document to deal with data
+							if (err) {
+								logger().debug(err.errors);						// Log errors
+								res.status(500).json(err.errors);				// Send error to client
+							}
+							res.json(doc);
+						}
+					);
 				}
-			},
-
-			getSingle: function(req, res){										// GET request for single item
-				var refs = [],													// Set up variable with array of references to be populated
-					 pop = '';													// Set up variable that will recieve refs as space-separated string
-				modelNamer(req.params.collection).findOne(
-					{'slug': req.params.slug},									// Query parameters
-					function(err, doc){											// Get the requested document to deal with data
-						if(doc.createdBy){										// Check for createdBy key
-							refs.push('createdBy');								// Push creatdBy key to refs
-							require('../schemas/usersSchema');					// Call users Schema
-						};
-						for (var key in doc) {									// Iterate through each document key for referenced documents
-							if(key.indexOf('_ref_') > -1) {						// Use property prefix as validator
-								refs.push(key);									// Create an array of the properties that are referenced documents
-								modelNamer(key.slice(5).toLowerCase());			// Require schemas only for the referenced documents
-							}
-						};
-						pop = refs.join(' ');									// Convert the properties array in a space-separated string to use in .populate()
-						modelNamer(req.params.collection).findOne(				// Query parameters
-							{'slug': req.params.slug}, 
-							function(err, doc){									// Get the requested document to send to front end
-								if (err) {
-									logger().debug(err.errors);					// Log errors
-									res.status(500).json(err.errors);			// Send error to client
-								}
-								res.json(doc);
-							}
-						).populate(pop);										// Populate referenced documents
-					}
-				);
 			},
 
 			newUser: function(req, res, next){									// Create new user (local strategy)

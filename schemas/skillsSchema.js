@@ -1,6 +1,9 @@
 'use strict';
+require('../schemas/usersSchema');
+
 var	mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
+autopopulate = require('mongoose-autopopulate'),
 	  Schema = mongoose.Schema,
 
 	skillsSchema = new Schema(
@@ -13,7 +16,8 @@ var	mongoose = require('mongoose'),
 			lastUpdate: {type: Date},																		// ok - Automatic
 			createdBy: {																					// ok - Automatic (to-do)
 				type: Schema.Types.ObjectId,
-				ref: 'Users'
+				ref: 'Users',
+				autopopulate: true
 			},
 			desc: {type: String, required: true, minlength: 3},												// ok
 // =============================================================================================================================== General == //
@@ -24,5 +28,6 @@ var	mongoose = require('mongoose'),
 		}
 	);
 skillsSchema.plugin(uniqueV);								// validate unique values
+skillsSchema.plugin(autopopulate);							// Autopopulate users
 
-module.exports = mongoose.model('Skills', skillsSchema);		// Export for further use
+module.exports = mongoose.model('Skills', skillsSchema);	// Export for further use
