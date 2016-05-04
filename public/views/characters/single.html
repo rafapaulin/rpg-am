@@ -4,11 +4,11 @@
 			<h1>Hey, this the single charsheet page!</h1>
 			<h3>here is your charsheet</h3>
 			<p>{{data.name}}</p>
-			<h4>Race: <small>{{data._ref_Races}}</small></h4>
-			<p>{{data._ref_Races.bonuses}}</p>
-			<h4>Class: <small>{{data._ref_Classes}}</small></h4>
-			<p>{{data._ref_Classes.desc}}</p>
-			<p ng-bind-html="data.desc"></p>
+			<h4>Race: <small>{{data.race.name}}</small></h4>
+			<p>{{data.race.bonuses}}</p>
+			<h4>Class: <small>{{data.class.name}}</small></h4>
+			<span>Class desc: </span><p ng-bind-html="data.class.desc"></p>
+			<span>Char desc: </span><p ng-bind-html="data.desc"></p>
 			<div ng-show="errors" ng-repeat="error in errors">{{error}}</div>
 			<div ng-show="success">{{success}}</div>
 		</div>

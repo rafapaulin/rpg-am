@@ -14,11 +14,11 @@ autopopulate = require('mongoose-autopopulate'),
 			shortDesc: {type: String, required: true, minlength: 3, maxlength: 145},						// ok
 			createdOn: {type: Date},																		// ok - Automatic
 			lastUpdate: {type: Date},																		// ok - Automatic
-			createdBy: {																					// ok - Automatic (to-do)
-				type: Schema.Types.ObjectId,
-				ref: 'Users',
-				autopopulate: true
-			},
+			createdBy: {																					// ok - Automatic
+				type: Schema.Types.ObjectId,																// *
+				ref: 'Users',																				// *
+				autopopulate: true																			// *
+			},																								// *
 			desc: {type: String, required: true, minlength: 3},												// ok
 // =============================================================================================================================== General == //
 			ability: {type:String, required: true}

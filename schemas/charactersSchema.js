@@ -1,5 +1,14 @@
 'use strict';
+require('../schemas/backgroundsSchema');
+require('../schemas/classesSchema');
+require('../schemas/equipsSchema');
+require('../schemas/featsSchema');
+require('../schemas/racesSchema');
+require('../schemas/skillsSchema');
+require('../schemas/spellsSchema');
+
 var	mongoose = require('mongoose'),
+autopopulate = require('mongoose-autopopulate'),
 	 uniqueV = require('mongoose-unique-validator'),
 	  Schema = mongoose.Schema,
 	
@@ -7,27 +16,31 @@ var	mongoose = require('mongoose'),
 		{
 // == General =============================================================================================================================== //
 			name: {type: String, required: true},
-			createdOn: {type: Date},					// ok - Automatic
-			lastUpdate: {type: Date},					// ok - Automatic
-			createdBy: {								// ok - Automatic (to-do)
-				type: Schema.Types.ObjectId,			// *
-				ref: 'Users'							// *
-			},											// *
+			createdOn: {type: Date},						// ok - Automatic
+			lastUpdate: {type: Date},						// ok - Automatic
+			createdBy: {									// ok - Automatic
+				type: Schema.Types.ObjectId,				// *
+				ref: 'Users',								// *
+				autopopulate: true							// *
+			},												// *
 			slug: {type: String, required: true},
-			_ref_Races: {
+			race: {
 				type: Schema.Types.ObjectId,
 				ref: 'Races',
-				required: true
+				required: true,
+				autopopulate: true
 			},
-			_ref_Classes: {
+			class: {
 				type: Schema.Types.ObjectId,
 				ref: 'Classes',
-				required: true
+				required: true,
+				autopopulate: true
 			},
-			_ref_Backgrounds: {
+			background: {
 				type: Schema.Types.ObjectId,
 				ref: 'Backgrounds',
-				required: true
+				required: true,
+				autopopulate: true
 			},
 // =============================================================================================================================== General == //
 
@@ -84,5 +97,6 @@ var	mongoose = require('mongoose'),
 	);
 
 charactersSchema.plugin(uniqueV);									// validate unique values
+charactersSchema.plugin(autopopulate);									// Autopopulate users
 
 module.exports = mongoose.model('Characters', charactersSchema);

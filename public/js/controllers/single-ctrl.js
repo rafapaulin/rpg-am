@@ -11,6 +11,7 @@ angular.module('rpg').controller('singleController', ['$scope', 'Crud', '$routeP
 
 	controller.update = function(data){									// Update function
 		controller.errors = null;
+		console.log(data);
 		data.desc = $sce.getTrustedHtml(data.desc);						// Translate the desc wysiwyg text as trusted html string
 
 		delete data._id;												// Delete the unupdatable parameter (_id) from the object being sent on update
@@ -21,7 +22,7 @@ angular.module('rpg').controller('singleController', ['$scope', 'Crud', '$routeP
 
 		for (var key in data) {											// Remove empty data from update object to avoid unwanted overwritten data
 			console.log('key: ' + key);
-			if(data[key].length < 1){
+			if(key.length < 1){
 				console.log('key ' + key + ' deletada!');
 				delete data[key];
 			}
@@ -36,13 +37,18 @@ angular.module('rpg').controller('singleController', ['$scope', 'Crud', '$routeP
 					$location.path(collection + '/' + res.data.slug);
 				}, 2200);
 			})
-			.catch(function(res){										// Error response to user
-				var errors = [];
-
-				for(var key in res.data) {
-					errors.push(res.data[key].message); 
-				};
-				controller.errors = errors;
+			.catch(function(res){											// Error response to user
+				if(res.status == 401 && confirm(res.data.message)){
+					console.log('crap if');
+					$location.path('users/new');
+				} else {
+					console.log('crap else');
+					controller.errors = [];										// Define property to use on HTML
+					for(var key in res.data) { 									// Get all error messages in the array
+						controller.errors.push(res.data[key].message);
+					};
+					$timeout(function(){controller.errors = null}, 3000);		// Variable clean up (General error message)
+				}
 			});
 		controller.showForm = null;										// Clean variable to hide form
 	};

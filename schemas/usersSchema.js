@@ -11,6 +11,7 @@ require('../schemas/spellsSchema');
 var		mongoose = require('mongoose'),
 		 uniqueV = require('mongoose-unique-validator'),
 		  Schema = mongoose.Schema,
+	autopopulate = require('mongoose-autopopulate'),
 		  bcrypt = require('bcrypt'),
 	  saltFactor = 10,
 

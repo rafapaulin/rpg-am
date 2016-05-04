@@ -1,6 +1,9 @@
 'use strict';
+require('../schemas/usersSchema');
+
 var mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
+autopopulate = require('mongoose-autopopulate'),
 	  Schema = mongoose.Schema,
 
 	spellsSchema = new Schema(
@@ -12,9 +15,10 @@ var mongoose = require('mongoose'),
 			createdOn: {type: Date},																		// ok - Automatic
 			lastUpdate: {type: Date},																		// ok - Automatic
 			createdBy: {																					// ok - Automatic
-				type: Schema.Types.ObjectId,
-				ref: 'Users'
-			},
+				type: Schema.Types.ObjectId,																// *
+				ref: 'Users',																				// *
+				autopopulate: true																			// *
+			},																								// *
 			desc: {type:String, required: true, minlength: 3},												// ok
 // =============================================================================================================================== General == //
 
@@ -85,6 +89,7 @@ var mongoose = require('mongoose'),
 		}
 	);
 
-spellsSchema.plugin(uniqueV);							// validate unique values
+spellsSchema.plugin(uniqueV);								// validate unique values
+spellsSchema.plugin(autopopulate);							// Autopopulate users
 
 module.exports = mongoose.model('Spells', spellsSchema);
