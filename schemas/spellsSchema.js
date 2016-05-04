@@ -17,7 +17,7 @@ autopopulate = require('mongoose-autopopulate'),
 			createdBy: {																					// ok - Automatic
 				type: Schema.Types.ObjectId,																// *
 				ref: 'Users',																				// *
-				autopopulate: true																			// *
+				autopopulate: {select: 'userName'}															// *
 			},																								// *
 			desc: {type:String, required: true, minlength: 3},												// ok
 // =============================================================================================================================== General == //

@@ -4,13 +4,13 @@ angular.module('rpg').controller('dashboardController', ['$scope', 'Crud', '$rou
 	var controller = $scope;
 
 	Crud.get('dashboard')
-		.then(function(res){					// Front end GET request
-			controller.data = res.data;
-			controller.data.desc = $sce.trustAsHtml(controller.data.desc);	// Renders the html format in the descriptions
-		})
-		.catch(function(res){
-			if(res.status == 401 && confirm(res.data.message)){
-				$location.path('users/new');
-			}
-		});
+	.then(function(res){												// Front end GET request
+		controller.data = res.data;
+		controller.data.desc = $sce.trustAsHtml(controller.data.desc);	// Renders the html format in the descriptions
+	})
+	.catch(function(res){
+		if(res.status == 401 && confirm(res.data.message)){
+			$location.path('users/new');
+		}
+	});
 }]);

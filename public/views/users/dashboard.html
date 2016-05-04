@@ -33,5 +33,16 @@
 			<p><strong>Profile Link:</strong> {{data.socialIDs.twitter.profileLink}}</p>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<h3>Created Content</h3>
+			<h4>Skills</h4>
+			<p ng-repeat="skill in data.createdContent.skills">{{skill.name}}</p>
+			<p ng-repeat="skill in data.createdContent.skills">{{skill}}</p>
+			<h4>Feats</h4>
+			<p ng-repeat="feat in data.createdContent.feats">{{feat.name}}</p>
+			<p ng-repeat="feat in data.createdContent.feats">{{feat}}</p>
+		</div>
+	</div>
 </div>
 

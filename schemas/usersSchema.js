@@ -87,7 +87,8 @@ var		mongoose = require('mongoose'),
 				skills:[
 					{
 						type: Schema.Types.ObjectId,
-						ref: 'Skills'
+						ref: 'Skills',
+						autopopulate: true
 					}
 				],
 				spells:[
@@ -115,7 +116,7 @@ var		mongoose = require('mongoose'),
 // ================================================================================================================================= General == //
 		},
 		{
-			'collection': 'users'
+			collection: 'users'
 		}
 	);
 

@@ -68,14 +68,21 @@ var	modelNamer = function(collection){							// Return require for the schema pa
 				return next();													// If it is not a login attempt, ignore this middleware
 			},
 
+			logOut: function(req, res){
+				req.logout();
+				res.redirect('/');
+			},
+
 			getItems: function(req, res, next){									// GET request for list of items
 				if(!req.params.slug){											// If optional slug param not exists (GET for list)
 					modelNamer(req.params.collection).find(function(err, docs){
 						if (err) {
 							logger().debug(err.errors);							// Error log
 							res.status(500).json(err.errors);					// Send error to client
+						} else {
+							console.log('GET for ' + req.params.collection + ' recieved!');
+							res.json(docs);										// Send list of items to client
 						}
-						res.json(docs);											// Send list of items to cient
 					});
 				} else {														// GET for single item
 					modelNamer(req.params.collection).findOne(
@@ -84,8 +91,10 @@ var	modelNamer = function(collection){							// Return require for the schema pa
 							if (err) {
 								logger().debug(err.errors);						// Log errors
 								res.status(500).json(err.errors);				// Send error to client
+							} else {
+								console.log('GET for ' + req.params.slug + ' recieved!');
+								res.json(doc);									// Send item to client
 							}
-							res.json(doc);
 						}
 					);
 				}
@@ -127,46 +136,78 @@ var	modelNamer = function(collection){							// Return require for the schema pa
 							res.status(500).json(err.errors);					// Send error to client
 						} else {												// If success, save and notify client
 							var $addToSet = {};
-								itemReferenceGroup =	'_ref_' +
-														req.params.collection.charAt(0).toUpperCase() +
-														req.params.collection.slice(1),
 
-							$addToSet['createdContent.' + itemReferenceGroup] = newData._id;
+							$addToSet['createdContent.' + req.params.collection] = newData._id;
 
 							require('../schemas/usersSchema').findByIdAndUpdate(// Call users Schema
 								req.user._id,									// Query
 								{
 									$addToSet									// Add a reference to the created object on the user profile
 								},
-								{new: true},									// Options
 								function(err, doc) {
-									console.log('err:');
-									console.log(err);
-									console.log('doc:');
-									console.log(doc);
+									if(err) {
+										console.log(err);
+									} else {
+										console.log('inseriu no array do user.');
+										res.status(201).json({
+											message: req.body.name + ' successfully created'
+										});
+									}
 								}
 							);
-
-
-							res.status(201).json({
-								message: req.body.name + ' successfully created'
-							});
+							console.log('chegou na resposta do save.')
 						}
 					}
 				);
 			},
 
 			deleteContent: function(req, res){									// Delete items
-				modelNamer(req.params.collection).remove(
-					{slug: req.params.slug},									// Query by item slug
-					function(err, doc){
+				console.log('collection: '+req.params.collection);
+				console.log('slug: '+req.params.slug);
+
+				modelNamer(req.params.collection).findOne(
+					{slug: req.params.slug},
+					function(err, deletedItem){
+						
+						console.log('deletedItem: ' + deletedItem);
+						var deletedItemId = deletedItem._id,
+							$pull = {};
+
+						$pull['createdContent.' + req.params.collection] = deletedItemId;
+
+						console.log('deletedItemId: ' + deletedItemId);
+
 						if(err) {
 							logger().debug(err.errors);							// Log error
 							res.status(500).json(err.errors);					// Send error to client
 						} else {
-							res.status(200).json({								// Send success msg to client
-								message: 'Deletado com sucesso'
-							});
+							modelNamer(req.params.collection).remove(
+								{slug: req.params.slug},									// Query by item slug
+								function(err){
+									if(err) {
+										logger().debug(err.errors);							// Log error
+										res.status(500).json(err.errors);					// Send error to client
+									} else {
+										require('../schemas/usersSchema').findByIdAndUpdate(
+											req.user._id,
+											{
+												$pull
+											},
+											{new: true},
+											function(err, user){
+												if(err) {
+													console.log(err);
+												} else {
+													console.log('funcionou o delete');
+												}
+											}
+										);
+										res.status(200).json({								// Send success msg to client
+											message: 'Deletado com sucesso'
+										});
+									}
+								}
+							);
 						}
 					}
 				);

@@ -21,7 +21,7 @@ autopopulate = require('mongoose-autopopulate'),
 			createdBy: {									// ok - Automatic
 				type: Schema.Types.ObjectId,				// *
 				ref: 'Users',								// *
-				autopopulate: true							// *
+				autopopulate: {select: 'userName'}			// *
 			},												// *
 			slug: {type: String, required: true},
 			race: {
