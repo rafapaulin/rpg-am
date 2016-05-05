@@ -1,10 +1,10 @@
 'use strict';
 angular.module('rpg')
-	.directive('classFormInputs', ['Lists', function(Lists){
+	.directive('classBasics', ['Lists', function(Lists){
 	
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/classes/class.html',
+			templateUrl: '/templates/classes/class-basics.html',
 			scope: false,
 			link: function(scope, element){
 			}

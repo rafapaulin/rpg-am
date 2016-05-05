@@ -9,17 +9,30 @@ angular.module('rpg')
 			link: function(scope, element){
 
 			// == GET the relevant relative documents ============================================================================= //
-				Crud.get('races').success(function(data){										// Front end GET request
-					scope.races = data;															// Set list property to html use on <select>
+				Crud.get('races')							// Front end GET request
+				.then(function(races){
+					scope.races = races.data;				// Set list property to html use on <select>
+				})
+				.catch(function(err) {
+					console.log(err);
 				});
-				Crud.get('backgrounds').success(function(data){									// Front end GET request
-					scope.backgrounds = data;													// Set list property to html use <select>
+
+				Crud.get('backgrounds')						// Front end GET request
+				.then(function(backgrounds){
+					scope.backgrounds = backgrounds.data;	// Set list property to html use on <select>
+				})
+				.catch(function(err) {
+					console.log(err);
 				});
-				Crud.get('classes').success(function(data){										// Front end GET request
-					scope.classes = data;														// Set list property to html use <select>
+
+				Crud.get('classes')							// Front end GET request
+				.then(function(classes){
+					scope.classes = classes.data;			// Set list property to html use on <select>
+				})
+				.catch(function(err) {
+					console.log(err);
 				});
 			// ============================================================================= GET the relevant relative documents == //
-
 
 				scope.meh = function(a){
 					console.log(a);

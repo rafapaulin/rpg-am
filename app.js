@@ -4,6 +4,7 @@
 		  mongoose = require('mongoose').connect('mongodb://127.0.0.1/test'),
 			 flash = require('connect-flash'),
 		   express = require('express'),
+		   favicon = require('serve-favicon'),
 	  cookieParser = require('cookie-parser'),
 		   session = require('express-session'),
 		  passport = require('passport'),
@@ -19,6 +20,7 @@
 
 // == Middlewares ================================================================== //
 	app.use(express.static('public'));
+	app.use(favicon(__dirname + '/public/favicon.ico'));
 	app.use(cookieParser());
 	app.use(bodyParser.json());
 	app.use(session(

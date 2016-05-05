@@ -6,6 +6,7 @@ require('../schemas/featsSchema');
 require('../schemas/racesSchema');
 require('../schemas/skillsSchema');
 require('../schemas/spellsSchema');
+require('../schemas/usersSchema');
 
 var	mongoose = require('mongoose'),
 autopopulate = require('mongoose-autopopulate'),
@@ -30,12 +31,13 @@ autopopulate = require('mongoose-autopopulate'),
 				required: true,
 				autopopulate: true
 			},
-			class: {
-				type: Schema.Types.ObjectId,
-				ref: 'Classes',
-				required: true,
-				autopopulate: true
-			},
+			classes: [
+				{
+					type: Schema.Types.ObjectId,
+					ref: 'Classes',
+					autopopulate: true
+				}
+			],
 			background: {
 				type: Schema.Types.ObjectId,
 				ref: 'Backgrounds',
@@ -88,8 +90,86 @@ autopopulate = require('mongoose-autopopulate'),
 			con: {type: Number, required: true},
 			int: {type: Number, required: true},
 			wis: {type: Number, required: true},
-			cha: {type: Number, required: true}
+			cha: {type: Number, required: true},
 // =========================================================================================================================== Abilities == //
+
+// ==  Level progression ================================================================================================================== //
+			lvlUp: [
+				{
+					class: String,
+					classPath: String,
+					classFeat: String,
+					hp: Number,
+					talent: String,
+					str: Number,
+					dex: Number,
+					con: Number,
+					int: Number,
+					wis: Number,
+					cha: Number
+				},
+			],
+// ==================================================================================================================  Level progression == //
+
+// == Inventory =========================================================================================================================== //
+			inventory: {
+				wealth: {
+					cp: Number,
+					sp: Number,
+					ep: Number,
+					gp: Number,
+					pp: Number
+				},
+				treasure: [
+					{
+						name: String,
+						qtd: Number,
+						value: Number,
+						weight: Number,
+						desc: String
+					}
+				],
+				tradingGoods: [
+					{
+						name: String,
+						qtd: Number,
+						value: Number,
+						weight: Number,
+						desc: String
+					}
+				],
+				gear: [
+					{
+						name: String,
+						qtd: Number,
+						value: Number,
+						weight: Number,
+						desc: String
+					}
+				],
+				tools: [
+					{
+						name: String,
+						qtd: Number,
+						value: Number,
+						weight: Number,
+						desc: String
+					}
+				],
+				equips: {
+					armor: {},
+					mainHand: {},
+					offHand: {}
+				},
+				other: {
+					name: String,
+					qtd: Number,
+					value: Number,
+					weight: Number,
+					desc: String
+				}
+			}
+// =========================================================================================================================== Inventory == //
 		},
 		{
 			collection: 'characters'
@@ -97,6 +177,6 @@ autopopulate = require('mongoose-autopopulate'),
 	);
 
 charactersSchema.plugin(uniqueV);									// validate unique values
-charactersSchema.plugin(autopopulate);									// Autopopulate users
+charactersSchema.plugin(autopopulate);								// Autopopulate users
 
 module.exports = mongoose.model('Characters', charactersSchema);

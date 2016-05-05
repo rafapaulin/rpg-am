@@ -11,7 +11,7 @@
 			<h4>Local:</h4>
 			<p><strong>UserName:</strong> {{data.userName}}</p>
 			<p><strong>E-mail:</strong> {{data.email}}</p>
-			<p><strong>Created:</strong> {{data.created}}</p>
+			<p><strong>Created:</strong> {{data.memberSince}}</p>
 			<br>
 			<h4>Facebook:</h4>
 			<figure><img src="{{data.socialIDs.facebook.profilePic}}" alt="" class="img-responsive"></figure>
@@ -42,6 +42,9 @@
 			<h4>Feats</h4>
 			<p ng-repeat="feat in data.createdContent.feats">{{feat.name}}</p>
 			<p ng-repeat="feat in data.createdContent.feats">{{feat}}</p>
+			<h4>Characters</h4>
+			<p ng-repeat="character in data.createdContent.characters">{{character.name}}</p>
+			<p ng-repeat="character in data.createdContent.characters">{{character}}</p>
 		</div>
 	</div>
 </div>
