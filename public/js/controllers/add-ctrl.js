@@ -13,7 +13,6 @@ angular.module('rpg')
 
 //== Save to DB block ================================================================================================== //
 		controller.save = function(data){										// Save function
-			console.log(data);
 			controller.$emit('post');											// Emit 'post' event to use on directives
 			Crud.post(collection, data)											// Front end POST request
 				.then(function(res){											// Success response to user

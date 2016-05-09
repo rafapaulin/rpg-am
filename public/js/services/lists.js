@@ -307,8 +307,86 @@ angular.module('rpg')
 				{name:'Custom 2',			cat:'Other',		type:'text',	info:''},
 				{name:'Custom 3',			cat:'Other',		type:'text',	info:''}
 			],
-			draconicAncestry: [
-				{name:'',	DmgType:'',	aoe:'', a:'', b:'', save:''}
+			bonuses: [
+				{name: 'Vision',				cat: 'General',		type:'number',	ngModel: 'vision'			},
+				{name: 'Speed',					cat: 'General',		type:'number',	ngModel: 'speed'			},
+				{name: 'Language Slots',		cat: 'General',		type:'number',	ngModel: 'langSlots'		},
+				{name: 'Max Weight',			cat: 'General',		type:'number',	ngModel: 'maxWeight'		},
+				{name: 'Skill Slot',			cat: 'General',		type:'number',	ngModel: 'skillSlot'		},
+				{name: 'Hit Points',			cat: 'Combat',		type:'number',	ngModel: 'hp'				},
+				{name: 'Armor Class',			cat: 'Combat',		type:'number',	ngModel: 'ac'				},
+				{name: 'Initiative',			cat: 'Combat',		type:'number',	ngModel: 'initiative'		},
+				{name: 'Proficiency',			cat: 'Combat',		type:'number',	ngModel: 'prof'				},
+				{name: 'Spell DC',				cat: 'Combat',		type:'number',	ngModel: 'spellDC'			},
+				{name: 'Melee to Hit',			cat: 'Combat',		type:'number',	ngModel: 'meleeToHit'		},
+				{name: 'Melee Damage',			cat: 'Combat',		type:'number',	ngModel: 'meleeDmg'			},
+				{name: 'Ranged to Hit',			cat: 'Combat',		type:'number',	ngModel: 'rangedToHit'		},
+				{name: 'Ranged Damage',			cat: 'Combat',		type:'number',	ngModel: 'rangedDmg'		},
+				{name: 'Spell to Hit',			cat: 'Combat',		type:'number',	ngModel: 'spellToHit'		},
+				{name: 'Spell Damage',			cat: 'Combat',		type:'number',	ngModel: 'spellDmg'			},
+				{name: 'Range',					cat: 'Combat',		type:'number',	ngModel: 'range'			},
+				{name: 'Spell Range',			cat: 'Combat',		type:'number',	ngModel: 'spellRange'		},
+				{name: 'Spells Known',			cat: 'Spell',		type:'number',	ngModel: 'spellsKnown'		},
+				{name: 'Cantrips Known',		cat: 'Spell',		type:'number',	ngModel: 'cantripsKnown'	},
+				{name: 'Invocations Known',		cat: 'Spell',		type:'number',	ngModel: 'invocationsKnown'	},
+				{name: 'Strenght',				cat: 'Abilities',	type:'number',	ngModel: 'str'				},
+				{name: 'Dexterity',				cat: 'Abilities',	type:'number',	ngModel: 'dex'				},
+				{name: 'Constitution',			cat: 'Abilities',	type:'number',	ngModel: 'con'				},
+				{name: 'Intelligence',			cat: 'Abilities',	type:'number',	ngModel: 'int'				},
+				{name: 'Wisdow',				cat: 'Abilities',	type:'number',	ngModel: 'wis'				},
+				{name: 'Charisma',				cat: 'Abilities',	type:'number',	ngModel: 'cha'				},
+				{name: 'Inspiration Points',	cat: 'Specific',	type:'number',	ngModel: 'inspiration'		},
+				{name: 'Ki Points',				cat: 'Specific',	type:'number',	ngModel: 'kiPoints'			},
+				{name: 'Sorcery Points',		cat: 'Specific',	type:'number',	ngModel: 'sorceryPoints'	},
+				{name: 'Rages',					cat: 'Specific',	type:'number',	ngModel: 'rages'			},
+				{name: 'Rage Damage',			cat: 'Specific',	type:'number',	ngModel: 'rageDmg'			},
+				{name: 'Bardic Inspiration',	cat: 'Specific',	type:'number',	ngModel: 'bardicInsp'		},
+				{name: 'Martial Arts',			cat: 'Specific',	type:'number',	ngModel: 'martialArts'		},
+				{name: 'Sneak Attack',			cat: 'Specific',	type:'number',	ngModel: 'sneakAttack'		}
+
+
+		// languages: [
+		// 	{
+		// 		name: String,
+		// 		cat: String,
+		// 		script: String
+		// 	}
+		// ],
+		// proficiencies: [
+		// 	{
+		// 		name: String,
+		// 		cat: String,
+		// 		details: String
+		// 	}
+		// ],
+		// skills: [
+		// 	{
+		// 		name: String,
+		// 		value: Number
+		// 	}
+		// ],
+		// spellSlots: {
+		// 	first: Number,
+		// 	second: Number,
+		// 	third: Number,
+		// 	fourth: Number,
+		// 	fifth: Number,
+		// 	sixth: Number,
+		// 	seventh: Number,
+		// 	eighth: Number,
+		// 	ninth: Number
+		// },
+		// dmgResistance: [String],
+		// spells: [
+		// 	{
+		// 		type: Schema.Types.ObjectId,
+		// 		ref: 'Spells',
+		// 		autopopulate: true
+		// 	}
+		// ],
+
+
+
 			]
 		};
 	});

@@ -5,6 +5,8 @@ var	mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 autopopulate = require('mongoose-autopopulate'),
 	  Schema = mongoose.Schema,
+	  	 res = require('../services/resources'),
+
 	
 	classesSchema = new Schema(
 		{
@@ -21,324 +23,50 @@ autopopulate = require('mongoose-autopopulate'),
 			},																								// *
 			desc: {type: String, required: true, minlength: 3},												// ok
 // =============================================================================================================================== General == //
-			hitDice: {type: Number, required: true},
-			str: {type: Number},
-			dex: {type: Number},
-			con: {type: Number},
-			int: {type: Number},
-			wis: {type: Number},
-			cha: {type: Number},
-
-			classFeat: [
+			hitDice: {type: Number, required: true},														// ok
+			proficiencies: [																				// ok
+				{																							// *
+					name: String,																			// *
+					cat: String,																			// *
+					details: String																			// *
+				}																							// *
+			],																								// *
+			paths: [
 				{
 					name: String,
 					desc: String,
-					triggerLvl: Number,
-					isPath: Boolean,
-					requiredPath: String,
+					bonuses: res.bonuses
+				}
+			],
+			features: [
+				{
+					name: String,
+					desc: String,
+					pathBound: String,
+					bonuses: res.bonuses
 				}
 			],
 			perLvlStats: {
-				lvl1: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl2: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl3: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl4: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl5: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl6: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl7: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl8: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl9: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl10: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl11: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl12: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl13: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl14: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl15: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl16: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl17: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl18: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl19: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				},
-				lvl20: {
-					spellSlots: {
-						first: Number,
-						second: Number,
-						third: Number,
-						fourth: Number,
-						fifth: Number,
-						sixth: Number,
-						seventh: Number,
-						eighth: Number,
-						ninth: Number
-					}
-					cantripsKnown: Number,
-					spellsKnown: Number
-				}
+				lvl1: {bonuses: res.bonuses},
+				lvl2: {bonuses: res.bonuses},
+				lvl3: {bonuses: res.bonuses},
+				lvl4: {bonuses: res.bonuses},
+				lvl5: {bonuses: res.bonuses},
+				lvl6: {bonuses: res.bonuses},
+				lvl7: {bonuses: res.bonuses},
+				lvl8: {bonuses: res.bonuses},
+				lvl9: {bonuses: res.bonuses},
+				lvl10: {bonuses: res.bonuses},
+				lvl11: {bonuses: res.bonuses},
+				lvl12: {bonuses: res.bonuses},
+				lvl13: {bonuses: res.bonuses},
+				lvl14: {bonuses: res.bonuses},
+				lvl15: {bonuses: res.bonuses},
+				lvl16: {bonuses: res.bonuses},
+				lvl17: {bonuses: res.bonuses},
+				lvl18: {bonuses: res.bonuses},
+				lvl19: {bonuses: res.bonuses},
+				lvl20: {bonuses: res.bonuses}
 			}			
 		},
 		{

@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 autopopulate = require('mongoose-autopopulate'),
 	  Schema = mongoose.Schema,
+		 res = require('../services/resources'),
 
 	racesSchema = new Schema(
 		{
@@ -56,57 +57,22 @@ autopopulate = require('mongoose-autopopulate'),
 // ============================================================================================================================== Roleplay == //
 
 // == Racial traits ========================================================================================================================= //
-			bonuses: {
-				str: {type: Number, default: 0},			// ok
-				dex: {type: Number, default: 0},			// ok
-				con: {type: Number, default: 0},			// ok
-				int: {type: Number, default: 0},			// ok
-				wis: {type: Number, default: 0},			// ok
-				cha: {type: Number, default: 0},			// ok
-
-				initiative: {type: Number, default: 0},		// ok
-				hp: {type: Number, default: 0},				// ok
-				speed: {type: Number, default: 0},			// ok
-
-				proficiencies: [							// ok
-					{										// *
-						name: String,						// *
-						cat: String,						// *
-						details: String						// *
-					}										// *
-				],											// *
-				spells: [
-					{
-						name: String,
-						lvlReq: Number
-					}
-				],
-				dmgResist: [								// ok 
-		 			{										// *
-		 				name: String,						// *
-		 				cat: String							// *
-		 			}										// *
-		 		],											// *
-				special: {
+			bonuses: res.bonuses,
+			paths: [
+				{
 					name: String,
-					dmg: [
-						{
-							minLvL: Number,
-							staticDmg: Number,
-							numberOfDices: Number,
-							diceType: Number
-						}
-					],
-					dmgType: [String],
-					details: String
-				},
-				other: [									// *
-					{										// *
-						name: String,						// *
-						details: String						// *
-					}										// *
-				]											// *
-			}
+					desc: String,
+					bonuses: res.bonuses
+				}
+			],
+			features: [
+				{
+					name: String,
+					desc: String,
+					pathBound: String,
+					bonuses: res.bonuses
+				}
+			]
 		},
 // ========================================================================================================================= Racial traits == //
 		{

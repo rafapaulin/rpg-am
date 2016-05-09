@@ -1,0 +1,18 @@
+<fieldset>
+	<legend>Class Paths</legend>
+	<div class="form-group">
+		
+		<label for="pathName">Path name</label>
+		<input type="text" id="newPathName" name="newPathName" class="form-control" ng-model="newPath.name">
+		<text-angular id="newPathDesc" name="newPathDesc" ta-toolbar="[['h3','h4','h5','h6','p'],['bold','italics','underline','strikeThrough'],['ul','ol'],['clear']]" ng-model="newPath.desc"></text-angular>
+
+		<select id="newBonus" class="form-control" name="newBonus" ng-model="newPathBonus" ng-options="bonus.name group by bonus.cat for bonus in pathBonuses | orderBy: 'name'">
+			<option value="" hidden>-- Select Bonus --</option>
+		</select>
+
+
+		<a ng-click="addItem(newBonusProf, displayBonusProf, 'bonuses', 'bonusesProficiencies')" ng-hide="newBonusProf == null || undefined">add</a>
+	</div>
+	<ng-pluralize count="displayBonusProf.length" when="{'0': '','one': 'Selected proficiency: ','other': 'Selected proficiencies: '}"></ng-pluralize>
+	<div ng-repeat="prof in displayBonusProf">{{prof.name}} = {{prof.details}} <a ng-click="removeItem($index, displayBonusProf, 'bonuses', 'bonusesProficiencies')">[x]</a></div>
+</fieldset>

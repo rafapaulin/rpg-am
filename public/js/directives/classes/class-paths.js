@@ -1,30 +1,32 @@
 'use strict';
 angular.module('rpg')
-	.directive('classBasics', ['Lists', function(Lists){
+	.directive('classPaths', ['Lists', function(Lists){
 	
 		return {
 			restrict: 'E',
-			templateUrl: '/templates/classes/class-basics.html',
+			templateUrl: '/templates/classes/class-paths.html',
 			scope: false,
-			link: function(scope, element){
-				scope.newData.bonuses					= {};						// Data-to-be-posted objects
-				scope.newData.bonuses.proficiencies		= [];						// Data-to-be-posted arrays
-				scope.bonusesProficiencies				= Lists.proficiencies;		// Lists
-				scope.displayBonusProf					= [];						// Display arrays
+			link: function(scope, element){				
+				scope.pathBonuses						= Lists.bonuses;			// Lists
+
+
+				scope.newData.paths						= [];						// Data-to-be-posted arrays
+
+				scope.displayPaths						= [];						// Display arrays
 
 			// == Pass data to newData properties on POST ========================================================================= //
 				scope.$on('post', function(event, data) {							// Listen to 'post' event on controller [add-ctrl.js]
-					console.log(scope.displayBonusProf);
-					scope.newData.proficiencies = scope.displayBonusProf;			// *
+					scope.newData.paths = scope.displayPaths;						// *
 				});
 			// ========================================================================= Pass data to newData properties on POST == //
 			
 			// == Clean up on success ============================================================================================= //
 				scope.$on('postSuccess', function(event, data) {					// Listen to 'postSuccess' event on controller [add-ctrl.js]
-					scope.bonusesProficiencies			= Lists.proficiencies;		// Reset Lists
-					scope.displayBonusProf				= [];						// Reset display arrays
-					scope.newData.bonuses				= {};						// Reset the data-to-be-posted objects
-					scope.newData.proficiencies	= [];								// Reset the data-to-be-posted arrays
+					scope.pathBonuses					= Lists.bonuses;			// Reset Lists
+
+					scope.displayPaths					= [];						// Reset display arrays
+
+					scope.newData.paths					= [];						// Reset the data-to-be-posted arrays
 
 				});
 			// ============================================================================================= Clean up on success == //

@@ -7,12 +7,11 @@ require('../schemas/racesSchema');
 require('../schemas/skillsSchema');
 require('../schemas/spellsSchema');
 require('../schemas/usersSchema');
-
 var	mongoose = require('mongoose'),
 autopopulate = require('mongoose-autopopulate'),
 	 uniqueV = require('mongoose-unique-validator'),
 	  Schema = mongoose.Schema,
-	
+
 	charactersSchema = new Schema(
 		{
 // == General =============================================================================================================================== //

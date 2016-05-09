@@ -1,18 +1,15 @@
 <fieldset>
 	<legend>Class Basics</legend>
 	<label for="hitDice">Hit dice: </label>
-	<input type="number" id="hitDice" class="form-control" name="hitDice" ng-model="newData.hitDice">
+	<input type="number" id="hitDice" name="hitDice" class="form-control" ng-model="newData.hitDice">
 
-	<label for="str">Str: </label>
-	<input type="number" id="str" class="form-control" name="str" ng-model="newData.str">
-	<label for="dex">Dex: </label>
-	<input type="number" id="dex" class="form-control" name="dex" ng-model="newData.dex">
-	<label for="con">Con: </label>
-	<input type="number" id="con" class="form-control" name="con" ng-model="newData.con">
-	<label for="int">Int: </label>
-	<input type="number" id="int" class="form-control" name="int" ng-model="newData.int">
-	<label for="wis">Wis: </label>
-	<input type="number" id="wis" class="form-control" name="wis" ng-model="newData.wis">
-	<label for="cha">Cha: </label>
-	<input type="number" id="cha" class="form-control" name="cha" ng-model="newData.cha">
+	<h4>Proficiencies:</h4>
+	<div class="form-group form-inline">
+		<select id="newBonusProf" class="form-control" name="newBonusProf" ng-model="newBonusProf" ng-options="prof.name group by prof.cat for prof in bonusesProficiencies | orderBy: 'name'">
+			<option value="" hidden>-- Select proficiency --</option>
+		</select>
+		<a ng-click="addItem(newBonusProf, displayBonusProf, 'bonuses', 'bonusesProficiencies')" ng-hide="newBonusProf == null || undefined">add</a>
+	</div>
+	<ng-pluralize count="displayBonusProf.length" when="{'0': '','one': 'Selected proficiency: ','other': 'Selected proficiencies: '}"></ng-pluralize>
+	<div ng-repeat="prof in displayBonusProf">{{prof.name}} = {{prof.details}} <a ng-click="removeItem($index, displayBonusProf, 'bonuses', 'bonusesProficiencies')">[x]</a></div>
 </fieldset>

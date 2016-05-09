@@ -1,7 +1,7 @@
 'use strict';
 require('../schemas/backgroundsSchema');
-require('../schemas/charactersSchema');
 require('../schemas/classesSchema');
+require('../schemas/charactersSchema');
 require('../schemas/equipsSchema');
 require('../schemas/featsSchema');
 require('../schemas/racesSchema');
@@ -105,7 +105,7 @@ var		mongoose = require('mongoose'),
 						autopopulate: true
 					}
 				],
-				faces:[
+				races:[
 					{
 						type: Schema.Types.ObjectId,
 						ref: 'Races',

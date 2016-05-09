@@ -1,10 +1,12 @@
 'use strict';
+
 require('../schemas/usersSchema');
 
 var mongoose = require('mongoose'),
 	 uniqueV = require('mongoose-unique-validator'),
 autopopulate = require('mongoose-autopopulate'),
 	  Schema = mongoose.Schema,
+		 res = require('../services/resources'),
 
 	featsSchema = new Schema(
 		{
@@ -48,59 +50,22 @@ autopopulate = require('mongoose-autopopulate'),
 // ========================================================================================================================= Prerequisites == //
 
 // == Bunuses ============================================================================================================================== //
-			bonuses: {
-				str: {type: Number, default: 0},				// ok
-				dex: {type: Number, default: 0},				// ok
-				con: {type: Number, default: 0},				// ok
-				int: {type: Number, default: 0},				// ok
-				wis: {type: Number, default: 0},				// ok
-				cha: {type: Number, default: 0},				// ok
-				any: {type: Number, default: 0},				// ok
-				initiative: {type: Number, default: 0},			// ok
-				hp: {type: Number, default: 0},					// ok
-				speed: {type: Number, default: 0},				// ok
-				langSlots: {type: Number, default: 0},			// ok
-				proficiencies: [								// ok
-					{											// *
-						name: String,							// *
-						cat: String,							// *
-						details: String							// *
-					}											// *
-				],												// *
-				custom: [										// ok
-					{											// *
-						name: String,							// *
-						details: String							// *
-					}											// *
-				]												// *
-			// 	'ac': {											// Medium armor master
-			// 		'value': {type: Number, default: 0},
-			// 		'condition': {type: Boolean, default: false},
-			// 	},
-			// 	'spells': {
-			// 		'rpgClass': [{type: String, default: ""}],
-			// 		'spellLevel': [
-			// 			{
-			// 				'qty': {type: Number, default: 0},
-			// 				'lvl': {type: Number, default: 0}
-			// 			}
-			// 		]
-			// 	},
-			// 	'classFeature': [										// checar esse parâmetro depois de montar as classes
-			// 		{
-			// 			'rpgClass': {type: String, default: ""},
-			// 			'feature': {
-			// 				'name': {type: String, default: ""},
-			// 				'desc': {type: String, default: ""},
-			// 			}
-			// 		}
-			// 	],
-			// 	'diceMod': {
-			// 		'name': {type: String, default: ""},
-			// 		'numberOfDices': {type: Number, default: 0},
-			// 		'diceType': {type: Number, default: 0}
-			// 	}
-			}
+			bonuses: res.bonuses,
+			paths: [
+				{
+					name: String,
+					desc: String,
+					bonuses: res.bonuses
+				}
+			],
+			features: [
+				{
+					name: String,
+					desc: String,
+					pathBound: String,
+					bonuses: res.bonuses
+				}
+			]
 		},
 // ============================================================================================================================== Bunuses == //
 		{
