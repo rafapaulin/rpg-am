@@ -11,5 +11,5 @@
 		<a ng-click="addItem(newBonusProf, displayBonusProf, 'bonuses', 'bonusesProficiencies')" ng-hide="newBonusProf == null || undefined">add</a>
 	</div>
 	<ng-pluralize count="displayBonusProf.length" when="{'0': '','one': 'Selected proficiency: ','other': 'Selected proficiencies: '}"></ng-pluralize>
-	<div ng-repeat="prof in displayBonusProf">{{prof.name}} = {{prof.details}} <a ng-click="removeItem($index, displayBonusProf, 'bonuses', 'bonusesProficiencies')">[x]</a></div>
+	<div ng-repeat="prof in displayBonusProf">{{prof.name}} <a ng-click="removeItem($index, displayBonusProf, 'bonuses', 'bonusesProficiencies')">[x]</a></div>
 </fieldset>

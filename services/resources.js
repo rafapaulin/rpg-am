@@ -21,6 +21,7 @@ var mongoose = require('mongoose'),
 		spellsKnown: Number,
 		cantripsKnown: Number,
 		invocationsKnown: Number,
+		dmg: Number,
 		str: Number,
 		dex: Number,
 		con: Number,
@@ -72,13 +73,8 @@ var mongoose = require('mongoose'),
 				autopopulate: true
 			}
 		],
-		kiPoints: Number,
-		sorceryPoints: Number,
-		rages: Number,
-		rageDmg: Number,
-		bardicInsp: Number,
-		martialArts: Number,
-		sneakAttack: Number
+		classPoints: Number,
+		specialDice: Number
 	}
 };
 
