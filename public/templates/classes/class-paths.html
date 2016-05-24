@@ -8,36 +8,36 @@
 		<text-angular id="newPathDesc" name="newPathDesc" ta-toolbar="[['h3','h4','h5','h6','p'],['bold','italics','underline','strikeThrough'],['ul','ol'],['clear']]" ng-model="newPath.desc"></text-angular>
 	</div>
 
+
+	<p><strong><ng-pluralize count="pathBonusesInputs.length" when="{'0': '','one': 'Selected bonus: ','other': 'Selected bonuses: '}"></ng-pluralize></strong></p>
+	
+	<div class="form-group form-inline" ng-repeat="input in pathBonusesInputs">
+		<a ng-click="removeItem($index, pathBonusesInputs, 'pathBonuses')"> [x]</a>
+		<label for="{{input.ngModel}}">{{input.name}}: </label>
+		<select id="new{{input.name}}" name="new{{input.name}}" class="form-control" ng-model="pathSelects[input.ngModel]" ng-options="item.name group by item.cat for item in path{{input.name}} | orderBy: ['cat','name']" ng-if="input.type == 'list'">
+			<option value="" hidden>-- Select {{input.name}} --</option>
+		</select>
+		<a ng-click="toArray(pathSelects[input.ngModel], newPath.bonuses[input.ngModel], input.name, 'path')" ng-if="input.type == 'list' && pathSelects[input.ngModel] !== null && pathSelects[input.ngModel] !== undefined">Add</a>
+		
+		<p ng-if="newPath.bonuses[input.ngModel].length > 0 && input.type == 'list'">
+			<strong>Selected {{input.name}}: </strong>
+		</p>
+
+		<span ng-repeat="item in newPath.bonuses[input.ngModel]" ng-if="newPath.bonuses[input.ngModel].length > 0 && input.type == 'list'">
+			<a ng-click="removeItem($index, newPath.bonuses[input.ngModel], input.name, 'path')">[x] </a>{{item.name}}<span ng-if="!$last">, </span><span ng-if="$last">.</span>
+		</span>
+
+		<input type="{{input.type}}" id="{{input.ngModel}}" class="form-control" name="{{input.ngModel}}" ng-model="newPath.bonuses[input.ngModel]" ng-if="input.type !== 'list'">
+	</div>
+
 	<div class="form-group form-inline">
 		<select id="newBonus" class="form-control" name="newBonus" ng-model="newPathBonus" ng-options="bonus.name group by bonus.cat for bonus in pathBonuses | orderBy: ['cat','name']">
 			<option value="" hidden>-- Select Bonus --</option>
 		</select>
-		<a ng-click="addInput('pathBonusesInputs', newPathBonus, 'pathBonuses')">Add Bonus</a>
+		<a ng-click="toArray(newPathBonus, pathBonusesInputs, 'pathBonuses')" ng-if="newPathBonus !== null && newPathBonus !== undefined">Add Bonus</a>
 	</div>
-	
-
-	<div>
-		<select id="newLanguage" class="form-control" name="newLanguage" ng-model="newPathLanguage" ng-options="language.name group by language.cat for language in pathLanguages | orderBy: ['cat','name']">
-			<option value="" hidden>-- Select Language --</option>
-		</select>
-		<a ng-click="addInput('displayPathLanguages', newPathLanguage, 'pathLanguages')">Add Language</a>
-	</div>
-
-	<p><strong><ng-pluralize count="displayPathLanguages.length" when="{'0': '','one': 'Selected laguage: ','other': 'Selected languages: '}"></ng-pluralize></strong></p>
-	<span ng-repeat="language in displayPathLanguages">
-		{{language.name}}<a ng-click="removeInput('displayPathLanguages', $index, 'pathLanguages')"> [x]</a><span ng-if="!$last">, </span><span ng-if="$last">.</span>
-	</span>
-
-
-
-	<p><strong><ng-pluralize count="pathBonusesInputs.length" when="{'0': '','one': 'Selected bonus: ','other': 'Selected bonuses: '}"></ng-pluralize></strong></p>
-	<div class="form-group form-inline" ng-repeat="input in pathBonusesInputs | orderBy:'':true">
-		<label for="{{input.ngModel}}">{{input.name}}: </label>
-		<input type="{{input.type}}" id="{{input.ngModel}}" class="form-control" name="{{input.ngModel}}" ng-model="newPath.bonuses[input.ngModel]">
-		<a ng-click="removeInput('pathBonusesInputs', $index, 'pathBonuses')"> [x]</a>
-	</div>
-
 		
 	<p><a ng-click="addNewPath(newPath)">add new path</a></p>
 	<p><a ng-click="meh(newData.paths)">meh</a></p>
+	<p><a ng-click="logNewData()">log NewData</a></p>
 </fieldset>

@@ -54,18 +54,16 @@ var mongoose = require('mongoose'),
 				value: Number
 			}
 		],
-		spellSlots: {
-			first: Number,
-			second: Number,
-			third: Number,
-			fourth: Number,
-			fifth: Number,
-			sixth: Number,
-			seventh: Number,
-			eighth: Number,
-			ninth: Number
-		},
-		dmgResistance: [String],
+		firstLvlSpellSlots: Number,
+		secondLvlSpellSlots: Number,
+		thirdLvlSpellSlots: Number,
+		fourthLvlSpellSlots: Number,
+		fifthLvlSpellSlots: Number,
+		sixthLvlSpellSlots: Number,
+		seventhLvlSpellSlots: Number,
+		eighthLvlSpellSlots: Number,
+		ninthLvlSpellSlots: Number,
+		dmgResistances: [String],
 		spells: [
 			{
 				type: Schema.Types.ObjectId,
@@ -74,7 +72,8 @@ var mongoose = require('mongoose'),
 			}
 		],
 		classPoints: Number,
-		specialDice: Number
+		specialDice: Number,
+		featuresSlots: Number
 	}
 };
 

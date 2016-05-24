@@ -112,15 +112,15 @@ angular.module('rpg')
 				{name:'Pale Blue',		cat:'Fey',		hex:'#87ceeb'}
 			],
 			alignments: [
-				{name:'Lawful good',		info:'Theese creatures can be counted on to do the right thing as expected by society. Gold dragons, paladins, and most dwarves are lawful good'},
-				{name:'Neutral good',		info:'They are folk that do the best they can to help others according to their needs. Many celestiais, some cloud giants, and most gnomes are neutral good'},
-				{name:'Chaotic good',		info:'Theese creatures act as their conscience directs, with little regard for what others expect. Copper dragons, many elves, and unicorns are chaotie good.'},
-				{name:'Lawful neutral',		info:'They are Individuais that act in accordance with law, tradition, or personal codes. Many monks and some wizards are lawful neutral.'},
-				{name:'Neutral',			info:'This is the alignment of those who prefer to steer c1ear of moral questions and don\'t take sides'},
-				{name:'Chaotic neutral',	info:'Theese creatures follow their whims, holding their personal freedom above ali else. Many barbarians and rogues, and some bards, are chaotie neutral'},
-				{name:'Lawful evil',		info:'They are creatures that methodically take what they want, within the limits of acode of tradition, loyalty, or order. Devils, blue dragons, and hobgoblins are Jawful evil'},
-				{name:'Neutral evil',		info:'This is the alignment of those who do whatever they can get away with, without compassion or qualms. Many drow, some cloud giants, and yugoloths are neutral evil'},
-				{name:'Chaotic evil',		info:'Theese creatures act with arbitrary violence, spurred by their greed, hatred, or bloodlust. Demons, red dragons, and orcs are chaotic evil'}
+				{name:'Lawful good',		details:'Theese creatures can be counted on to do the right thing as expected by society. Gold dragons, paladins, and most dwarves are lawful good'},
+				{name:'Neutral good',		details:'They are folk that do the best they can to help others according to their needs. Many celestiais, some cloud giants, and most gnomes are neutral good'},
+				{name:'Chaotic good',		details:'Theese creatures act as their conscience directs, with little regard for what others expect. Copper dragons, many elves, and unicorns are chaotie good.'},
+				{name:'Lawful neutral',		details:'They are Individuais that act in accordance with law, tradition, or personal codes. Many monks and some wizards are lawful neutral.'},
+				{name:'Neutral',			details:'This is the alignment of those who prefer to steer c1ear of moral questions and don\'t take sides'},
+				{name:'Chaotic neutral',	details:'Theese creatures follow their whims, holding their personal freedom above ali else. Many barbarians and rogues, and some bards, are chaotie neutral'},
+				{name:'Lawful evil',		details:'They are creatures that methodically take what they want, within the limits of acode of tradition, loyalty, or order. Devils, blue dragons, and hobgoblins are Jawful evil'},
+				{name:'Neutral evil',		details:'This is the alignment of those who do whatever they can get away with, without compassion or qualms. Many drow, some cloud giants, and yugoloths are neutral evil'},
+				{name:'Chaotic evil',		details:'Theese creatures act with arbitrary violence, spurred by their greed, hatred, or bloodlust. Demons, red dragons, and orcs are chaotic evil'}
 			],
 			levels: [
 				{level:1,	xpNeeded:0,			profBonus:2},
@@ -226,11 +226,11 @@ angular.module('rpg')
 				{name:'Until dspelled',	system:'DnD',	toSeconds:-1, short:''}
 			],
 			areasOfEffect: [
-				{name:'Cone',		a:'Length: ',			b:'',			info:'A cone\'s area of effect specities its maximum length. A cone\'s width at a given point along its length is equal to that point\'s distance from the point of origin.'},
-				{name:'Cube',		a:'Length of sides: ',	b:'',			info:'A cube\'s point of origin lies anywhere on a face of the cubic effect. The cube\'s size is expressed as the length of each side'},
-				{name:'Cylinder',	a:'Radius: ',			b:'Height: ',	info:'A cylinder\'s point of origin is the center of a circle of a particular radius. The hiight is the distance between the base and the top od the cylinder.'},
-				{name:'Line',		a:'Length: ',			b:'Width: ',	info:'A line extends from its point of origin in a straight path up to its length and covers an area defined by its width.'},
-				{name:'Sphere',		a:'Radius: ',			b:'',			info:'The sphere extends outward from the point of origin, and its size is expressed as a radius that extends from that point.'}
+				{name:'Cone',		a:'Length: ',			b:'',			details:'A cone\'s area of effect specities its maximum length. A cone\'s width at a given point along its length is equal to that point\'s distance from the point of origin.'},
+				{name:'Cube',		a:'Length of sides: ',	b:'',			details:'A cube\'s point of origin lies anywhere on a face of the cubic effect. The cube\'s size is expressed as the length of each side'},
+				{name:'Cylinder',	a:'Radius: ',			b:'Height: ',	details:'A cylinder\'s point of origin is the center of a circle of a particular radius. The hiight is the distance between the base and the top od the cylinder.'},
+				{name:'Line',		a:'Length: ',			b:'Width: ',	details:'A line extends from its point of origin in a straight path up to its length and covers an area defined by its width.'},
+				{name:'Sphere',		a:'Radius: ',			b:'',			details:'The sphere extends outward from the point of origin, and its size is expressed as a radius that extends from that point.'}
 			],
 			dmgTypes: [
 				{name:'Bludgeoning',	cat:'Physical'},
@@ -259,60 +259,62 @@ angular.module('rpg')
 				{name:'d20',	value:20}
 			],
 			abilities: [
-				{name:'Dexterity',			cat:'Abilities',	type:'number',	ngModel:'dex',	info:''},
-				{name:'Constitution',		cat:'Abilities',	type:'number',	ngModel:'con',	info:''},
-				{name:'Intelligence',		cat:'Abilities',	type:'number',	ngModel:'int',	info:''},
-				{name:'Wisdow',				cat:'Abilities',	type:'number',	ngModel:'wis',	info:''},
-				{name:'Charisma',			cat:'Abilities',	type:'number',	ngModel:'cha',	info:''},
-				{name:'Strength',			cat:'Abilities',	type:'number',	ngModel:'str',	info:''},
-				{name:'Any',				cat:'Abilities',	type:'number',	ngModel:'any',	info:''}
+				{name:'Dexterity',			cat:'Abilities',	type:'number',	ngModel:'dex',	details:''},
+				{name:'Constitution',		cat:'Abilities',	type:'number',	ngModel:'con',	details:''},
+				{name:'Intelligence',		cat:'Abilities',	type:'number',	ngModel:'int',	details:''},
+				{name:'Wisdow',				cat:'Abilities',	type:'number',	ngModel:'wis',	details:''},
+				{name:'Charisma',			cat:'Abilities',	type:'number',	ngModel:'cha',	details:''},
+				{name:'Strength',			cat:'Abilities',	type:'number',	ngModel:'str',	details:''},
+				{name:'Any',				cat:'Abilities',	type:'number',	ngModel:'any',	details:''}
 			],
 			proficiencies: [
-				{name:'Simple melee',		cat:'Weapons',		type:'text',	info:''},
-				{name:'Simple ranged',		cat:'Weapons',		type:'text',	info:''},
-				{name:'Martial melee',		cat:'Weapons',		type:'text',	info:''},
-				{name:'Martial ranged',		cat:'Weapons',		type:'text',	info:''},
-				{name:'Exotic',				cat:'Weapons',		type:'text',	info:''},
+				{name:'Simple melee',		cat:'Weapons',		type:'text',	details:''},
+				{name:'Simple ranged',		cat:'Weapons',		type:'text',	details:''},
+				{name:'Martial melee',		cat:'Weapons',		type:'text',	details:''},
+				{name:'Martial ranged',		cat:'Weapons',		type:'text',	details:''},
+				{name:'Exotic',				cat:'Weapons',		type:'text',	details:''},
 
-				{name:'Light armor',		cat:'Armors',		type:'text',	info:''},
-				{name:'Medium armor',		cat:'Armors',		type:'text',	info:''},
-				{name:'Heavy armor',		cat:'Armors',		type:'text',	info:''},
-				{name:'Shields',			cat:'Armors',		type:'text',	info:''},
+				{name:'Light armor',		cat:'Armors',		type:'text',	details:''},
+				{name:'Medium armor',		cat:'Armors',		type:'text',	details:''},
+				{name:'Heavy armor',		cat:'Armors',		type:'text',	details:''},
+				{name:'Shields',			cat:'Armors',		type:'text',	details:''},
 
-				{name:'Artisan\'s tools',	cat:'Tools',		type:'text',	info:''},
-				{name:'Disguise kit',		cat:'Tools',		type:'text',	info:''},
-				{name:'Forgery kit',		cat:'Tools',		type:'text',	info:''},
-				{name:'Gaming set',			cat:'Tools',		type:'text',	info:''},
-				{name:'Herbalism kit',		cat:'Tools',		type:'text',	info:''},
-				{name:'Musical instrument',	cat:'Tools',		type:'text',	info:''},
-				{name:'Navigator\'s tools',	cat:'Tools',		type:'text',	info:''},
-				{name:'Poisoner\'s kit',	cat:'Tools',		type:'text',	info:''},
-				{name:'Thieves\' tools',	cat:'Tools',		type:'text',	info:''},
+				{name:'Artisan\'s tools',	cat:'Tools',		type:'text',	details:''},
+				{name:'Disguise kit',		cat:'Tools',		type:'text',	details:''},
+				{name:'Forgery kit',		cat:'Tools',		type:'text',	details:''},
+				{name:'Gaming set',			cat:'Tools',		type:'text',	details:''},
+				{name:'Herbalism kit',		cat:'Tools',		type:'text',	details:''},
+				{name:'Musical instrument',	cat:'Tools',		type:'text',	details:''},
+				{name:'Navigator\'s tools',	cat:'Tools',		type:'text',	details:''},
+				{name:'Poisoner\'s kit',	cat:'Tools',		type:'text',	details:''},
+				{name:'Thieves\' tools',	cat:'Tools',		type:'text',	details:''},
 
-				{name:'Strength',			cat:'Savings',		type:'number',	info:''},
-				{name:'Dexterity',			cat:'Savings',		type:'number',	info:''},
-				{name:'Constitution',		cat:'Savings',		type:'number',	info:''},
-				{name:'Intelligence',		cat:'Savings',		type:'number',	info:''},
-				{name:'Wisdow',				cat:'Savings',		type:'number',	info:''},
-				{name:'Charisma',			cat:'Savings',		type:'number',	info:''}
+				{name:'Strength',			cat:'Savings',		type:'number',	details:''},
+				{name:'Dexterity',			cat:'Savings',		type:'number',	details:''},
+				{name:'Constitution',		cat:'Savings',		type:'number',	details:''},
+				{name:'Intelligence',		cat:'Savings',		type:'number',	details:''},
+				{name:'Wisdow',				cat:'Savings',		type:'number',	details:''},
+				{name:'Charisma',			cat:'Savings',		type:'number',	details:''}
 			],
 			combat: [
-				{name:'hp',					cat:'Combat',		type:'number',	ngModel:'hp',			info:''},
-				{name:'Initiative',			cat:'Combat',		type:'number',	ngModel:'initiative',	info:''},
-				{name:'Speed',				cat:'Combat',		type:'number',	ngModel:'speed',		info:''},
+				{name:'hp',					cat:'Combat',		type:'number',	ngModel:'hp',			details:''},
+				{name:'Initiative',			cat:'Combat',		type:'number',	ngModel:'initiative',	details:''},
+				{name:'Speed',				cat:'Combat',		type:'number',	ngModel:'speed',		details:''},
 			],
 			other: [
-				{name:'Language "Slots"',	cat:'Other',		type:'number',	info:''},
-				{name:'Custom 1',			cat:'Other',		type:'text',	info:''},
-				{name:'Custom 2',			cat:'Other',		type:'text',	info:''},
-				{name:'Custom 3',			cat:'Other',		type:'text',	info:''}
+				{name:'Language "Slots"',	cat:'Other',		type:'number',	details:''},
+				{name:'Custom 1',			cat:'Other',		type:'text',	details:''},
+				{name:'Custom 2',			cat:'Other',		type:'text',	details:''},
+				{name:'Custom 3',			cat:'Other',		type:'text',	details:''}
 			],
 			bonuses: [
 				{name: 'Vision',				cat: 'General',		type: 'number',	ngModel: 'vision',				desc:''},
 				{name: 'Speed',					cat: 'General',		type: 'number',	ngModel: 'speed',				desc:''},
 				{name: 'Language Slots',		cat: 'General',		type: 'number',	ngModel: 'langSlots',			desc:''},
 				{name: 'Max Weight',			cat: 'General',		type: 'number',	ngModel: 'maxWeight',			desc:''},
-				{name: 'Skill Slot',			cat: 'General',		type: 'number',	ngModel: 'skillSlot',			desc:''},
+				{name: 'Skill Slots',			cat: 'General',		type: 'number',	ngModel: 'skillSlot',			desc:''},
+				{name: 'Languages',				cat: 'General',		type: 'list',	ngModel: 'languages',			desc:''},
+				{name: 'Skills',				cat: 'General',		type: 'list',	ngModel: 'skills',				desc:''},
 
 				{name: 'Hit Points',			cat: 'Combat',		type: 'number',	ngModel: 'hp',					desc:''},
 				{name: 'Armor Class',			cat: 'Combat',		type: 'number',	ngModel: 'ac',					desc:''},
@@ -328,10 +330,22 @@ angular.module('rpg')
 				{name: 'Range',					cat: 'Combat',		type: 'number',	ngModel: 'range',				desc:''},
 				{name: 'Spell Range',			cat: 'Combat',		type: 'number',	ngModel: 'spellRange',			desc:''},
 				{name: 'Damage',				cat: 'Combat',		type: 'number',	ngModel: 'dmg',					desc:''},
+				{name: 'Resistances',			cat: 'Combat',		type: 'list',	ngModel: 'dmgResistances',		desc:''},
 
 				{name: 'Spells Known',			cat: 'Spell',		type: 'number',	ngModel: 'spellsKnown',			desc:''},
 				{name: 'Cantrips Known',		cat: 'Spell',		type: 'number',	ngModel: 'cantripsKnown',		desc:''},
 				{name: 'Invocations Known',		cat: 'Spell',		type: 'number',	ngModel: 'invocationsKnown',	desc:''},
+				{name: 'Spells',				cat: 'Spell',		type: 'list',	ngModel: 'spells',				desc:''},
+				
+				{name: '1st Level Slots',		cat: 'Spell',		type: 'number',	ngModel: 'firstLvlSpellSlots',	desc:''},
+				{name: '2nd Level Slots',		cat: 'Spell',		type: 'number',	ngModel: 'secondLvlSpellSlots',	desc:''},
+				{name: '3rd Level Slots',		cat: 'Spell',		type: 'number',	ngModel: 'thirdLvlSpellSlots',	desc:''},
+				{name: '4th Level Slots',		cat: 'Spell',		type: 'number',	ngModel: 'fourthLvlSpellSlots',	desc:''},
+				{name: '5th Level Slots',		cat: 'Spell',		type: 'number',	ngModel: 'fifthLvlSpellSlots',	desc:''},
+				{name: '6th Level Slots',		cat: 'Spell',		type: 'number',	ngModel: 'sixthLvlSpellSlots',	desc:''},
+				{name: '7th Level Slots',		cat: 'Spell',		type: 'number',	ngModel: 'seventhLvlSpellSlots',desc:''},
+				{name: '8th Level Slots',		cat: 'Spell',		type: 'number',	ngModel: 'eigthLvlSpellSlots',	desc:''},
+				{name: '9th Level Slots',		cat: 'Spell',		type: 'number',	ngModel: 'ninthLvlSpellSlots',	desc:''},
 
 				{name: 'Strenght',				cat: 'Abilities',	type: 'number',	ngModel: 'str',					desc:''},
 				{name: 'Dexterity',				cat: 'Abilities',	type: 'number',	ngModel: 'dex',					desc:''},
@@ -343,50 +357,8 @@ angular.module('rpg')
 				{name: 'Inspiration Points',	cat: 'Other',		type:'number',	ngModel: 'inspiration',			desc:''},
 				{name: 'Class Points',			cat: 'Other',		type:'number',	ngModel: 'classPoints',			desc:''},
 				{name: 'Special Dice',			cat: 'Other',		type:'number',	ngModel: 'specialDice',			desc:''},
-				{name: 'Languages',				cat: 'Other',		type: 'list',	ngModel: 'languages',			desc:''}
-
-
-		// languages: [
-		// 	{
-		// 		name: String,
-		// 		cat: String,
-		// 		script: String
-		// 	}
-		// ],
-		// proficiencies: [
-		// 	{
-		// 		name: String,
-		// 		cat: String,
-		// 		details: String
-		// 	}
-		// ],
-		// skills: [
-		// 	{
-		// 		name: String,
-		// 		value: Number
-		// 	}
-		// ],
-		// spellSlots: {
-		// 	first: Number,
-		// 	second: Number,
-		// 	third: Number,
-		// 	fourth: Number,
-		// 	fifth: Number,
-		// 	sixth: Number,
-		// 	seventh: Number,
-		// 	eighth: Number,
-		// 	ninth: Number
-		// },
-		// dmgResistance: [String],
-		// spells: [
-		// 	{
-		// 		type: Schema.Types.ObjectId,
-		// 		ref: 'Spells',
-		// 		autopopulate: true
-		// 	}
-		// ],
-
-
+				{name: 'Proficiencies',			cat: 'Other',		type: 'list',	ngModel: 'proficiencies',		desc:''},
+				{name: 'Features Slots',		cat: 'Other',		type:'number',	ngModel: 'featuresSlots',		desc:''},
 
 			]
 		};
