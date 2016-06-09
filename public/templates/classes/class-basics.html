@@ -5,17 +5,17 @@
 
 	<h4>Proficiencies:</h4>
 	<div class="form-group form-inline">
-		<select id="BonusProf" name="BonusProf" class="form-control" ng-model="BonusProf" ng-options="prof.name group by prof.cat for prof in bonusesProficiencies | orderBy: ['cat','name']">
+		<select id="BonusProf" name="BonusProf" class="form-control" ng-model="BonusProf" ng-options="prof.name group by prof.cat for prof in bonusesProficienciesBasics | orderBy: ['cat','name']">
 			<option value="" hidden>-- Select proficiency --</option>
 		</select>
-		<a ng-click="listToArray(BonusProf, newData.bonuses.proficiencies, 'bonusesProficiencies')" ng-hide="BonusProf == null || undefined">Add</a>
+		<a ng-click="listToArray(BonusProf, newData.bonuses.proficiencies, 'bonusesProficienciesBasics')" ng-hide="BonusProf == null || undefined">Add</a>
 	</div>
 
 	<p><strong><ng-pluralize count="newData.bonuses.proficiencies.length" when="{'0': '','one': 'Selected proficiency: ','other': 'Selected proficiencies: '}"></ng-pluralize></strong></p>
 
 	<p>
 		<span ng-repeat="prof in newData.bonuses.proficiencies" ng-if="newData.bonuses.proficiencies.length > 0">
-			<a ng-click="removeItem($index, newData.bonuses.proficiencies, 'bonusesProficiencies')">[x] </a>{{prof.name}}<span ng-if="!$last">, </span><span ng-if="$last">.</span>
+			<a ng-click="removeItem($index, newData.bonuses.proficiencies, 'bonusesProficienciesBasics')">[x] </a>{{prof.name}}<span ng-if="!$last">, </span><span ng-if="$last">.</span>
 		</span>
 	</p>
 </fieldset>

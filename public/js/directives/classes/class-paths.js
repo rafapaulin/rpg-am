@@ -1,17 +1,19 @@
 'use strict';
 angular.module('rpg')
-	.directive('classPaths', ['Lists', 'Crud', function(Lists, Crud){
+	.directive('classPaths', ['Lists', 'Crud', 'Fn', function(Lists, Crud, Fn){
 	
 		return {
 			restrict: 'E',
 			templateUrl: '/templates/classes/class-paths.html',
 			scope: false,
 			link: function(scope, element){
+				Fn.setScope(scope);
+
 				scope.newData.paths							= [];						// Data-to-be-posted arrays
 				var listsSkills,
-					listsSpells,
+					listsSpells;
 
-					resetScope = function(){
+				scope.resetPathsScope = function(){
 					scope.pathSkills						= listsSkills;				// Set/reset Lists
 					scope.pathSpells						= listsSpells;				// *
 					scope.pathBonuses						= Lists.bonuses;			// *
@@ -30,7 +32,7 @@ angular.module('rpg')
 					scope.newPath.bonuses.spells			= [];						// *
 				};
 
-				resetScope();
+				scope.resetPathsScope();
 
 				Crud.get('skills').then(function(res){
 					listsSkills = res.data;
@@ -43,31 +45,13 @@ angular.module('rpg')
 				});
 
 			// == Scope functions ================================================================================================= //
-				scope.toArray = function(obj, array, list, extra) {
-					if(extra) list = extra + list;
-
-					scope[list] = scope[list].filter(function(fList){			// Remove added item from the <select>
-						return fList !== obj;
-					});
-					array.push(obj);											// Add item to the array
-				}
-
-				scope.removeItem  = function($index, array, list, extra){
-					if(extra) list = extra + list;
-					scope[list].push(array[$index]);							// Add removed item back to the <select>
-					array.splice($index,1);										// Remove item from display array
-				}
-
-
-				scope.addNewPath = function(newPath) {
-					scope.newData.paths.push(newPath);							// Add the path to the data-to-be-posted array
-					resetScope();												// Reset  temporary objects
-				};
+				scope.toArray		= Fn.toArray;
+				scope.removeItem	= Fn.removeItem;
 			// ================================================================================================= Scope functions == //
 			
 			// == Clean up on success ============================================================================================= //
 				scope.$on('postSuccess', function(event, data) {				// Listen to 'postSuccess' event on controller [add-ctrl.js]
-					resetScope();												// Reset  temporary objects
+					scope.resetPathsScope();									// Reset  temporary objects
 					scope.newData.paths						= [];				// Reset the data-to-be-posted array
 				});
 			// ============================================================================================= Clean up on success == //

@@ -39,13 +39,13 @@
 	</div>
 
 	<div class="form-group form-inline">
-		<select id="newBonus" class="form-control" name="newBonus" ng-model="newFeatureBonus" ng-options="bonus.name group by bonus.cat for bonus in featureBonuses | orderBy: ['cat','name']">
+		<select id="newFBonus" class="form-control" name="newFBonus" ng-model="newFeatureBonus" ng-options="bonus.name group by bonus.cat for bonus in featureBonuses | orderBy: ['cat','name']">
 			<option value="" hidden>-- Select Bonus --</option>
 		</select>
 		<a ng-click="toArray(newFeatureBonus, featureBonusesInputs, 'featureBonuses')" ng-if="newFeatureBonus !== null && newFeatureBonus !== undefined">Add Bonus</a>
 	</div>
 		
-	<p><a ng-click="addNewFeature(newFeature)">add new feature</a></p>
+	<p><a ng-click="toArray(newFeature, newData.features); resetFeaturesScope()">add new feature</a></p>
 	<p><a ng-click="meh(newData.features)">meh</a></p>
 	<p><a ng-click="logNewData()">log NewData</a></p>
 </fieldset>

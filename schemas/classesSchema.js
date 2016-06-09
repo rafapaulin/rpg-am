@@ -43,185 +43,165 @@ autopopulate = require('mongoose-autopopulate'),
 			],																								// *
 			perLvlStats: {
 				lvl1: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl2: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl3: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl4: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl5: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl6: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl7: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl8: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl9: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl10: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl11: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl12: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl13: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl14: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl15: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl16: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl17: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl18: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl19: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
+					features: [String],
+					bonuses: res.bonuses
 				},
 				lvl20: {
-					bonuses: res.bonuses,
-					features: [
-						name: String
-					]
-				},
+					features: [String],
+					bonuses: res.bonuses
+				}
 			},
 			spellList: {
 				lvl0: [
-					type: Schema.Types.ObjectId,																// *
-					ref: 'Spells',																				// *
-					autopopulate: true																			// *
+					{
+						type: Schema.Types.ObjectId,																// *
+						ref: 'Spells',																				// *
+						autopopulate: true																			// *
+					}																								// *
 				],
 				lvl1: [
-					type: Schema.Types.ObjectId,																// *
-					ref: 'Spells',																				// *
-					autopopulate: true																			// *
+					{
+						type: Schema.Types.ObjectId,																// *
+						ref: 'Spells',																				// *
+						autopopulate: true																			// *
+					}																								// *
 				],
 				lvl2: [
-					type: Schema.Types.ObjectId,																// *
-					ref: 'Spells',																				// *
-					autopopulate: true																			// *
+					{
+						type: Schema.Types.ObjectId,																// *
+						ref: 'Spells',																				// *
+						autopopulate: true																			// *
+					}																								// *
 				],
 				lvl3: [
-					type: Schema.Types.ObjectId,																// *
-					ref: 'Spells',																				// *
-					autopopulate: true																			// *
+					{
+						type: Schema.Types.ObjectId,																// *
+						ref: 'Spells',																				// *
+						autopopulate: true																			// *
+					}																								// *
 				],
 				lvl4: [
-					type: Schema.Types.ObjectId,																// *
-					ref: 'Spells',																				// *
-					autopopulate: true																			// *
+					{
+						type: Schema.Types.ObjectId,																// *
+						ref: 'Spells',																				// *
+						autopopulate: true																			// *
+					}																								// *
 				],
 				lvl5: [
-					type: Schema.Types.ObjectId,																// *
-					ref: 'Spells',																				// *
-					autopopulate: true																			// *
+					{
+						type: Schema.Types.ObjectId,																// *
+						ref: 'Spells',																				// *
+						autopopulate: true																			// *
+					}																								// *
 				],
 				lvl6: [
-					type: Schema.Types.ObjectId,																// *
-					ref: 'Spells',																				// *
-					autopopulate: true																			// *
+					{
+						type: Schema.Types.ObjectId,																// *
+						ref: 'Spells',																				// *
+						autopopulate: true																			// *
+					}																								// *
 				],
 				lvl7: [
-					type: Schema.Types.ObjectId,																// *
-					ref: 'Spells',																				// *
-					autopopulate: true																			// *
+					{
+						type: Schema.Types.ObjectId,																// *
+						ref: 'Spells',																				// *
+						autopopulate: true																			// *
+					}																								// *
 				],
 				lvl8: [
-					type: Schema.Types.ObjectId,																// *
-					ref: 'Spells',																				// *
-					autopopulate: true																			// *
+					{
+						type: Schema.Types.ObjectId,																// *
+						ref: 'Spells',																				// *
+						autopopulate: true																			// *
+					}																								// *
 				],
 				lvl9: [
-					type: Schema.Types.ObjectId,																// *
-					ref: 'Spells',																				// *
-					autopopulate: true																			// *
+					{
+						type: Schema.Types.ObjectId,																// *
+						ref: 'Spells',																				// *
+						autopopulate: true																			// *
+					}																								// *
 				],
 			}
 		},
 		{
-			'collection': 'classes'
+			collection: 'classes'
 		}
 	);
 
-classesSchema.plugin(uniqueV);								// validate unique values
-classesSchema.plugin(autopopulate);							// Autopopulate users
+classesSchema.plugin(uniqueV);									// validate unique values
+classesSchema.plugin(autopopulate);								// Autopopulate users
 
 module.exports = mongoose.model('Classes', classesSchema);		// Export for further use

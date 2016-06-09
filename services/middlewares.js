@@ -162,8 +162,8 @@ var	modelNamer = function(collection){							// Return require for the schema pa
 			},
 
 			deleteContent: function(req, res){									// Delete items
-				console.log('collection: '+req.params.collection);
-				console.log('slug: '+req.params.slug);
+				console.log('collection: '+ req.params.collection);
+				console.log('slug: '+ req.params.slug);
 
 				modelNamer(req.params.collection).findOne(
 					{slug: req.params.slug},

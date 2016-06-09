@@ -359,7 +359,6 @@ angular.module('rpg')
 				{name: 'Special Dice',			cat: 'Other',		type:'number',	ngModel: 'specialDice',			desc:''},
 				{name: 'Proficiencies',			cat: 'Other',		type: 'list',	ngModel: 'proficiencies',		desc:''},
 				{name: 'Features Slots',		cat: 'Other',		type:'number',	ngModel: 'featuresSlots',		desc:''},
-
 			]
 		};
 	});

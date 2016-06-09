@@ -11,7 +11,7 @@ angular.module('rpg')
 				scope.newData.bonuses					= {};					// Data-to-be-posted objects
 				scope.newData.bonuses.proficiencies		= [];					// Data-to-be-posted arrays
 
-				scope.bonusesProficiencies				= Lists.proficiencies;	// Lists
+				scope.bonusesProficienciesBasics		= Lists.proficiencies;	// Lists
 			// =============================================================================================== Properties set up == //
 
 			// == Scope functions ================================================================================================= //
@@ -30,7 +30,7 @@ angular.module('rpg')
 
 			// == Clean up on success ============================================================================================= //
 				scope.$on('postSuccess', function(event, data) {					// Listen to 'postSuccess' event on controller [add-ctrl.js]
-					scope.bonusesProficiencies			= Lists.proficiencies;		// Reset Lists
+					scope.bonusesProficienciesBasics	= Lists.proficiencies;		// Reset Lists
 					scope.newData.bonuses				= {};						// Reset the data-to-be-posted objects
 					scope.newData.bonuses.proficiencies	= [];						// Reset the data-to-be-posted arrays
 

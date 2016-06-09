@@ -31,13 +31,13 @@
 	</div>
 
 	<div class="form-group form-inline">
-		<select id="newBonus" class="form-control" name="newBonus" ng-model="newPathBonus" ng-options="bonus.name group by bonus.cat for bonus in pathBonuses | orderBy: ['cat','name']">
+		<select id="newPBonus" class="form-control" name="newPBonus" ng-model="newPathBonus" ng-options="bonus.name group by bonus.cat for bonus in pathBonuses | orderBy: ['cat','name']">
 			<option value="" hidden>-- Select Bonus --</option>
 		</select>
 		<a ng-click="toArray(newPathBonus, pathBonusesInputs, 'pathBonuses')" ng-if="newPathBonus !== null && newPathBonus !== undefined">Add Bonus</a>
 	</div>
 		
-	<p><a ng-click="addNewPath(newPath)">add new path</a></p>
+	<p><a ng-click="toArray(newPath, newData.paths); resetPathsScope()">add new path</a></p>
 	<p><a ng-click="meh(newData.paths)">meh</a></p>
 	<p><a ng-click="logNewData()">log NewData</a></p>
 </fieldset>
