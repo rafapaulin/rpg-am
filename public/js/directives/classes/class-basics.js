@@ -1,6 +1,6 @@
 'use strict';
 angular.module('rpg')
-	.directive('classBasics', ['Lists', function(Lists){
+	.directive('classBasics', ['Lists', 'Fn', function(Lists, Fn){
 	
 		return {
 			restrict: 'E',
@@ -8,6 +8,8 @@ angular.module('rpg')
 			scope: false,
 			link: function(scope, element){
 			// == Properties set up =============================================================================================== //
+				Fn.setScope(scope);
+				
 				scope.newData.bonuses					= {};					// Data-to-be-posted objects
 				scope.newData.bonuses.proficiencies		= [];					// Data-to-be-posted arrays
 
@@ -15,17 +17,8 @@ angular.module('rpg')
 			// =============================================================================================== Properties set up == //
 
 			// == Scope functions ================================================================================================= //
-				scope.listToArray = function(obj, array, list) {
-					scope[list] = scope[list].filter(function(fList){			// Remove added item from the <select>
-						return fList !== obj;
-					});
-					array.push(obj);											// Add item to the array
-				}
-
-				scope.removeItem  = function($index, array, list){
-					scope[list].push(array[$index]);							// Add removed item back to the <select>
-					array.splice($index,1);										// Remove item from display array
-				}
+				scope.toArray		= Fn.toArray;
+				scope.removeItem	= Fn.removeItem;
 			// ================================================================================================= Scope functions == //
 
 			// == Clean up on success ============================================================================================= //
