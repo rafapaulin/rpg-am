@@ -354,11 +354,13 @@ angular.module('rpg')
 				{name: 'Wisdow',				cat: 'Abilities',	type: 'number',	ngModel: 'wis',					desc:''},
 				{name: 'Charisma',				cat: 'Abilities',	type: 'number',	ngModel: 'cha',					desc:''},
 
-				{name: 'Inspiration Points',	cat: 'Other',		type:'number',	ngModel: 'inspiration',			desc:''},
-				{name: 'Class Points',			cat: 'Other',		type:'number',	ngModel: 'classPoints',			desc:''},
-				{name: 'Special Dice',			cat: 'Other',		type:'number',	ngModel: 'specialDice',			desc:''},
+				{name: 'Inspiration Points',	cat: 'Other',		type: 'number',	ngModel: 'inspiration',			desc:''},
+				{name: 'Class Points',			cat: 'Other',		type: 'number',	ngModel: 'classPoints',			desc:''},
+				{name: 'Class Points 2',		cat: 'Other',		type: 'number',	ngModel: 'classPoints2',		desc:''},
+				{name: 'Class Points 3',		cat: 'Other',		type: 'number',	ngModel: 'classPoints3',		desc:''},
+				{name: 'SpecialDice',			cat: 'Other',		type: 'list',	ngModel: 'specialDice',			desc:''},
 				{name: 'Proficiencies',			cat: 'Other',		type: 'list',	ngModel: 'proficiencies',		desc:''},
-				{name: 'Features Slots',		cat: 'Other',		type:'number',	ngModel: 'featuresSlots',		desc:''},
+				{name: 'Features Slots',		cat: 'Other',		type: 'number',	ngModel: 'featuresSlots',		desc:''},
 			]
 		};
 	});

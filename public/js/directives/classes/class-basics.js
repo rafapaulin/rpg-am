@@ -1,6 +1,6 @@
 'use strict';
 angular.module('rpg')
-	.directive('classBasics', ['Lists', 'Fn', function(Lists, Fn){
+	.directive('classBasics', ['Crud', 'Lists', 'Fn', function(Crud, Lists, Fn){
 	
 		return {
 			restrict: 'E',
@@ -10,10 +10,41 @@ angular.module('rpg')
 			// == Properties set up =============================================================================================== //
 				Fn.setScope(scope);
 				
-				scope.newData.bonuses					= {};					// Data-to-be-posted objects
-				scope.newData.bonuses.proficiencies		= [];					// Data-to-be-posted arrays
+				var listsSkills,
+					listsSpells; 
 
-				scope.bonusesProficienciesBasics		= Lists.proficiencies;	// Lists
+				scope.resetBasicsScope = function(){
+					scope.basicsSkills						= listsSkills;				// Set/reset Lists
+					scope.basicsSpells						= listsSpells;				// *
+					scope.basicsBonuses						= Lists.bonuses;			// *
+					scope.basicsLanguages					= Lists.langs				// *
+					scope.basicsProficiencies				= Lists.proficiencies		// *
+					scope.basicsResistances					= Lists.dmgTypes			// *
+					scope.basicsSpecialDice					= Lists.diceTypes			// *
+
+					scope.basicsSelects			 			= {};						// *
+					scope.basicBonusesInputs				= [];						// *
+
+					scope.newData.bonuses					= {};						// Set/reset temporary objects
+					scope.newData.bonuses.languages			= [];						// *
+					scope.newData.bonuses.proficiencies		= [];						// *
+					scope.newData.bonuses.dmgResistances	= [];						// *
+					scope.newData.bonuses.skills			= [];						// *
+					scope.newData.bonuses.spells			= [];						// *
+				};
+
+				scope.resetBasicsScope();
+
+				Crud.get('skills').then(function(res){
+					listsSkills = res.data;
+					scope.basicsSkills					= listsSkills;				// Set skill List
+				});
+
+				Crud.get('spells').then(function(res){
+					listsSpells = res.data;
+					scope.basicsSpells					= listsSpells;				// Set spell List
+				});
+
 			// =============================================================================================== Properties set up == //
 
 			// == Scope functions ================================================================================================= //
@@ -23,10 +54,7 @@ angular.module('rpg')
 
 			// == Clean up on success ============================================================================================= //
 				scope.$on('postSuccess', function(event, data) {					// Listen to 'postSuccess' event on controller [add-ctrl.js]
-					scope.bonusesProficienciesBasics	= Lists.proficiencies;		// Reset Lists
-					scope.newData.bonuses				= {};						// Reset the data-to-be-posted objects
-					scope.newData.bonuses.proficiencies	= [];						// Reset the data-to-be-posted arrays
-
+					scope.resetBasicsScope();										// Reset lists and variables
 				});
 			// ============================================================================================= Clean up on success == //
 			}

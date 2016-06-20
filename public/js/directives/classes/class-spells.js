@@ -9,29 +9,29 @@ angular.module('rpg')
 			link: function(scope, element){
 				Fn.setScope(scope);
 
-				var listsSpells,
+				var listsSpells;
 
 				scope.resetSpellsScope = function(){
-						scope.newData.spellList			= {};			// Set/reset temporary objects
-						scope.newData.spellList.lvl0	= [];			// *
-						scope.newData.spellList.lvl1	= [];			// *
-						scope.newData.spellList.lvl2	= [];			// *
-						scope.newData.spellList.lvl3	= [];			// *
-						scope.newData.spellList.lvl4	= [];			// *
-						scope.newData.spellList.lvl5	= [];			// *
-						scope.newData.spellList.lvl6	= [];			// *
-						scope.newData.spellList.lvl7	= [];			// *
-						scope.newData.spellList.lvl8	= [];			// *
-						scope.newData.spellList.lvl9	= [];			// *
+					scope.newData.spellList			= {};			// Set/reset temporary objects
+					scope.newData.spellList.lvl0	= [];			// *
+					scope.newData.spellList.lvl1	= [];			// *
+					scope.newData.spellList.lvl2	= [];			// *
+					scope.newData.spellList.lvl3	= [];			// *
+					scope.newData.spellList.lvl4	= [];			// *
+					scope.newData.spellList.lvl5	= [];			// *
+					scope.newData.spellList.lvl6	= [];			// *
+					scope.newData.spellList.lvl7	= [];			// *
+					scope.newData.spellList.lvl8	= [];			// *
+					scope.newData.spellList.lvl9	= [];			// *
 
-						scope.classSpells				= listsSpells;	// Set/reset Lists
-					};
+					scope.classSpells				= listsSpells;	// Set/reset Lists
+				};
 
 				scope.resetSpellsScope();
 
-				Crud.get('spells').then(function(res){
+				Crud.get('spells').then(function(res){				// GET the spell list from database
 					listsSpells = res.data;
-					scope.classSpells = listsSpells;					// Set List
+					scope.classSpells = listsSpells;				// Set spell List dropdown options
 				});
 
 			// == Scope functions ================================================================================================= //

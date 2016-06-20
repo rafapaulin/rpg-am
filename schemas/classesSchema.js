@@ -24,23 +24,33 @@ autopopulate = require('mongoose-autopopulate'),
 			},																								// *
 			desc: {type: String, required: true, minlength: 3},												// ok
 // =============================================================================================================================== General == //
-			hitDice: {type: Number, required: true},														// ok
-			bonuses: res.bonuses,																			// ok
-			paths: [																						// ok
-				{																							// *
-					name: String,																			// *			
-					desc: String,																			// *		
-					bonuses: res.bonuses																	// *			
-				}																							// *
-			],																								// *
-			features: [																						// ok
-				{																							// *
-					name: String,																			// *
-					desc: String,																			// *
-					pathBound: String,																		// *
-					bonuses: res.bonuses																	// *
-				}																							// *
-			],																								// *
+
+// == Basics ================================================================================================================================ //
+			hitDice: {type: Number, required: true},		// ok
+			bonuses: res.bonuses,							// ok
+			specialDiceName: String,
+			classPointsName: String,
+			classPoints2Name: String,
+			classPoints3Name: String,
+// ================================================================================================================================ Basics == //
+
+// == Specifics ============================================================================================================================= //
+			paths: [										// ok
+				{											// *
+					name: String,							// *			
+					desc: String,							// *		
+					bonuses: res.bonuses					// *			
+				}											// *
+			],												// *
+			features: [										// ok
+				{											// *
+					name: String,							// *
+					desc: String,							// *
+					pathBound: String,						// *
+					bonuses: res.bonuses					// *
+				}											// *
+			],												// *
+// ============================================================================================================================= Specifics == //
 			perLvlStats: {
 				lvl1: {
 					features: [String],
@@ -123,78 +133,80 @@ autopopulate = require('mongoose-autopopulate'),
 					bonuses: res.bonuses
 				}
 			},
-			spellList: {
-				lvl0: [
-					{
-						type: Schema.Types.ObjectId,																// *
-						ref: 'Spells',																				// *
-						autopopulate: true																			// *
-					}																								// *
-				],
-				lvl1: [
-					{
-						type: Schema.Types.ObjectId,																// *
-						ref: 'Spells',																				// *
-						autopopulate: true																			// *
-					}																								// *
-				],
-				lvl2: [
-					{
-						type: Schema.Types.ObjectId,																// *
-						ref: 'Spells',																				// *
-						autopopulate: true																			// *
-					}																								// *
-				],
-				lvl3: [
-					{
-						type: Schema.Types.ObjectId,																// *
-						ref: 'Spells',																				// *
-						autopopulate: true																			// *
-					}																								// *
-				],
-				lvl4: [
-					{
-						type: Schema.Types.ObjectId,																// *
-						ref: 'Spells',																				// *
-						autopopulate: true																			// *
-					}																								// *
-				],
-				lvl5: [
-					{
-						type: Schema.Types.ObjectId,																// *
-						ref: 'Spells',																				// *
-						autopopulate: true																			// *
-					}																								// *
-				],
-				lvl6: [
-					{
-						type: Schema.Types.ObjectId,																// *
-						ref: 'Spells',																				// *
-						autopopulate: true																			// *
-					}																								// *
-				],
-				lvl7: [
-					{
-						type: Schema.Types.ObjectId,																// *
-						ref: 'Spells',																				// *
-						autopopulate: true																			// *
-					}																								// *
-				],
-				lvl8: [
-					{
-						type: Schema.Types.ObjectId,																// *
-						ref: 'Spells',																				// *
-						autopopulate: true																			// *
-					}																								// *
-				],
-				lvl9: [
-					{
-						type: Schema.Types.ObjectId,																// *
-						ref: 'Spells',																				// *
-						autopopulate: true																			// *
-					}																								// *
-				],
+// == Class Spells ===================================================================================================================== //
+			spellList: {										// ok
+				lvl0: [											// ok
+					{											// *
+						type: Schema.Types.ObjectId,			// *
+						ref: 'Spells',							// *
+						autopopulate: true						// *
+					}											// *
+				],												// *
+				lvl1: [											// ok
+					{											// *
+						type: Schema.Types.ObjectId,			// *
+						ref: 'Spells',							// *
+						autopopulate: true						// *
+					}											// *
+				],												// *
+				lvl2: [											// ok
+					{											// *
+						type: Schema.Types.ObjectId,			// *
+						ref: 'Spells',							// *
+						autopopulate: true						// *
+					}											// *
+				],												// *
+				lvl3: [											// ok
+					{											// *
+						type: Schema.Types.ObjectId,			// *
+						ref: 'Spells',							// *
+						autopopulate: true						// *
+					}											// *
+				],												// *
+				lvl4: [											// ok
+					{											// *
+						type: Schema.Types.ObjectId,			// *
+						ref: 'Spells',							// *
+						autopopulate: true						// *
+					}											// *
+				],												// *
+				lvl5: [											// ok
+					{											// *
+						type: Schema.Types.ObjectId,			// *
+						ref: 'Spells',							// *
+						autopopulate: true						// *
+					}											// *
+				],												// *
+				lvl6: [											// ok
+					{											// *
+						type: Schema.Types.ObjectId,			// *
+						ref: 'Spells',							// *
+						autopopulate: true						// *
+					}											// *
+				],												// *
+				lvl7: [											// ok
+					{											// *
+						type: Schema.Types.ObjectId,			// *
+						ref: 'Spells',							// *
+						autopopulate: true						// *
+					}											// *
+				],												// *
+				lvl8: [											// ok
+					{											// *
+						type: Schema.Types.ObjectId,			// *
+						ref: 'Spells',							// *
+						autopopulate: true						// *
+					}											// *
+				],												// *
+				lvl9: [											// ok
+					{											// *
+						type: Schema.Types.ObjectId,			// *
+						ref: 'Spells',							// *
+						autopopulate: true						// *
+					}											// *
+				],												// *
 			}
+// ===================================================================================================================== Class Spells == //
 		},
 		{
 			collection: 'classes'
@@ -202,6 +214,6 @@ autopopulate = require('mongoose-autopopulate'),
 	);
 
 classesSchema.plugin(uniqueV);									// validate unique values
-classesSchema.plugin(autopopulate);								// Autopopulate users
+classesSchema.plugin(autopopulate);								// Autopopulate user and spells
 
 module.exports = mongoose.model('Classes', classesSchema);		// Export for further use

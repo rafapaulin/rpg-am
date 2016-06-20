@@ -1,8 +1,8 @@
 <fieldset>
-	<legend>Class Spell List</legend>
-	
-	<p ng-if="lengthCheck()"><strong>Selected spells:</strong></p>
+	<legend>Class Spells-</legend>
 
+<!-- :: Class spells display array ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<p ng-if="lengthCheck()"><strong>Selected spells:</strong></p>
 	<div class="row">
 		<div class="col-xs-12" style="width: 20%; display: inline-block;" ng-repeat="(key, grupo) in newData.spellList" ng-if="grupo.length > 0">
 			<p ng-if="newData.spellList[key].length > 0">- Level {{key.substring(3)}}:</p>
@@ -13,11 +13,14 @@
 			</ul>
 		</div>
 	</div>
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: Class spells display array :: -->
+
+<!-- :: Class spells Select :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<div class="form-group form-inline">
 		<select id="newSSpell" class="form-control" name="newSSpell" ng-model="newSpellsSpell" ng-options="spell.name group by 'Level ' + spell.level for spell in classSpells | orderBy: ['level','name']">
 			<option value="" hidden>-- Select Spell --</option>
 		</select>
 		<a ng-click="toArray(newSpellsSpell, newData.spellList['lvl' + newSpellsSpell.level], 'classSpells')" ng-if="newSpellsSpell !== null && newSpellsSpell !== undefined"> Add Spell</a>
 	</div>
-
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: Class spells Select :: -->
 </fieldset>

@@ -1,11 +1,10 @@
 <fieldset>
 	<legend>Class Features</legend>
 
+<!-- :: New feature basic details ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<div class="form-group">
 		<label for="newFeatureName">Feature name</label>
 		<input type="text" id="newFeatureName" name="newFeatureName" class="form-control" ng-model="newFeature.name">
-
-
 
 		<label for="newFeatureBound">Bound to path: </label>
 		<select id="newFeatureBound" name="newFeatureBound" class="form-control" ng-model="newFeature.pathBound" ng-options="path.name as path.name for path in newData.paths | orderBy: ['name']">
@@ -15,37 +14,42 @@
 		<label for="newFeatureDesc">Feature description</label>
 		<text-angular id="newFeatureDesc" name="newFeatureDesc" ta-toolbar="[['h3','h4','h5','h6','p'],['bold','italics','underline','strikeThrough'],['ul','ol'],['clear']]" ng-model="newFeature.desc"></text-angular>
 	</div>
-
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: New feature basic details :: -->
 
 	<p><strong><ng-pluralize count="featureBonusesInputs.length" when="{'0': '','one': 'Selected bonus: ','other': 'Selected bonuses: '}"></ng-pluralize></strong></p>
 	
 	<div class="form-group form-inline" ng-repeat="input in featureBonusesInputs">
+<!-- :: New Feature bonuses Inputs display array :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 		<a ng-click="removeItem($index, featureBonusesInputs, 'featureBonuses')"> [x]</a>
 		<label for="{{input.ngModel}}">{{input.name}}: </label>
 		<select id="new{{input.name}}" name="new{{input.name}}" class="form-control" ng-model="FeaturesSelects[input.ngModel]" ng-options="item.name group by item.cat for item in feature{{input.name}} | orderBy: ['cat','name']" ng-if="input.type == 'list'">
 			<option value="" hidden>-- Select {{input.name}} --</option>
 		</select>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: New Feature bonuses Inputs display array :: -->
+
+<!-- :: If new bonus is a list :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 		<a ng-click="toArray(FeaturesSelects[input.ngModel], newFeature.bonuses[input.ngModel], input.name, 'feature')" ng-if="input.type == 'list' && FeaturesSelects[input.ngModel] !== null && FeaturesSelects[input.ngModel] !== undefined">Add</a>
-		
 		<p ng-if="newFeature.bonuses[input.ngModel].length > 0 && input.type == 'list'">
 			<strong>Selected {{input.name}}: </strong>
 		</p>
-
 		<span ng-repeat="item in newFeature.bonuses[input.ngModel]" ng-if="newFeature.bonuses[input.ngModel].length > 0 && input.type == 'list'">
 			<a ng-click="removeItem($index, newFeature.bonuses[input.ngModel], input.name, 'feature')">[x] </a>{{item.name}}<span ng-if="!$last">, </span><span ng-if="$last">.</span>
 		</span>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: If new bonus is a list :: -->
 
+<!-- :: If new bonus is not a list :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 		<input type="{{input.type}}" id="{{input.ngModel}}" class="form-control" name="{{input.ngModel}}" ng-model="newFeature.bonuses[input.ngModel]" ng-if="input.type !== 'list'">
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: If new bonus is not a list :: -->
 	</div>
 
+<!-- :: New Feature bonuses Inputs :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
 	<div class="form-group form-inline">
 		<select id="newFBonus" class="form-control" name="newFBonus" ng-model="newFeatureBonus" ng-options="bonus.name group by bonus.cat for bonus in featureBonuses | orderBy: ['cat','name']">
 			<option value="" hidden>-- Select Bonus --</option>
 		</select>
 		<a ng-click="toArray(newFeatureBonus, featureBonusesInputs, 'featureBonuses')" ng-if="newFeatureBonus !== null && newFeatureBonus !== undefined">Add Bonus</a>
 	</div>
-		
+<!-- ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::>: New Feature bonuses Inputs :: -->
+
 	<p><a ng-click="toArray(newFeature, newData.features); resetFeaturesScope()">add new feature</a></p>
-	<p><a ng-click="meh(newData.features)">meh</a></p>
-	<p><a ng-click="logNewData()">log NewData</a></p>
 </fieldset>

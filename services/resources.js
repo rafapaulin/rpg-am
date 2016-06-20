@@ -72,7 +72,12 @@ var mongoose = require('mongoose'),
 			}
 		],
 		classPoints: Number,
-		specialDice: Number,
+		classPoints2: Number,
+		classPoints3: Number,
+		specialDice: {
+			numberOfDices: Number,
+			diceType: Number
+		},
 		featuresSlots: Number
 	}
 };

@@ -25,11 +25,11 @@ angular.module('rpg')
 					if(res.status == 401 && confirm(res.data.message)){
 						$location.path('users/new');
 					} else {
-						controller.errors = [];										// Define property to use on HTML
-						for(var key in res.data) { 									// Get all error messages in the array
+						controller.errors = [];									// Define property to use on HTML
+						for(var key in res.data) { 								// Get all error messages in the array
 							controller.errors.push(res.data[key].message);
 						};
-						$timeout(function(){controller.errors = null}, 3000);		// Variable clean up (General error message)
+						$timeout(function(){controller.errors = null}, 3000);	// Variable clean up (General error message)
 					}
 				});
 //================================================================================================== Save to DB block == //

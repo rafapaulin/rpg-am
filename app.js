@@ -28,10 +28,7 @@
 			secret: 'chalah, head chalah, não importa o que aconteça....',
 			resave: false,
 			saveUninitialized: true,
-			cookie: {
-				secure: false,	
-
-			}
+			cookie: {secure: false}
 		}
 	));
 	app.use(passport.initialize());

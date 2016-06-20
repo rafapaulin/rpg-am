@@ -10,6 +10,7 @@ angular.module('rpg')
 				Fn.setScope(scope);
 
 				scope.newData.features						= [];						// Data-to-be-posted arrays
+				
 				var listsSkills,
 					listsSpells;
 
@@ -55,14 +56,6 @@ angular.module('rpg')
 					scope.newData.features					= [];				// Reset the data-to-be-posted array
 				});
 			// ============================================================================================= Clean up on success == //
-
-
-				scope.meh = function(a){
-					console.log(a);
-				};
-				scope.logNewData = function(){
-					console.log(scope.newData)
-				}
 			}
 		}
 	}]);

@@ -1,21 +1,69 @@
 <fieldset>
 	<legend>Class Basics</legend>
-	<label for="hitDice">Hit dice: </label>
-	<input type="number" id="hitDice" name="hitDice" class="form-control" ng-model="newData.hitDice">
 
-	<h4>Proficiencies:</h4>
 	<div class="form-group form-inline">
-		<select id="BonusProf" name="BonusProf" class="form-control" ng-model="BonusProf" ng-options="prof.name group by prof.cat for prof in bonusesProficienciesBasics | orderBy: ['cat','name']">
-			<option value="" hidden>-- Select proficiency --</option>
-		</select>
-		<a ng-click="toArray(BonusProf, newData.bonuses.proficiencies, 'bonusesProficienciesBasics')" ng-hide="BonusProf == null || undefined">Add</a>
+		<label for="hitDice">Hit dice: </label>
+		<input type="number" id="hitDice" name="hitDice" class="form-control" ng-model="newData.hitDice">
 	</div>
 
-	<p><strong><ng-pluralize count="newData.bonuses.proficiencies.length" when="{'0': '','one': 'Selected proficiency: ','other': 'Selected proficiencies: '}"></ng-pluralize></strong></p>
+	<div class="form-group form-inline">
+		<label for="specialDiceName">Special Dice Name:</label>
+		<input type="text" id="specialDiceName" name="specialDiceName" class="form-control" ng-model="newData.specialDiceName">
+	</div>
 
-	<p>
-		<span ng-repeat="prof in newData.bonuses.proficiencies" ng-if="newData.bonuses.proficiencies.length > 0">
-			<a ng-click="removeItem($index, newData.bonuses.proficiencies, 'bonusesProficienciesBasics')">[x] </a>{{prof.name}}<span ng-if="!$last">, </span><span ng-if="$last">.</span>
+	<div class="form-group form-inline">
+		<label for="classPointsName">Class Points Name: </label>
+		<input type="text" id="classPointsName" name="classPointsName" class="form-control" ng-model="newData.classPointsName">
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="classPoints2Name">Class Points 2 Name: </label>
+		<input type="text" id="classPoints2Name" name="classPoints2Name" class="form-control" ng-model="newData.classPoints2Name">
+	</div>
+
+	<div class="form-group form-inline">
+		<label for="classPoints3Name">Class Points 3 Name: </label>
+		<input type="text" id="classPoints3Name" name="classPoints3Name" class="form-control" ng-model="newData.classPoints3Name">
+	</div>
+
+	<div class="form-group form-inline" ng-repeat="input in basicBonusesInputs">
+<!-- :: New Bonus Inputs display array :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+		<a ng-click="removeItem($index, basicBonusesInputs, 'basicsBonuses')"> [x]</a>	
+		<label for="{{input.ngModel}}">{{input.name}}: </label>
+		<select id="new{{input.name}}" name="new{{input.name}}" class="form-control" ng-model="basicsSelects[input.ngModel]" ng-options="item.name group by item.cat for item in basics{{input.name}} | orderBy: ['cat','name']" ng-if="input.type == 'list' && input.name !== 'SpecialDice'">
+			<option value="" hidden>-- Select {{input.name}} --</option>
+		</select>
+
+	<!-- == Special dice particularity ================================================================================ -->
+		<select id="new{{input.name}}" name="new{{input.name}}" class="form-control" ng-model="newData.bonuses.specialDice.diceType" ng-options="item.name group by item.cat for item in basics{{input.name}} | orderBy: ['value']" ng-if="input.type == 'list' && input.name == 'SpecialDice'">
+			<option value="" hidden>-- Select {{input.name}} --</option>
+		</select>
+		<p ng-if="input.type == 'list' && input.name == 'SpecialDice'">Number of dices: <input type="number" id="numberOfDices" class="form-control" name="numberOfDices" ng-model="newData.bonuses.specialDice.numberOfDices"></p>
+	<!-- ================================================================================ Special dice particularity == -->
+
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: New Bonus Inputs display array :: -->
+
+<!-- :: If new bonus is a list :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+		<a ng-click="toArray(basicsSelects[input.ngModel], newData.bonuses[input.ngModel], input.name, 'basics')" ng-if="input.type == 'list' && basicsSelects[input.ngModel] !== null && basicsSelects[input.ngModel] !== undefined && input.name !== 'SpecialDice'">Add</a>
+		<p ng-if="newData.bonuses[input.ngModel].length > 0 && input.type == 'list'">
+			<strong>Selected {{input.name}}: </strong>
+		</p>
+		<span ng-repeat="item in newData.bonuses[input.ngModel]" ng-if="newData.bonuses[input.ngModel].length > 0 && input.type == 'list'">
+			<a ng-click="removeItem($index, newData.bonuses[input.ngModel], input.name, 'basics')">[x] </a>{{item.name}}<span ng-if="!$last">, </span><span ng-if="$last">.</span>
 		</span>
-	</p>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: If new bonus is a list :: -->
+
+<!-- :: If new bonus is not a list :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+		<input type="{{input.type}}" id="{{input.ngModel}}" class="form-control" name="{{input.ngModel}}" ng-model="newData.bonuses[input.ngModel]" ng-if="input.type !== 'list'">
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: If new bonus is not a list :: -->
+	</div>
+<!-- :: New Bonus Inputs :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: -->
+	<div class="form-group form-inline">
+		<select id="newBBonus" class="form-control" name="newBBonus" ng-model="newBasicBonus" ng-options="bonus.name group by bonus.cat for bonus in basicsBonuses | orderBy: ['cat','name']">
+			<option value="" hidden>-- Select Bonus --</option>
+		</select>
+		<a ng-click="toArray(newBasicBonus, basicBonusesInputs, 'basicsBonuses')" ng-if="newBasicBonus !== null && newBasicBonus !== undefined">Add Bonus</a>
+	</div>
+<!-- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: New Bonus Inputs :: -->
+
 </fieldset>

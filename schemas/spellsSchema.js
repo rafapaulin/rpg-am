@@ -51,37 +51,37 @@ autopopulate = require('mongoose-autopopulate'),
 			},															// *
 			range: {type: Number, required: true},						// ok
 			duration: {													// ok
-			 	concentration: {type: Boolean, default: false},			// *
-			 	max: {type: Number, required: true}, 					// *
-			 	details: String											// *
+				concentration: {type: Boolean, default: false},			// *
+				max: {type: Number, required: true}, 					// *
+				details: String											// *
 			},															// *
-			 effect: {													// *
-			 	aoe: {type: String, default: ''},						// ok
+			effect: {													// *
+				aoe: {type: String, default: ''},						// ok
 				size: {type: Number, default: 0},						// *
-			 	size2: {type: Number, default: 0},						// *
-			 	details: {type: String, default: ''}					// *
+				size2: {type: Number, default: 0},						// *
+				details: {type: String, default: ''}					// *
 			},															// *
 // ================================================================================================================================ Effect == //
 
 // == Damage ================================================================================================================================ //
-		 	damage: {													// ok
-		 		harmful: {type: Boolean, default: false},				// *
-		 		staticDmg: {type: Number, default: 0},					// *
-		 		numberOfDices: {type: Number, default: 0},				// *
-		 		diceType: {type: Number, default: 0},					// *
-		 		dmgTypes: [												// *
-		 			{													// *
-		 				name: String,									// *
-		 				cat: String										// *
-		 			}													// *
-		 		]														// *
-		 	},															// *
-		 	atHigherLevels: {											// ok
-		 		staticDmg: {type: Number, default: 0},					// *
-		 		numberOfDices: {type: Number, default: 0},				// *
-		 		diceType: {type: Number, default: 0},					// *
-		 		details: {type: String, default: ''}					// *
-		 	}															// *
+			damage: {													// ok
+				harmful: {type: Boolean, default: false},				// *
+				staticDmg: {type: Number, default: 0},					// *
+				numberOfDices: {type: Number, default: 0},				// *
+				diceType: {type: Number, default: 0},					// *
+				dmgTypes: [												// *
+					{													// *
+						name: String,									// *
+						cat: String										// *
+					}													// *
+				]														// *
+			},															// *
+			atHigherLevels: {											// ok
+				staticDmg: {type: Number, default: 0},					// *
+				numberOfDices: {type: Number, default: 0},				// *
+				diceType: {type: Number, default: 0},					// *
+				details: {type: String, default: ''}					// *
+			}															// *
 		},																// *
 // ================================================================================================================================ Damage == //
 		{

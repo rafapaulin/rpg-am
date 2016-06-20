@@ -116,12 +116,12 @@
 
 					if (!user) {																// Check for existing username. If not, return a message
 						console.log('not user');
-						return done(null, false, {message: username + 'is not a user yet. Please Sign up' });
+						return done(null, false, {message: username + ' is not a user yet. Please Sign up' });
 					};
-					if(!user.password){
+					if(user && !user.password){
 						console.log('password not set');
-						return done(null, false, {message: 'Password not set for account' + username +
-															'Please, log in with a social network, than set a password in your dashboard.'
+						return done(null, false, {message:	'Password not set for account ' + username +
+															'. Please, log in with a social network, than set a password in your dashboard.'
 												 });
 					};
 					user.validPassword(password, 												// Check for a valid password if username exists
