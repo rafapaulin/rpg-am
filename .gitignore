@@ -2,3 +2,4 @@ public/bower-components/
 node_modules/
 npm-debug.log
 logs/
+redis-stable/
